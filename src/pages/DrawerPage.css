@@ -1,0 +1,822 @@
+.drawer-page {
+  min-height: 100vh;
+  height: auto;
+  background: #0f172a;
+  padding: 1.5rem;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #1e293b;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  border: 1px solid #334155;
+  margin-bottom: 1.5rem;
+}
+
+.back-button:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+  border-color: #6366f1;
+  transform: translateX(-3px);
+}
+
+.drawer-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  background: #1e293b;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.6s ease;
+  border: 1px solid #334155;
+  box-sizing: border-box;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drawer-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.drawer-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  animation: slideIn 0.8s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drawer-subtitle {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  animation: slideIn 0.8s ease 0.2s both;
+}
+
+.drawer-content {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Input Section */
+.input-section {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Mode Selector */
+.mode-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.mode-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.875rem;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  color: #cbd5e1;
+}
+
+.mode-button:hover:not(:disabled) {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.mode-button.active {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.mode-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.mode-icon {
+  font-size: 1.5rem;
+}
+
+.mode-text {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.input-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.input-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-align: center;
+  font-style: italic;
+}
+
+.name-input {
+  flex: 1;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.name-input:disabled {
+  background: #1e293b;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.name-input:disabled:focus {
+  outline: none;
+  border-color: #334155;
+  box-shadow: none;
+}
+
+.add-button {
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.add-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.draw-controls {
+  padding: 1rem;
+  background: #0f172a;
+  border-radius: 0.75rem;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.draw-controls.teams {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.draw-controls-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.draw-icon {
+  font-size: 1.25rem;
+  opacity: 0.7;
+}
+
+.draw-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+.draw-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  padding: 0;
+}
+
+.draw-counter-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #334155;
+  border-radius: 0.375rem;
+  background: #1e293b;
+  color: #6366f1;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+}
+
+.draw-counter-btn:hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #6366f1;
+}
+
+.draw-counter-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.draw-count-input {
+  width: 60px;
+  height: 32px;
+  padding: 0 0.5rem;
+  border: 1px solid #334155;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  background: #1e293b;
+  color: #f8fafc;
+  transition: all 0.3s ease;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+
+.draw-count-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.draw-count-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.draw-count-input:disabled:focus {
+  outline: none;
+  border-color: #334155;
+  box-shadow: none;
+}
+
+/* Remove arrows from number input */
+.draw-count-input::-webkit-outer-spin-button,
+.draw-count-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.draw-count-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.draw-hint {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-align: center;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+/* Teams Configuration */
+.teams-config {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.team-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.team-control-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+/* Participants Section */
+.participants-section {
+  background: #0f172a;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  font-size: 0.9375rem;
+  color: #cbd5e1;
+  margin: 0;
+  font-weight: 600;
+}
+
+.clear-button {
+  padding: 0.375rem 0.75rem;
+  background: transparent;
+  color: #ec4899;
+  border: 1px solid #ec4899;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-button:hover:not(:disabled) {
+  background: rgba(236, 72, 153, 0.1);
+}
+
+.clear-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.participants-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+}
+
+.participant-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0.875rem;
+  background: #1e293b;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  animation: scaleIn 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.participant-card:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.participant-name {
+  font-weight: 500;
+  color: #f8fafc;
+  font-size: 0.875rem;
+}
+
+.remove-button {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-button:hover:not(:disabled) {
+  color: #ec4899;
+  transform: scale(1.1);
+}
+
+.remove-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Draw Section */
+.draw-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.draw-button {
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.draw-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.draw-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.draw-button-icon {
+  font-size: 1.25rem;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Spinning Wheel */
+.spinning-wheel {
+  width: 100%;
+  padding: 2rem;
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel-content {
+  text-align: center;
+  width: 100%;
+}
+
+.spinning-icon {
+  font-size: 3rem;
+  display: inline-block;
+  animation: spin 0.5s linear infinite;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+  width: 3rem;
+  height: 3rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning-text {
+  font-size: 1.25rem;
+  color: #f8fafc;
+  margin: 0;
+  font-weight: 600;
+  min-height: 1.75rem;
+  line-height: 1.4;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Winners Section */
+.winners-section {
+  width: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  animation: fadeInUp 0.6s ease;
+}
+
+.winners-title {
+  font-size: 1.25rem;
+  color: #f8fafc;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.winners-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.winner-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
+  animation: scaleIn 0.5s ease;
+  transition: all 0.3s ease;
+}
+
+.winner-card:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.winner-position {
+  font-size: 1.5rem;
+  min-width: 36px;
+}
+
+.winner-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f8fafc;
+  flex: 1;
+  text-align: left;
+}
+
+.reset-button {
+  padding: 0.625rem 1.5rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+/* Teams Display */
+.teams-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.team-card {
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #334155;
+  animation: scaleIn 0.5s ease;
+  transition: all 0.3s ease;
+}
+
+.team-card:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid #334155;
+}
+
+.team-icon {
+  font-size: 1.25rem;
+}
+
+.team-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.team-members {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: #1e293b;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid #334155;
+}
+
+.team-member:hover {
+  border-color: #6366f1;
+}
+
+.member-number {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.member-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #f8fafc;
+}
+
+/* Confetti */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: confettiFall 3s linear forwards;
+  opacity: 0.8;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .drawer-page {
+    padding: 1rem;
+  }
+
+  .drawer-container {
+    padding: 1.25rem;
+  }
+
+  .drawer-title {
+    font-size: 1.5rem;
+  }
+
+  .drawer-subtitle {
+    font-size: 0.8125rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .participants-list {
+    grid-template-columns: 1fr;
+  }
+
+  .draw-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .winner-name {
+    font-size: 0.9375rem;
+  }
+
+  .mode-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .teams-list {
+    grid-template-columns: 1fr;
+  }
+
+  .teams-config {
+    max-width: 100%;
+  }
+}

@@ -61,7 +61,7 @@ export function AdminPage() {
       {tab === 'matches' && (
         <div className="admin-tab-content">
           <div className="admin-tab-header">
-            <p className="admin-tab-count">{matches.length} jogos cadastrados</p>
+            <p className="admin-tab-count">{matches.length} jogos cadastrados </p>
             <button className="bolao-btn bolao-btn--primary bolao-btn--sm" onClick={() => setEditMatch(null)}>
               + Novo Jogo
             </button>

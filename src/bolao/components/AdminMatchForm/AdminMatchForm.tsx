@@ -10,12 +10,14 @@ interface Props {
   onCancel: () => void;
 }
 
-const STAGES: MatchStage[] = ['group', 'round_of_16', 'quarter', 'semi', 'final'];
+const STAGES: MatchStage[] = ['group', 'round_of_32', 'round_of_16', 'quarter', 'semi', 'third_place', 'final'];
 const MULTIPLIERS: Record<MatchStage, number> = {
   group: 1,
+  round_of_32: 2,
   round_of_16: 2,
   quarter: 2,
   semi: 3,
+  third_place: 3,
   final: 3,
 };
 

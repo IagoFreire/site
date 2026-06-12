@@ -1,0 +1,40 @@
+.dashboard-welcome {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.4s ease;
+}
+
+.dashboard-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--wc-gold), #009C3B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #000;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+}
+
+.dashboard-welcome__name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+.dashboard-welcome__sub {
+  font-size: 0.82rem;
+  color: var(--wc-text-muted);
+  margin: 4px 0 0;
+}
+
+.dashboard-badges {
+  margin-bottom: 8px;
+  animation: fadeInUp 0.5s ease 0.1s backwards;
+}

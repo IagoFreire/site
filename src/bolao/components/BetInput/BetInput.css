@@ -1,0 +1,66 @@
+.bet-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bet-input__sep {
+  font-size: 1.1rem;
+  color: var(--wc-text-muted);
+  font-weight: 300;
+}
+
+.score-spinner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-spinner__value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--wc-text);
+  min-width: 2ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.score-spinner__btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--wc-border);
+  background: var(--wc-card-hover);
+  color: var(--wc-text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+  line-height: 1;
+}
+
+.score-spinner__btn:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+.score-spinner__btn--inc:hover:not(:disabled) {
+  background: var(--wc-gold);
+  border-color: var(--wc-gold);
+  color: #000;
+}
+
+.score-spinner__btn--dec:hover:not(:disabled) {
+  background: #374151;
+  border-color: #374151;
+}
+
+.score-spinner__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

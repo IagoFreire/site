@@ -1,0 +1,12 @@
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-update-note {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--wc-text-muted);
+  margin-top: 20px;
+}

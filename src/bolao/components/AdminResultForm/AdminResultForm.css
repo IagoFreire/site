@@ -1,0 +1,119 @@
+.result-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.result-form {
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  animation: form-in 0.3s ease;
+}
+
+.result-form__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  margin: 0;
+  align-self: flex-start;
+}
+
+.result-form__teams {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.result-form__flag {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.result-form__flag img {
+  width: 36px;
+  height: 26px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.result-form__score-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.result-form__score-input {
+  width: 60px;
+  height: 60px;
+  background: var(--wc-bg);
+  border: 2px solid var(--wc-border);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--wc-text);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.result-form__score-input:focus {
+  border-color: var(--wc-gold);
+}
+
+.result-form__dash {
+  font-size: 1.2rem;
+  color: var(--wc-text-muted);
+}
+
+.result-form__team-names {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.result-form__team-names span {
+  font-size: 0.8rem;
+  color: var(--wc-text-muted);
+}
+
+.result-form__note {
+  font-size: 0.8rem;
+  color: var(--wc-text-muted);
+  text-align: center;
+  margin: 0;
+  background: var(--wc-card-hover);
+  padding: 10px 14px;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.result-form__error {
+  font-size: 0.82rem;
+  color: #EF4444;
+  margin: 0;
+  text-align: center;
+}
+
+.result-form__actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: flex-end;
+}

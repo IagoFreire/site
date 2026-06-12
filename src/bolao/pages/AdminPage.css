@@ -1,0 +1,85 @@
+.admin-tab-content {
+  animation: fadeIn 0.25s ease;
+}
+
+.admin-tab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.admin-tab-count {
+  font-size: 0.82rem;
+  color: var(--wc-text-muted);
+  margin: 0 0 16px;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--wc-border);
+}
+
+.admin-td-muted {
+  color: var(--wc-text-muted) !important;
+  font-size: 0.8rem !important;
+}
+
+.admin-status {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-status--scheduled { background: rgba(59,130,246,0.15); color: #60A5FA; }
+.admin-status--live      { background: rgba(239,68,68,0.15); color: #F87171; }
+.admin-status--finished  { background: rgba(16,185,129,0.15); color: #34D399; }
+.admin-status--postponed { background: rgba(245,158,11,0.15); color: #FCD34D; }
+
+.admin-row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Results */
+.admin-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+
+.admin-result-item__match {
+  font-size: 0.88rem;
+  color: var(--wc-text);
+}
+
+/* Users */
+.admin-role-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(100,116,139,0.15);
+  color: var(--wc-text-muted);
+}
+
+.admin-role-badge--admin {
+  background: rgba(255,215,0,0.12);
+  color: var(--wc-gold);
+}

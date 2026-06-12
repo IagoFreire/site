@@ -21,6 +21,29 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── Scrollbar (injetado via classe no body) ── */
+body.bolao-body {
+  scrollbar-color: #1e4a2a #051a0b;
+  scrollbar-width: thin;
+}
+
+body.bolao-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.bolao-body::-webkit-scrollbar-track {
+  background: #051a0b;
+}
+
+body.bolao-body::-webkit-scrollbar-thumb {
+  background: #1e4a2a;
+  border-radius: 4px;
+}
+
+body.bolao-body::-webkit-scrollbar-thumb:hover {
+  background: #5d8a6e;
+}
+
 /* Loading screen */
 .bolao-loading-screen {
   min-height: 100vh;

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { PrivateRoute } from './components/PrivateRoute';
@@ -21,6 +22,19 @@ function BolaoLayout({ children }: { children: React.ReactNode }) {
 }
 
 export function BolaoRouter() {
+  useEffect(() => {
+    document.body.classList.add('bolao-body');
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const prev = metaTheme?.getAttribute('content') ?? null;
+    metaTheme?.setAttribute('content', '#051a0b');
+
+    return () => {
+      document.body.classList.remove('bolao-body');
+      if (metaTheme) metaTheme.setAttribute('content', prev ?? '#0f172a');
+    };
+  }, []);
+
   return (
     <div className="bolao-app">
       <AuthProvider>

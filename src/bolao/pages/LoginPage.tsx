@@ -16,12 +16,10 @@ export function LoginPage() {
   const [displayName, setDisplayName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
     setLoading(true);
 
     if (mode === 'login') {
@@ -36,15 +34,22 @@ export function LoginPage() {
       }
       const { error: err } = await signUp(email, password, username.trim(), displayName.trim());
       if (err) { setError(err); setLoading(false); return; }
-      setSuccess('Conta criada! Verifique seu e-mail para confirmar (ou entre direto se a confirmação não for obrigatória).');
-      setLoading(false);
+      // Login automático após cadastro
+      const { error: loginErr } = await signIn(email, password);
+      if (loginErr) {
+        // Cadastro ok mas login falhou — volta para tela de login
+        setMode('login');
+        setError(null);
+        setLoading(false);
+        return;
+      }
+      navigate('/bolao');
     }
   };
 
   const toggleMode = () => {
     setMode(m => m === 'login' ? 'register' : 'login');
     setError(null);
-    setSuccess(null);
   };
 
   return (
@@ -68,8 +73,6 @@ export function LoginPage() {
         <h2 className="login-card__heading">
           {mode === 'login' ? 'Entrar na Competição' : 'Criar minha Conta'}
         </h2>
-
-        {success && <div className="login-success">{success}</div>}
 
         <form className="login-form" onSubmit={handleSubmit}>
           {mode === 'register' && (

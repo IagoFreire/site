@@ -250,6 +250,27 @@
   color: #4B5563;
 }
 
+.bet-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bet-locked__label {
+  font-size: 0.72rem;
+  color: #4B5563;
+}
+
+.bet-locked__pick {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--wc-gold);
+  background: rgba(255, 223, 0, 0.08);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
 @keyframes card-in {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }

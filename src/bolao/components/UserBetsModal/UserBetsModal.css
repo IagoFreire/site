@@ -1,0 +1,242 @@
+.ubm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: ubm-fade-in 0.2s ease;
+}
+
+@media (min-width: 600px) {
+  .ubm-overlay { align-items: center; }
+}
+
+@keyframes ubm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Sheet */
+.ubm-sheet {
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: ubm-slide-up 0.25s ease;
+}
+
+@media (min-width: 600px) {
+  .ubm-sheet {
+    border-radius: 20px;
+    max-height: 80vh;
+  }
+}
+
+@keyframes ubm-slide-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Header */
+.ubm-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--wc-border);
+  flex-shrink: 0;
+}
+
+.ubm-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--wc-gold), #009C3B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.ubm-user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ubm-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ubm-meta {
+  font-size: 0.75rem;
+  color: var(--wc-text-muted);
+}
+
+.ubm-close {
+  background: var(--wc-card-hover);
+  border: 1px solid var(--wc-border);
+  border-radius: 8px;
+  color: var(--wc-text-muted);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.ubm-close:hover { color: var(--wc-text); border-color: rgba(255,255,255,0.2); }
+
+/* Body */
+.ubm-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px 16px 24px;
+}
+
+.ubm-loading {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.ubm-empty {
+  text-align: center;
+  padding: 40px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--wc-text-muted);
+  font-size: 0.88rem;
+}
+
+.ubm-empty small {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Bet list */
+.ubm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ubm-bet {
+  background: var(--wc-card-hover);
+  border: 1px solid var(--wc-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ubm-bet__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ubm-bet__stage {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--wc-text-muted);
+  background: var(--wc-card);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+.ubm-bet__date {
+  font-size: 0.7rem;
+  color: var(--wc-text-muted);
+}
+
+/* Match row */
+.ubm-bet__match {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.ubm-team {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--wc-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ubm-team--away { text-align: right; }
+
+.ubm-team--winner { color: var(--wc-gold); }
+
+.ubm-bet__scores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.ubm-result {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--wc-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ubm-vs {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--wc-text-muted);
+}
+
+.ubm-pick {
+  font-size: 0.72rem;
+  color: var(--wc-gold);
+  font-weight: 600;
+  background: rgba(255, 223, 0, 0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Points badge */
+.ubm-pts {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: right;
+  padding: 3px 8px;
+  border-radius: 6px;
+  align-self: flex-end;
+}
+
+.ubm-pts--exact   { background: rgba(0, 156, 59, 0.15); color: #00c44e; }
+.ubm-pts--partial { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+.ubm-pts--zero    { background: rgba(100, 116, 139, 0.1); color: var(--wc-text-muted); }

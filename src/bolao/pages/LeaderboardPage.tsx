@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import { useAuth } from '../context/AuthContext';
 import { LeaderboardRow } from '../components/LeaderboardRow/LeaderboardRow';
+import { UserBetsModal } from '../components/UserBetsModal/UserBetsModal';
+import type { LeaderboardEntry } from '../types/bolao.types';
 import './LeaderboardPage.css';
 
 export function LeaderboardPage() {
   const { entries, loading } = useLeaderboard();
   const { profile } = useAuth();
+  const [selectedUser, setSelectedUser] = useState<LeaderboardEntry | null>(null);
 
   return (
     <div className="bolao-page">
@@ -28,6 +32,7 @@ export function LeaderboardPage() {
               entry={entry}
               isCurrentUser={entry.id === profile?.id}
               index={i}
+              onClick={() => setSelectedUser(entry)}
             />
           ))}
         </div>
@@ -35,8 +40,12 @@ export function LeaderboardPage() {
 
       {entries.length > 0 && (
         <p className="leaderboard-update-note">
-          🔄 Atualizado em tempo real
+          🔄 Atualizado em tempo real · toque em um jogador para ver as apostas
         </p>
+      )}
+
+      {selectedUser && (
+        <UserBetsModal user={selectedUser} onClose={() => setSelectedUser(null)} />
       )}
     </div>
   );

@@ -147,7 +147,16 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
             )}
           </div>
         ) : (
-          <span className="match-card__locked">🔒 Apostas encerradas</span>
+          /* Apostas encerradas — mostra aposta do usuário se tiver, read-only */
+          <div className="bet-locked">
+            <span className="bet-locked__label">🔒 Apostas encerradas</span>
+            {bet && (
+              <span className="bet-locked__pick">
+                Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}
+                {bet.is_wildcard ? ' 🔥' : ''}
+              </span>
+            )}
+          </div>
         )}
       </div>
     </div>

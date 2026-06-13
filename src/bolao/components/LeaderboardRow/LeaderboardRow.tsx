@@ -6,17 +6,19 @@ interface Props {
   entry: LeaderboardEntry;
   isCurrentUser: boolean;
   index: number;
+  onClick?: () => void;
 }
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 
-export function LeaderboardRow({ entry, isCurrentUser, index }: Props) {
+export function LeaderboardRow({ entry, isCurrentUser, index, onClick }: Props) {
   const medal = entry.rank <= 3 ? MEDALS[entry.rank - 1] : null;
 
   return (
     <div
-      className={`lb-row ${isCurrentUser ? 'lb-row--me' : ''} ${entry.rank === 1 ? 'lb-row--first' : ''}`}
+      className={`lb-row ${isCurrentUser ? 'lb-row--me' : ''} ${entry.rank === 1 ? 'lb-row--first' : ''}${onClick ? ' lb-row--clickable' : ''}`}
       style={{ animationDelay: `${index * 0.05}s` }}
+      onClick={onClick}
     >
       <div className="lb-row__rank">
         {medal ? <span className="lb-row__medal">{medal}</span> : <span className="lb-row__num">#{entry.rank}</span>}

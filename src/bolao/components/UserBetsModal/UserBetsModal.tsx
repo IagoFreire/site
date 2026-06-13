@@ -57,9 +57,6 @@ export function UserBetsModal({ user, onClose }: Props) {
                 const finished = m.status === 'finished';
                 const homeWon = finished && m.home_score !== null && m.away_score !== null && m.home_score > m.away_score;
                 const awayWon = finished && m.home_score !== null && m.away_score !== null && m.away_score > m.home_score;
-                const betHomeWon = Math.sign(bet.home_score_bet - bet.away_score_bet) > 0;
-                const betDraw = bet.home_score_bet === bet.away_score_bet;
-                const betAwayWon = Math.sign(bet.home_score_bet - bet.away_score_bet) < 0;
 
                 const pointsColor =
                   bet.points_earned === null ? '' :

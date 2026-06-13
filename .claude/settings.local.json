@@ -5,7 +5,8 @@
       "Bash(python -c \"import sys,json; data=json.load\\(sys.stdin\\); leagues=data.get\\('countrys',[]\\); print\\('Total:', len\\(leagues\\) if leagues else 0\\); print\\(json.dumps\\(leagues[:15] if leagues else data, indent=2\\)\\)\")",
       "Bash(python -c ' *)",
       "WebSearch",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(npm run *)"
     ]
   }
 }

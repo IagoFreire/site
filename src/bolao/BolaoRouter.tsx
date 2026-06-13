@@ -26,12 +26,22 @@ export function BolaoRouter() {
     document.body.classList.add('bolao-body');
 
     const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const prev = metaTheme?.getAttribute('content') ?? null;
+    const prevTheme = metaTheme?.getAttribute('content') ?? null;
     metaTheme?.setAttribute('content', '#051a0b');
+
+    const prevTitle = document.title;
+    document.title = 'Bolão Copa 2026 🇧🇷';
+
+    const favicon = document.querySelector<HTMLLinkElement>('link[rel*="icon"]');
+    const prevFavicon = favicon?.href ?? null;
+    const emojiSvg = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>`;
+    if (favicon) favicon.href = emojiSvg;
 
     return () => {
       document.body.classList.remove('bolao-body');
-      if (metaTheme) metaTheme.setAttribute('content', prev ?? '#0f172a');
+      if (metaTheme) metaTheme.setAttribute('content', prevTheme ?? '#0f172a');
+      document.title = prevTitle;
+      if (favicon && prevFavicon) favicon.href = prevFavicon;
     };
   }, []);
 

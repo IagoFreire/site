@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BetInput } from '../BetInput/BetInput';
 import { Countdown } from '../Countdown/Countdown';
 import { ConfettiEffect } from '../ConfettiEffect';
@@ -22,6 +22,14 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
   const [homeScore, setHomeScore] = useState(bet?.home_score_bet ?? 0);
   const [awayScore, setAwayScore] = useState(bet?.away_score_bet ?? 0);
   const [submitted, setSubmitted] = useState(false);
+
+  // Sincroniza spinners quando a aposta carrega de forma assíncrona após o mount
+  useEffect(() => {
+    if (bet) {
+      setHomeScore(bet.home_score_bet);
+      setAwayScore(bet.away_score_bet);
+    }
+  }, [bet?.id]);
   const [confetti, setConfetti] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

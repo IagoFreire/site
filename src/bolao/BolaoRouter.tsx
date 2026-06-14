@@ -49,28 +49,83 @@ export function BolaoRouter() {
       document.head.appendChild(touchIcon);
     }
     const canvas = document.createElement('canvas');
-    canvas.width = 180;
-    canvas.height = 180;
+    const S = 360; // 2× para retina
+    canvas.width = S;
+    canvas.height = S;
     const ctx = canvas.getContext('2d')!;
-    // fundo verde escuro
-    const grad = ctx.createLinearGradient(0, 0, 180, 180);
+
+    // Fundo verde escuro
+    const grad = ctx.createLinearGradient(0, 0, S, S);
     grad.addColorStop(0, '#0f3320');
     grad.addColorStop(1, '#051a0b');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 180, 180);
-    // bola de futebol (emoji renderiza com fonte nativa do iOS)
-    ctx.font = '96px Apple Color Emoji, Segoe UI Emoji, sans-serif';
+    ctx.fillRect(0, 0, S, S);
+
+    // --- Bola de futebol desenhada com canvas shapes ---
+    const bx = S / 2, by = 148, br = 100;
+
+    // Círculo branco base
+    ctx.beginPath();
+    ctx.arc(bx, by, br, 0, Math.PI * 2);
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fill();
+
+    // Clip para patches ficarem dentro da bola
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(bx, by, br - 1, 0, Math.PI * 2);
+    ctx.clip();
+
+    // Função que desenha um hexágono/pentágono irregular (manchas da bola)
+    const patch = (x: number, y: number, r: number, rot: number, sides: number) => {
+      ctx.beginPath();
+      for (let i = 0; i < sides; i++) {
+        const a = rot + (i * 2 * Math.PI) / sides;
+        const px = x + r * Math.cos(a);
+        const py = y + r * Math.sin(a);
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.fillStyle = '#111';
+      ctx.fill();
+    };
+
+    // Mancha central (pentágono)
+    patch(bx, by, br * 0.33, -Math.PI / 2, 5);
+
+    // 5 manchas ao redor
+    for (let i = 0; i < 5; i++) {
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
+      patch(
+        bx + br * 0.62 * Math.cos(a),
+        by + br * 0.62 * Math.sin(a),
+        br * 0.29,
+        a + Math.PI / 5,
+        5,
+      );
+    }
+
+    ctx.restore();
+
+    // Borda da bola
+    ctx.beginPath();
+    ctx.arc(bx, by, br, 0, Math.PI * 2);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // "BOLÃO"
+    ctx.font = '900 58px -apple-system, Arial Black, sans-serif';
+    ctx.fillStyle = '#FFDF00';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText('⚽', 90, 108);
-    // "BOLÃO"
-    ctx.font = '900 26px -apple-system, Arial, sans-serif';
-    ctx.fillStyle = '#FFDF00';
-    ctx.fillText('BOLÃO', 90, 148);
+    ctx.fillText('BOLÃO', S / 2, 310);
+
     // "COPA 2026"
-    ctx.font = '600 15px -apple-system, Arial, sans-serif';
+    ctx.font = '600 30px -apple-system, Arial, sans-serif';
     ctx.fillStyle = '#5d8a6e';
-    ctx.fillText('COPA 2026', 90, 168);
+    ctx.fillText('COPA 2026', S / 2, 348);
+
     touchIcon.href = canvas.toDataURL('image/png');
 
     // apple-mobile-web-app-title (texto embaixo do ícone no iOS)

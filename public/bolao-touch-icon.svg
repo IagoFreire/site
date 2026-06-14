@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f3320"/>
+      <stop offset="100%" stop-color="#051a0b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#1e6b35" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#051a0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect width="512" height="512" fill="url(#glow)"/>
+
+  <!-- Decorative ring -->
+  <circle cx="256" cy="210" r="168" fill="none" stroke="#FFDF00" stroke-width="3" stroke-opacity="0.25"/>
+
+  <!-- Soccer ball emoji (renders as Apple emoji on iOS) -->
+  <text x="256" y="308"
+        font-size="245"
+        text-anchor="middle"
+        font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">⚽</text>
+
+  <!-- BOLÃO -->
+  <text x="256" y="424"
+        font-size="72"
+        text-anchor="middle"
+        fill="#FFDF00"
+        font-family="-apple-system, BlinkMacSystemFont, Arial Black, sans-serif"
+        font-weight="900"
+        letter-spacing="10">BOLÃO</text>
+
+  <!-- Copa 2026 -->
+  <text x="256" y="478"
+        font-size="36"
+        text-anchor="middle"
+        fill="#5d8a6e"
+        font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif"
+        font-weight="600"
+        letter-spacing="5">COPA 2026</text>
+</svg>

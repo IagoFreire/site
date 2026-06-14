@@ -40,7 +40,7 @@ export function BolaoRouter() {
     const emojiSvg = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>`;
     if (favicon) favicon.href = emojiSvg;
 
-    // apple-touch-icon (ícone da tela inicial iOS)
+    // apple-touch-icon (ícone da tela inicial iOS) — gerado via canvas como PNG
     let touchIcon = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
     const prevTouchHref = touchIcon?.href ?? null;
     if (!touchIcon) {
@@ -48,7 +48,30 @@ export function BolaoRouter() {
       touchIcon.rel = 'apple-touch-icon';
       document.head.appendChild(touchIcon);
     }
-    touchIcon.href = '/bolao-touch-icon.svg';
+    const canvas = document.createElement('canvas');
+    canvas.width = 180;
+    canvas.height = 180;
+    const ctx = canvas.getContext('2d')!;
+    // fundo verde escuro
+    const grad = ctx.createLinearGradient(0, 0, 180, 180);
+    grad.addColorStop(0, '#0f3320');
+    grad.addColorStop(1, '#051a0b');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 180, 180);
+    // bola de futebol (emoji renderiza com fonte nativa do iOS)
+    ctx.font = '96px Apple Color Emoji, Segoe UI Emoji, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('⚽', 90, 108);
+    // "BOLÃO"
+    ctx.font = '900 26px -apple-system, Arial, sans-serif';
+    ctx.fillStyle = '#FFDF00';
+    ctx.fillText('BOLÃO', 90, 148);
+    // "COPA 2026"
+    ctx.font = '600 15px -apple-system, Arial, sans-serif';
+    ctx.fillStyle = '#5d8a6e';
+    ctx.fillText('COPA 2026', 90, 168);
+    touchIcon.href = canvas.toDataURL('image/png');
 
     // apple-mobile-web-app-title (texto embaixo do ícone no iOS)
     let appTitle = document.querySelector<HTMLMetaElement>('meta[name="apple-mobile-web-app-title"]');

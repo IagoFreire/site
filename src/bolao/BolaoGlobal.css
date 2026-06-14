@@ -23,6 +23,7 @@
 
 /* ── Scrollbar (injetado via classe no body) ── */
 body.bolao-body {
+  background: #051a0b;
   scrollbar-color: #1e4a2a #051a0b;
   scrollbar-width: thin;
 }

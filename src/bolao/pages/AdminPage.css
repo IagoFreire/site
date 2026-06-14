@@ -26,6 +26,13 @@
   font-size: 0.8rem !important;
 }
 
+.admin-td-truncate {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .admin-status {
   padding: 3px 8px;
   border-radius: 6px;
@@ -67,6 +74,59 @@
 .admin-result-item__match {
   font-size: 0.88rem;
   color: var(--wc-text);
+}
+
+/* Wide page variant for admin */
+@media (min-width: 900px) {
+  .bolao-page.bolao-page--wide {
+    max-width: min(90vw, 1200px);
+  }
+}
+
+/* Temp password modal */
+.admin-temp-pw-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.admin-temp-pw-box {
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: min(380px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.admin-temp-pw-box h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--wc-text);
+}
+
+.admin-temp-pw-box p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--wc-text-muted);
+}
+
+.admin-temp-pw-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--wc-gold);
+  background: rgba(255, 223, 0, 0.07);
+  border: 1px dashed rgba(255, 223, 0, 0.4);
+  border-radius: 10px;
+  padding: 16px;
 }
 
 /* Users */

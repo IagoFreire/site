@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMatches } from '../hooks/useMatches';
 import { useLeaderboard } from '../hooks/useLeaderboard';
+import { useAuth } from '../context/AuthContext';
 import { AdminMatchForm } from '../components/AdminMatchForm/AdminMatchForm';
 import { AdminResultForm } from '../components/AdminResultForm/AdminResultForm';
 import { supabase } from '../lib/supabase';
@@ -13,12 +14,18 @@ type Tab = 'matches' | 'results' | 'users';
 
 export function AdminPage() {
   const [tab, setTab] = useState<Tab>('matches');
+  const { profile } = useAuth();
   const { matches, loading: matchesLoading, refetch: refetchMatches } = useMatches('all');
   const { entries, loading: usersLoading, refetch: refetchLeaderboard } = useLeaderboard();
 
   const [editMatch, setEditMatch] = useState<Match | null | undefined>(undefined);
   const [resultMatch, setResultMatch] = useState<Match | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
+  const [resettingUserId, setResettingUserId] = useState<string | null>(null);
+  const [tempPasswordInfo, setTempPasswordInfo] = useState<{ name: string; password: string } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const pendingResult = matches.filter(m => m.status !== 'finished' && new Date(m.match_date) < new Date());
   const unresolved = matches.filter(m => m.status === 'finished' && m.home_score === null);
@@ -37,8 +44,39 @@ export function AdminPage() {
     refetchLeaderboard();
   };
 
+  const handleDeleteUser = async (userId: string, displayName: string) => {
+    if (userId === profile?.id) { alert('Você não pode excluir sua própria conta.'); return; }
+    if (!confirm(`Excluir "${displayName}" permanentemente?\nTodas as apostas serão removidas.`)) return;
+    setDeletingUserId(userId);
+    const { error } = await supabase.rpc('admin_delete_user', { target_user_id: userId });
+    setDeletingUserId(null);
+    if (error) { alert('Erro ao excluir: ' + error.message); return; }
+    refetchLeaderboard();
+  };
+
+  const handleResetPassword = async (userId: string, displayName: string) => {
+    if (!confirm(`Resetar senha de "${displayName}" para uma senha temporária?`)) return;
+    const tempPassword = 'Bolao' + Math.floor(1000 + Math.random() * 9000);
+    setResettingUserId(userId);
+    const { error } = await supabase.rpc('admin_reset_user_password', {
+      target_user_id: userId,
+      new_password: tempPassword,
+    });
+    setResettingUserId(null);
+    if (error) { alert('Erro ao resetar senha: ' + error.message); return; }
+    setCopied(false);
+    setTempPasswordInfo({ name: displayName, password: tempPassword });
+  };
+
+  const handleCopyPassword = () => {
+    if (!tempPasswordInfo) return;
+    navigator.clipboard.writeText(tempPasswordInfo.password);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <div className="bolao-page">
+    <div className="bolao-page bolao-page--wide">
       <h1 className="bolao-page__title">⚙️ Painel Admin</h1>
 
       <div className="bolao-tabs">
@@ -196,7 +234,7 @@ export function AdminPage() {
                     <tr key={u.id}>
                       <td className="admin-td-muted">#{u.rank}</td>
                       <td><strong>{u.display_name}</strong></td>
-                      <td className="admin-td-muted">@{u.username}</td>
+                      <td className="admin-td-muted admin-td-truncate" title={`@${u.username}`}>@{u.username}</td>
                       <td><strong style={{ color: 'var(--wc-gold)' }}>{u.total_points}</strong></td>
                       <td className="admin-td-muted">{u.streak} 🔥</td>
                       <td>
@@ -205,12 +243,29 @@ export function AdminPage() {
                         </span>
                       </td>
                       <td>
-                        <button
-                          className="bolao-btn bolao-btn--ghost bolao-btn--sm"
-                          onClick={() => handleRoleToggle(u.id, u.role)}
-                        >
-                          {u.role === 'admin' ? '→ user' : '→ admin'}
-                        </button>
+                        <div className="admin-row-actions">
+                          <button
+                            className="bolao-btn bolao-btn--ghost bolao-btn--sm"
+                            onClick={() => handleRoleToggle(u.id, u.role)}
+                            disabled={u.id === profile?.id}
+                          >
+                            {u.role === 'admin' ? '→ user' : '→ admin'}
+                          </button>
+                          <button
+                            className="bolao-btn bolao-btn--ghost bolao-btn--sm"
+                            onClick={() => handleResetPassword(u.id, u.display_name)}
+                            disabled={resettingUserId === u.id || u.id === profile?.id}
+                          >
+                            {resettingUserId === u.id ? '...' : '🔑 Senha'}
+                          </button>
+                          <button
+                            className="bolao-btn bolao-btn--danger bolao-btn--sm"
+                            onClick={() => handleDeleteUser(u.id, u.display_name)}
+                            disabled={deletingUserId === u.id || u.id === profile?.id}
+                          >
+                            {deletingUserId === u.id ? '...' : 'Excluir'}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -236,6 +291,23 @@ export function AdminPage() {
           onSave={() => { setResultMatch(null); refetchMatches(); refetchLeaderboard(); }}
           onCancel={() => setResultMatch(null)}
         />
+      )}
+
+      {/* Modal senha temporária */}
+      {tempPasswordInfo && (
+        <div className="admin-temp-pw-overlay" onClick={() => setTempPasswordInfo(null)}>
+          <div className="admin-temp-pw-box" onClick={e => e.stopPropagation()}>
+            <h3>Senha temporária</h3>
+            <p>Compartilhe com <strong>{tempPasswordInfo.name}</strong>:</p>
+            <div className="admin-temp-pw-value">{tempPasswordInfo.password}</div>
+            <button className="bolao-btn bolao-btn--primary" onClick={handleCopyPassword}>
+              {copied ? '✓ Copiado!' : 'Copiar senha'}
+            </button>
+            <button className="bolao-btn bolao-btn--ghost" onClick={() => setTempPasswordInfo(null)}>
+              Fechar
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

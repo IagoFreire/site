@@ -235,7 +235,7 @@
 }
 
 .bet-result__bet {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   color: var(--wc-text-muted);
 }
 
@@ -263,11 +263,11 @@
 }
 
 .bet-locked__pick {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--wc-gold);
   background: rgba(255, 223, 0, 0.08);
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 6px;
 }
 

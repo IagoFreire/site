@@ -6,6 +6,7 @@ export interface Profile {
   role: 'user' | 'admin';
   total_points: number;
   streak: number;
+  cold_streak: number;
   created_at: string;
 }
 

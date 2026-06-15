@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BetInput } from '../BetInput/BetInput';
 import { Countdown } from '../Countdown/Countdown';
 import { ConfettiEffect } from '../ConfettiEffect';
+import { BetTempBar } from '../BetTempBar/BetTempBar';
 import { STAGE_LABELS, REASON_LABELS } from '../../lib/scoring';
 import { formatMatchTime, isFuture } from '../../lib/dates';
 import type { Match, Bet } from '../../types/bolao.types';
@@ -94,6 +95,15 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
 
         <span className="team-name team-name--away">{match.away_team}</span>
       </div>
+
+      {/* Temperatura das apostas — visível quando apostas encerradas/ao vivo/finalizado */}
+      {!canBet && (
+        <BetTempBar
+          matchId={match.id}
+          homeTeam={match.home_team}
+          awayTeam={match.away_team}
+        />
+      )}
 
       {/* Bet section */}
       <div className="match-card__bet">

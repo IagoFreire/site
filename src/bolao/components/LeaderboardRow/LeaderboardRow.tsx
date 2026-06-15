@@ -36,8 +36,11 @@ export function LeaderboardRow({ entry, isCurrentUser, index, onClick }: Props) 
         </div>
         <div className="lb-row__badges">
           <BadgeList streak={entry.streak} totalPoints={entry.total_points} compact />
-          {entry.streak > 0 && (
-            <span className="lb-row__streak">🔥 {entry.streak}</span>
+          {entry.streak >= 2 && (
+            <span className="lb-row__streak lb-row__streak--hot">🔥 {entry.streak}</span>
+          )}
+          {entry.streak < 2 && (entry.cold_streak ?? 0) >= 2 && (
+            <span className="lb-row__streak lb-row__streak--cold">❄️ {entry.cold_streak}</span>
           )}
         </div>
       </div>

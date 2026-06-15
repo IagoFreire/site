@@ -116,8 +116,15 @@
 
 .lb-row__streak {
   font-size: 0.72rem;
-  color: #f97316;
   font-weight: 600;
+}
+
+.lb-row__streak--hot {
+  color: #f97316;
+}
+
+.lb-row__streak--cold {
+  color: #67e8f9;
 }
 
 .lb-row__points {

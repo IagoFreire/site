@@ -8,13 +8,6 @@ export interface BadgeDef {
 
 export const BADGES: BadgeDef[] = [
   {
-    id: 'streak_3',
-    icon: '🔥',
-    label: 'Em Chamas',
-    description: '3 acertos seguidos',
-    condition: (streak) => streak >= 3,
-  },
-  {
     id: 'streak_5',
     icon: '⚡',
     label: 'Relâmpago',

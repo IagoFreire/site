@@ -1,4 +1,5 @@
 import { BadgeList } from '../Badges/BadgeList';
+import { SpotlightCard } from '../ui/SpotlightCard';
 import type { LeaderboardEntry } from '../../types/bolao.types';
 import './LeaderboardRow.css';
 
@@ -15,7 +16,7 @@ export function LeaderboardRow({ entry, isCurrentUser, index, onClick }: Props) 
   const medal = entry.rank <= 3 ? MEDALS[entry.rank - 1] : null;
 
   return (
-    <div
+    <SpotlightCard
       className={`lb-row ${isCurrentUser ? 'lb-row--me' : ''} ${entry.rank === 1 ? 'lb-row--first' : ''}${onClick ? ' lb-row--clickable' : ''}`}
       style={{ animationDelay: `${index * 0.05}s` }}
       onClick={onClick}
@@ -49,6 +50,6 @@ export function LeaderboardRow({ entry, isCurrentUser, index, onClick }: Props) 
         <span className="lb-row__pts">{entry.total_points}</span>
         <span className="lb-row__pts-label">pts</span>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }

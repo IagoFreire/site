@@ -3,6 +3,7 @@ import { BetInput } from '../BetInput/BetInput';
 import { Countdown } from '../Countdown/Countdown';
 import { ConfettiEffect } from '../ConfettiEffect';
 import { BetTempBar } from '../BetTempBar/BetTempBar';
+import { SpotlightCard } from '../ui/SpotlightCard';
 import { STAGE_LABELS, REASON_LABELS } from '../../lib/scoring';
 import { formatMatchTime, isFuture } from '../../lib/dates';
 import type { Match, Bet } from '../../types/bolao.types';
@@ -55,8 +56,10 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
     bet.points_earned >= 10 ? 'points--exact' : 'points--partial';
 
   return (
-    <div className={`match-card ${isLive ? 'match-card--live' : ''} ${isFinished ? 'match-card--finished' : ''}`}
-      style={{ position: 'relative', overflow: 'hidden' }}>
+    <SpotlightCard
+      className={`match-card ${isLive ? 'match-card--live' : ''} ${isFinished ? 'match-card--finished' : ''}`}
+      style={{ overflow: 'hidden' }}
+    >
       <ConfettiEffect active={confetti} onDone={() => setConfetti(false)} />
 
       {/* Header: stage + time */}
@@ -177,6 +180,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
           </div>
         )}
       </div>
-    </div>
+    </SpotlightCard>
   );
 }

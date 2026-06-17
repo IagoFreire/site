@@ -4,6 +4,8 @@ import { useBets } from '../hooks/useBets';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import { MatchCard } from '../components/MatchCard/MatchCard';
 import { BadgeList } from '../components/Badges/BadgeList';
+import { AnimatedCounter } from '../components/ui/AnimatedCounter';
+import { BlurText } from '../components/ui/BlurText';
 import './DashboardPage.css';
 
 export function DashboardPage() {
@@ -23,7 +25,9 @@ export function DashboardPage() {
           {profile?.display_name?.[0]?.toUpperCase() ?? '?'}
         </div>
         <div>
-          <h1 className="dashboard-welcome__name">Olá, {profile?.display_name?.split(' ')[0]}! 👋</h1>
+          <h1 className="dashboard-welcome__name">
+            <BlurText text={`Olá, ${profile?.display_name?.split(' ')[0] ?? ''}! 👋`} delayMs={22} />
+          </h1>
           <p className="dashboard-welcome__sub">Boa sorte no bolão!</p>
         </div>
       </div>
@@ -32,7 +36,7 @@ export function DashboardPage() {
       <div className="bolao-stats-row">
         <div className="bolao-stat-card">
           <span className="bolao-stat-card__label">Pontos</span>
-          <span className="bolao-stat-card__value">{profile?.total_points ?? 0}</span>
+          <AnimatedCounter value={profile?.total_points ?? 0} className="bolao-stat-card__value" />
         </div>
         <div className="bolao-stat-card">
           <span className="bolao-stat-card__label">Posição</span>
@@ -41,7 +45,7 @@ export function DashboardPage() {
         <div className="bolao-stat-card">
           <span className="bolao-stat-card__label">Sequência</span>
           <span className="bolao-stat-card__value" style={{ fontSize: '1.4rem' }}>
-            {profile?.streak ?? 0}🔥
+            <AnimatedCounter value={profile?.streak ?? 0} />🔥
           </span>
         </div>
       </div>

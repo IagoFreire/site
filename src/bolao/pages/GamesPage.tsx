@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MatchCard } from '../components/MatchCard/MatchCard';
 import { useMatches, type MatchFilter } from '../hooks/useMatches';
 import { useBets } from '../hooks/useBets';
+import { ShinyText } from '../components/ui/ShinyText';
 import { groupMatchesByDate } from '../lib/dates';
 import type { Match } from '../types/bolao.types';
 import './GamesPage.css';
@@ -22,7 +23,7 @@ export function GamesPage() {
 
   return (
     <div className="bolao-page">
-      <h1 className="bolao-page__title">Jogos</h1>
+      <h1 className="bolao-page__title"><ShinyText text="Jogos" /></h1>
 
       <div className="bolao-tabs">
         {TABS.map(tab => (

@@ -1007,15 +1007,15 @@ body {
   }
   
   .timeline {
-    padding-left: 1.5rem;
+    padding-left: 2rem;
   }
-  
+
   .timeline-marker {
-    left: -2rem;
+    left: -2.5rem;
   }
-  
+
   .timeline-item.highlight .timeline-marker {
-    left: -2.2rem;
+    left: -2.7rem;
   }
   
   .timeline-content {

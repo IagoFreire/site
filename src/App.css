@@ -489,6 +489,59 @@ body {
   color: var(--primary);
 }
 
+.education-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 520px;
+  margin: 1.5rem auto 0;
+  transition: border-color 0.3s ease;
+}
+
+.education-card:hover {
+  border-color: var(--primary);
+}
+
+.education-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 12px;
+  color: var(--primary);
+}
+
+.education-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.education-degree {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+.education-institution {
+  font-size: 0.875rem;
+  color: var(--primary);
+}
+
+.education-year {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+}
+
 /* Experience Section */
 .timeline {
   position: relative;

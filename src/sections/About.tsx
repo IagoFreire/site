@@ -45,9 +45,16 @@ const About = () => {
             <MapPin size={20} />
             <span>Limeira, São Paulo, Brasil</span>
           </div>
-          <div className="info-item">
-            <GraduationCap size={20} />
-            <span>Tecnólogo em Análise e Desenvolvimento de Sistemas</span>
+        </div>
+
+        <div className="education-card">
+          <div className="education-icon">
+            <GraduationCap size={24} />
+          </div>
+          <div className="education-body">
+            <span className="education-degree">Tecnólogo em Análise e Desenvolvimento de Sistemas</span>
+            <span className="education-institution">Faculdades Integradas Einstein de Limeira</span>
+            <span className="education-year">Concluído em 2020</span>
           </div>
         </div>
       </div>

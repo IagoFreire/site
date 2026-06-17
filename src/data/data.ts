@@ -3,24 +3,27 @@ import type { Experience, Skill, Project } from '../types';
 export const experiences: Experience[] = [
   {
     company: 'Compass UOL',
-    role: 'Frontend Developer',
+    role: 'Fullstack Developer',
     period: 'Agosto 2023 - Presente',
-    description: 'Desenvolvi uma plataforma de recrutamento com LLMs para ranqueamento automatizado de candidatos e um player de áudio para monitoramento. Atuei no frontend de painéis administrativos, liderando decisões técnicas de arquitetura e novas features. Como Fullstack, sustentei um produto de gerenciamento de contratos de investimentos milionários e corrigi bugs críticos.',
-    highlight: true
+    description: 'Atuo no desenvolvimento de três produtos B2B em produção: uma plataforma de recrutamento com IA generativa (LLMs) para ranqueamento automatizado de candidatos, um player de áudio customizado e um sistema de gestão de contratos de investimentos de alto valor. Lidero decisões técnicas de arquitetura no frontend e realizo code review da equipe.',
+    highlight: true,
+    skills: ['React.js', 'TypeScript', 'Next.js', 'Node.js', 'REST API', 'Git']
   },
   {
     company: 'Cointimes',
     role: 'Frontend Developer',
     period: 'Maio 2022 - Agosto 2023',
-    description: 'Implementei a interface web completa da plataforma principal usando ReactJS e Next.js com foco em SEO. Integrei ao backend via GraphQL e REST. Liderei e fiz code review da equipe frontend, participei das decisões técnicas para o app mobile e contribuí com implementações em Flutter e extensão de navegador em TypeScript.',
-    highlight: false
+    description: 'Construí e mantive a interface web completa da maior plataforma de notícias sobre criptomoedas do Brasil usando React e Next.js, com foco em SEO e performance. Integrei o frontend ao backend via GraphQL e REST, liderei a equipe frontend com code review e mentoria técnica, e contribuí com o app mobile em Flutter e uma extensão de navegador em TypeScript.',
+    highlight: false,
+    skills: ['React.js', 'Next.js', 'TypeScript', 'GraphQL', 'Flutter', 'SEO']
   },
   {
     company: 'Conexpay',
     role: 'Frontend Developer',
     period: 'Novembro 2019 - Novembro 2022',
-    description: 'Responsável pelo desenvolvimento front-end das principais aplicações web e mobile. Criei o aplicativo principal em React Native do zero, conduzindo todo o processo — coleta de requisitos, implementação em ReactJS e React Native, deployment na AWS e publicação nas lojas de aplicativos.',
-    highlight: false
+    description: 'Responsável pelas aplicações web e mobile da empresa. Desenvolvi o app principal em React Native do zero, da coleta de requisitos à publicação nas lojas iOS e Android. Trabalhei no frontend web em ReactJS com deploy na AWS e contribuí para a arquitetura e estabilidade dos produtos.',
+    highlight: false,
+    skills: ['React.js', 'React Native', 'JavaScript', 'AWS', 'SQL', 'Git']
   }
 ];
 

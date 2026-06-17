@@ -4,6 +4,7 @@ export interface Experience {
   period: string;
   description: string;
   highlight: boolean;
+  skills?: string[];
 }
 
 export interface Skill {

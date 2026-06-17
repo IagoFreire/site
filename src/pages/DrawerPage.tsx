@@ -410,7 +410,7 @@ const DrawerPage = () => {
 
           {/* Lista de Participantes */}
           <div className="participants-section">
-            <div className="section-header">
+            <div className="drawer-section-header">
               <h2>Participantes ({participants.length})</h2>
               {participants.length > 0 && (
                 <button onClick={clearAll} className="clear-button" disabled={isDrawing}>

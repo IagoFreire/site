@@ -7,7 +7,7 @@ interface TimelineItemProps {
 
 const TimelineItem = ({ experience, index }: TimelineItemProps) => {
   return (
-    <div 
+    <div
       className={`timeline-item ${experience.highlight ? 'highlight' : ''}`}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
@@ -22,6 +22,13 @@ const TimelineItem = ({ experience, index }: TimelineItemProps) => {
         <h4>{experience.company}</h4>
         <p className="period">{experience.period}</p>
         <p className="description">{experience.description}</p>
+        {experience.skills && experience.skills.length > 0 && (
+          <div className="timeline-skills">
+            {experience.skills.map((skill) => (
+              <span key={skill} className="timeline-skill-tag">{skill}</span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

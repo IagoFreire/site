@@ -605,6 +605,24 @@ body {
   line-height: 1.7;
 }
 
+.timeline-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.timeline-skill-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: var(--primary);
+  letter-spacing: 0.01em;
+}
+
 /* Skills Section */
 .skills-section {
   background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.05), transparent);

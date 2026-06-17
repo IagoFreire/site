@@ -1,7 +1,6 @@
 import { Mail, Briefcase, ChevronDown, Zap } from 'lucide-react';
 import Button from '../components/Button';
 import Aurora from '../components/ui/Aurora';
-import BlurText from '../components/ui/BlurText';
 import CountUp from '../components/ui/CountUp';
 import RotatingText from '../components/ui/RotatingText';
 import ShinyText from '../components/ui/ShinyText';
@@ -29,15 +28,7 @@ const Hero = ({ isVisible, onNavigate }: HeroProps) => {
         </div>
 
         <h1 className="hero-title">
-          Olá, eu sou{' '}
-          <span className="gradient-text">
-            <BlurText
-              text="Iago Freire"
-              delay={100}
-              animateBy="words"
-              direction="top"
-            />
-          </span>
+          Olá, eu sou <span className="gradient-text">Iago Freire</span>
         </h1>
 
         <p className="hero-subtitle">
@@ -84,9 +75,9 @@ const Hero = ({ isVisible, onNavigate }: HeroProps) => {
           </div>
           <div className="stat">
             <div className="stat-number">
-              <CountUp from={0} to={24} suffix="+" duration={2} />
+              <CountUp from={0} to={10} suffix="+" duration={2} />
             </div>
-            <div className="stat-label">Repositórios GitHub</div>
+            <div className="stat-label">Tecnologias</div>
           </div>
           <div className="stat">
             <div className="stat-number">

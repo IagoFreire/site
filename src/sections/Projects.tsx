@@ -11,7 +11,7 @@ const Projects = () => {
         <SectionHeader 
           icon={<Rocket />}
           title="Projetos em Destaque"
-          subtitle="Alguns dos meus projetos open source no GitHub"
+          subtitle="Projetos que desenvolvi com foco em produto e experiência real"
         />
         
         <div className="projects-grid">

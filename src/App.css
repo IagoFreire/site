@@ -359,17 +359,36 @@ body {
   margin-bottom: 4rem;
 }
 
-.section-icon {
+.section-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 16px;
   color: var(--primary);
-  margin-bottom: 1rem;
-  width: 48px;
-  height: 48px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.15);
 }
 
 .section-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #fff 40%, var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-title-accent {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  margin: 0 auto 1.25rem;
 }
 
 .section-subtitle {
@@ -1107,9 +1126,10 @@ body {
     padding: 0 0.75rem;
   }
   
-  .section-icon {
-    width: 36px;
-    height: 36px;
+  .section-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
   }
   
   .about-card {

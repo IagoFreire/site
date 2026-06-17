@@ -282,5 +282,3 @@ npm run build
 ```
 
 ---
-
-> **Nota:** O diretório `server/` contém um backend separado de gerenciamento de servidor Hytale (não relacionado ao bolão). Ele expõe uma API REST + WebSocket na porta `3001` para controlar o processo do servidor de jogo.

@@ -360,10 +360,6 @@ body {
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
 }
 
 .section-icon-badge {
@@ -381,11 +377,14 @@ body {
 }
 
 .section-title {
-  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.section-title-text {
   background: linear-gradient(135deg, #ffffff 45%, var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -397,13 +396,14 @@ body {
   height: 3px;
   background: linear-gradient(90deg, var(--primary), var(--accent));
   border-radius: 2px;
-  margin-bottom: 1.25rem;
+  margin: 0 auto 1.25rem;
 }
 
 .section-subtitle {
   font-size: 1rem;
   color: var(--text-gray);
   max-width: 480px;
+  margin: 0 auto;
   text-align: center;
   line-height: 1.6;
 }

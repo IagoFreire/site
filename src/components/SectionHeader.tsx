@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import ShinyText from './ui/ShinyText';
 
 interface SectionHeaderProps {
   icon: ReactNode;
@@ -13,9 +12,7 @@ const SectionHeader = ({ icon, title, subtitle }: SectionHeaderProps) => {
       <div className="section-icon-badge">
         {icon}
       </div>
-      <h2 className="section-title">
-        <ShinyText text={title} speed={2} />
-      </h2>
+      <h2 className="section-title">{title}</h2>
       <div className="section-title-accent" />
       <p className="section-subtitle">{subtitle}</p>
     </div>

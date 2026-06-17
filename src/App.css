@@ -363,41 +363,49 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0;
 }
 
 .section-icon-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   background: rgba(99, 102, 241, 0.12);
   border: 1px solid rgba(99, 102, 241, 0.3);
-  border-radius: 16px;
+  border-radius: 14px;
   color: var(--primary);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   box-shadow: 0 0 24px rgba(99, 102, 241, 0.15);
 }
 
 .section-title {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
   font-weight: 800;
-  margin-bottom: 0.75rem;
-  color: var(--text-light);
   letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #ffffff 45%, var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .section-title-accent {
-  width: 60px;
+  width: 56px;
   height: 3px;
   background: linear-gradient(90deg, var(--primary), var(--accent));
   border-radius: 2px;
-  margin: 0 auto 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .section-subtitle {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--text-gray);
+  max-width: 480px;
+  text-align: center;
+  line-height: 1.6;
 }
 
 /* About Section */
@@ -1198,7 +1206,7 @@ body {
   }
   
   .section-title {
-    font-size: 1.5rem;
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
   }
   
   .section-subtitle {

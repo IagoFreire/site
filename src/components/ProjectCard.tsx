@@ -1,5 +1,6 @@
 import { Github, ExternalLink, Star } from 'lucide-react';
 import type { Project } from '../types';
+import SpotlightCard from './ui/SpotlightCard';
 
 interface ProjectCardProps {
   project: Project;
@@ -8,8 +9,9 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
   return (
-    <div 
+    <SpotlightCard
       className="project-card"
+      spotlightColor="rgba(99, 102, 241, 0.15)"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="project-header">
@@ -27,9 +29,9 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           <span key={i} className="tech-tag">{tech}</span>
         ))}
       </div>
-      <a 
-        href={project.github} 
-        target="_blank" 
+      <a
+        href={project.github}
+        target="_blank"
         rel="noopener noreferrer"
         className="project-link"
       >
@@ -37,7 +39,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <span>Ver no GitHub</span>
         <ExternalLink size={14} />
       </a>
-    </div>
+    </SpotlightCard>
   );
 };
 

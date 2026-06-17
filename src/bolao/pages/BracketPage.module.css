@@ -38,6 +38,11 @@
   grid-template-columns: 1fr;
   gap: 14px;
   animation: fadeIn 0.3s ease;
+  max-width: 440px;
+}
+
+@media (min-width: 600px) {
+  .groupsGrid { max-width: none; }
 }
 
 @media (min-width: 600px) {
@@ -71,6 +76,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
+  table-layout: fixed;
 }
 
 .gtTh {
@@ -87,6 +93,7 @@
 .gtThTeam {
   text-align: left;
   padding-left: 10px;
+  width: 46%;
 }
 
 .gtThPts {
@@ -129,6 +136,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .gtTdPts {
@@ -151,6 +160,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+  flex: 1;
 }
 
 /* Qualify row: name brighter */

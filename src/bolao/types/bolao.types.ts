@@ -39,7 +39,6 @@ export interface Bet {
   home_score_bet: number;
   away_score_bet: number;
   points_earned: number | null;
-  is_wildcard: boolean;
   created_at: string;
   updated_at: string;
 }

@@ -29,13 +29,11 @@ export function useBets() {
     matchId: string,
     homeScore: number,
     awayScore: number,
-    isWildcard = false
   ): Promise<{ error: string | null }> => {
     if (!profile) return { error: 'Usuário não autenticado' };
 
     setSaving(matchId);
     const existing = getBetForMatch(matchId);
-
     let error: string | null = null;
 
     if (existing) {
@@ -44,7 +42,6 @@ export function useBets() {
         .update({
           home_score_bet: homeScore,
           away_score_bet: awayScore,
-          is_wildcard: isWildcard,
           updated_at: new Date().toISOString(),
         })
         .eq('id', existing.id);
@@ -55,7 +52,6 @@ export function useBets() {
         match_id: matchId,
         home_score_bet: homeScore,
         away_score_bet: awayScore,
-        is_wildcard: isWildcard,
       });
       error = err?.message ?? null;
     }
@@ -65,11 +61,5 @@ export function useBets() {
     return { error };
   };
 
-  const toggleWildcard = async (matchId: string): Promise<{ error: string | null }> => {
-    const existing = getBetForMatch(matchId);
-    if (!existing) return { error: 'Aposta não encontrada' };
-    return submitBet(matchId, existing.home_score_bet, existing.away_score_bet, !existing.is_wildcard);
-  };
-
-  return { bets, loading, saving, getBetForMatch, submitBet, toggleWildcard, refetch: fetchBets };
+  return { bets, loading, saving, getBetForMatch, submitBet, refetch: fetchBets };
 }

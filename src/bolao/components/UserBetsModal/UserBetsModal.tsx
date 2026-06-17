@@ -85,7 +85,6 @@ export function UserBetsModal({ user, onClose }: Props) {
                         )}
                         <span className={styles.pick}>
                           {bet.home_score_bet}–{bet.away_score_bet}
-                          {bet.is_wildcard && ' 🔥'}
                         </span>
                       </div>
 

@@ -1,6 +1,6 @@
 import type { Bet, Match, ScoringResult } from '../types/bolao.types';
 
-type BetInput = Pick<Bet, 'home_score_bet' | 'away_score_bet' | 'is_wildcard'>;
+type BetInput = Pick<Bet, 'home_score_bet' | 'away_score_bet'>;
 type MatchInput = Pick<Match, 'home_score' | 'away_score' | 'points_multiplier'>;
 
 export function calculatePoints(bet: BetInput, match: MatchInput): ScoringResult {
@@ -11,17 +11,15 @@ export function calculatePoints(bet: BetInput, match: MatchInput): ScoringResult
   const multiplier = match.points_multiplier ?? 1;
 
   if (bet.home_score_bet === match.home_score && bet.away_score_bet === match.away_score) {
-    const base = 10 * multiplier;
-    return { points: bet.is_wildcard ? base * 2 : base, reason: 'exact_score' };
+    return { points: Math.round(10 * multiplier), reason: 'exact_score' };
   }
 
   const betWinner = Math.sign(bet.home_score_bet - bet.away_score_bet);
   const realWinner = Math.sign(match.home_score - match.away_score);
 
   if (betWinner === realWinner) {
-    const base = 5 * multiplier;
     const reason = realWinner === 0 ? 'correct_draw' : 'correct_winner';
-    return { points: bet.is_wildcard ? base * 2 : base, reason };
+    return { points: Math.round(5 * multiplier), reason };
   }
 
   return { points: 0, reason: 'wrong' };

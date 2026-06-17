@@ -132,7 +132,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
             {bet && !submitted && (
               <p className={styles.betCurrent}>
                 Aposta atual: {bet.home_score_bet} × {bet.away_score_bet}
-                {bet.is_wildcard && ' 🔥'}
               </p>
             )}
           </>
@@ -152,7 +151,7 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
                       Math.sign(bet.home_score_bet - bet.away_score_bet) === 0 ? 'correct_draw' : 'correct_winner'
                     ] : 'Aguardando resultado'}
                   </span>
-                  <span className={styles.betResultBet}>Aposta: {bet.home_score_bet}–{bet.away_score_bet}{bet.is_wildcard ? ' 🔥' : ''}</span>
+                  <span className={styles.betResultBet}>Aposta: {bet.home_score_bet}–{bet.away_score_bet}</span>
                 </div>
               </>
             ) : (
@@ -162,7 +161,7 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
         ) : isLive ? (
           <div className={styles.betResult}>
             {bet ? (
-              <span className={styles.betResultBet}>Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}{bet.is_wildcard ? ' 🔥' : ''}</span>
+              <span className={styles.betResultBet}>Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}</span>
             ) : (
               <span className={styles.betResultNoBet}>Sem aposta</span>
             )}
@@ -174,7 +173,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
             {bet && (
               <span className={styles.betLockedPick}>
                 Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}
-                {bet.is_wildcard ? ' 🔥' : ''}
               </span>
             )}
           </div>

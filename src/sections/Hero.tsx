@@ -35,11 +35,11 @@ const Hero = ({ isVisible, onNavigate }: HeroProps) => {
           <RotatingText
             texts={['Frontend Developer', 'React Specialist', 'TypeScript Engineer']}
             mainClassName="rotating-text-main"
-            staggerFrom="last"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '-120%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+            splitBy="words"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: '-100%', opacity: 0 }}
+            transition={{ type: 'tween', duration: 0.35, ease: 'easeInOut' }}
             rotationInterval={3000}
           />
         </p>

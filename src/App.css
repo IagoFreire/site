@@ -137,57 +137,10 @@ body {
   z-index: 0;
 }
 
-.floating-shapes {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.3;
-  animation: float 20s ease-in-out infinite;
-}
-
-.shape-1 {
-  width: 400px;
-  height: 400px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  top: 10%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.shape-2 {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, var(--secondary), var(--accent));
-  bottom: 20%;
-  right: 10%;
-  animation-delay: 5s;
-}
-
-.shape-3 {
-  width: 350px;
-  height: 350px;
-  background: linear-gradient(135deg, var(--accent), var(--primary));
-  top: 50%;
-  left: 50%;
-  animation-delay: 10s;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  33% {
-    transform: translate(30px, -30px) rotate(120deg);
-  }
-  66% {
-    transform: translate(-30px, 30px) rotate(240deg);
-  }
+.hero-background canvas,
+.hero-background > * {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .hero-content {

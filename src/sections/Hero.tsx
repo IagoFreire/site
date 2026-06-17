@@ -1,5 +1,6 @@
 import { Mail, Briefcase, ChevronDown, Zap } from 'lucide-react';
 import Button from '../components/Button';
+import Aurora from '../components/ui/Aurora';
 
 interface HeroProps {
   isVisible: boolean;
@@ -10,11 +11,11 @@ const Hero = ({ isVisible, onNavigate }: HeroProps) => {
   return (
     <section id="home" className={`hero ${isVisible ? 'visible' : ''}`}>
       <div className="hero-background">
-        <div className="floating-shapes">
-          <div className="shape shape-1"></div>
-          <div className="shape shape-2"></div>
-          <div className="shape shape-3"></div>
-        </div>
+        <Aurora
+          colorStops={['#6366f1', '#8b5cf6', '#ec4899']}
+          speed={0.5}
+          amplitude={1.2}
+        />
       </div>
       
       <div className="hero-content">

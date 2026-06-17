@@ -2,6 +2,7 @@ import { Mail, Briefcase, ChevronDown, Zap } from 'lucide-react';
 import Button from '../components/Button';
 import Aurora from '../components/ui/Aurora';
 import BlurText from '../components/ui/BlurText';
+import CountUp from '../components/ui/CountUp';
 import RotatingText from '../components/ui/RotatingText';
 import ShinyText from '../components/ui/ShinyText';
 
@@ -76,15 +77,21 @@ const Hero = ({ isVisible, onNavigate }: HeroProps) => {
 
         <div className="hero-stats">
           <div className="stat">
-            <div className="stat-number">5+</div>
+            <div className="stat-number">
+              <CountUp from={0} to={6} suffix="+" duration={2} />
+            </div>
             <div className="stat-label">Anos de Experiência</div>
           </div>
           <div className="stat">
-            <div className="stat-number">24+</div>
+            <div className="stat-number">
+              <CountUp from={0} to={24} suffix="+" duration={2} />
+            </div>
             <div className="stat-label">Repositórios GitHub</div>
           </div>
           <div className="stat">
-            <div className="stat-number">3</div>
+            <div className="stat-number">
+              <CountUp from={0} to={3} duration={1.5} />
+            </div>
             <div className="stat-label">Empresas</div>
           </div>
         </div>

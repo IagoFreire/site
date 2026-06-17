@@ -1,4 +1,4 @@
-.admin-form-overlay {
+.overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
@@ -10,90 +10,116 @@
   padding: 16px;
 }
 
-.admin-form {
+.form {
   background: var(--wc-card);
   border: 1px solid var(--wc-border);
   border-radius: 20px;
   padding: 28px;
   width: 100%;
-  max-width: 560px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 440px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
   animation: form-in 0.3s ease;
 }
 
-.admin-form__title {
+.formTitle {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--wc-text);
   margin: 0;
+  align-self: flex-start;
 }
 
-.admin-form__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.admin-form__field {
+.formTeams {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
 }
 
-.admin-form__field span {
-  font-size: 0.78rem;
-  color: var(--wc-text-muted);
-  font-weight: 500;
+.formFlag {
+  font-size: 2rem;
+  line-height: 1;
 }
 
-.admin-form__field input,
-.admin-form__field select {
+.formFlag img {
+  width: 36px;
+  height: 26px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.scoreInputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scoreInput {
+  width: 60px;
+  height: 60px;
   background: var(--wc-bg);
-  border: 1px solid var(--wc-border);
-  border-radius: 8px;
-  padding: 10px 12px;
+  border: 2px solid var(--wc-border);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
   color: var(--wc-text);
-  font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
 }
 
-.admin-form__field input:focus,
-.admin-form__field select:focus {
+.scoreInput:focus {
   border-color: var(--wc-gold);
 }
 
-.admin-form__multiplier {
-  font-size: 0.82rem;
+.dash {
+  font-size: 1.2rem;
   color: var(--wc-text-muted);
+}
+
+.teamNames {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.teamNames span {
+  font-size: 0.8rem;
+  color: var(--wc-text-muted);
+}
+
+.note {
+  font-size: 0.8rem;
+  color: var(--wc-text-muted);
+  text-align: center;
+  margin: 0;
   background: var(--wc-card-hover);
   padding: 10px 14px;
   border-radius: 8px;
-  margin: 0;
+  line-height: 1.5;
 }
 
-.admin-form__multiplier strong { color: var(--wc-gold); }
-
-.admin-form__error {
+.error {
   font-size: 0.82rem;
   color: #EF4444;
   margin: 0;
   text-align: center;
 }
 
-.admin-form__actions {
+.actions {
   display: flex;
   gap: 10px;
+  width: 100%;
   justify-content: flex-end;
 }
 
-.admin-form__btn {
+/* Copied from AdminMatchForm for button styles */
+.formBtn {
   padding: 10px 22px;
   border-radius: 10px;
   border: none;
@@ -103,30 +129,26 @@
   transition: all 0.2s ease;
 }
 
-.admin-form__btn--cancel {
+.formBtnCancel {
   background: var(--wc-card-hover);
   color: var(--wc-text-muted);
   border: 1px solid var(--wc-border);
 }
 
-.admin-form__btn--cancel:hover { color: var(--wc-text); }
+.formBtnCancel:hover { color: var(--wc-text); }
 
-.admin-form__btn--save {
+.formBtnSave {
   background: var(--wc-gold);
   color: #000;
 }
 
-.admin-form__btn--save:hover:not(:disabled) {
+.formBtnSave:hover:not(:disabled) {
   background: var(--wc-gold-light);
 }
 
-.admin-form__btn--save:disabled { opacity: 0.6; cursor: not-allowed; }
+.formBtnSave:disabled { opacity: 0.6; cursor: not-allowed; }
 
 @keyframes form-in {
   from { opacity: 0; transform: translateY(-20px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@media (max-width: 480px) {
-  .admin-form__grid { grid-template-columns: 1fr; }
 }

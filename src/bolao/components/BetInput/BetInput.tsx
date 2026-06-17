@@ -1,4 +1,4 @@
-import './BetInput.css';
+import styles from './BetInput.module.css';
 
 interface Props {
   homeScore: number;
@@ -12,14 +12,14 @@ export function BetInput({ homeScore, awayScore, onChange, disabled }: Props) {
   const dec = (val: number) => Math.max(val - 1, 0);
 
   return (
-    <div className="bet-input">
+    <div className={styles.betInput}>
       <ScoreSpinner
         value={homeScore}
         onInc={() => onChange(inc(homeScore), awayScore)}
         onDec={() => onChange(dec(homeScore), awayScore)}
         disabled={disabled}
       />
-      <span className="bet-input__sep">×</span>
+      <span className={styles.betInputSep}>×</span>
       <ScoreSpinner
         value={awayScore}
         onInc={() => onChange(homeScore, inc(awayScore))}
@@ -42,9 +42,9 @@ function ScoreSpinner({
   disabled?: boolean;
 }) {
   return (
-    <div className="score-spinner">
+    <div className={styles.scoreSpinner}>
       <button
-        className="score-spinner__btn score-spinner__btn--inc"
+        className={`${styles.scoreSpinnerBtn} ${styles.scoreSpinnerBtnInc}`}
         onClick={onInc}
         disabled={disabled}
         aria-label="Aumentar"
@@ -52,9 +52,9 @@ function ScoreSpinner({
       >
         +
       </button>
-      <span className="score-spinner__value">{value}</span>
+      <span className={styles.scoreSpinnerValue}>{value}</span>
       <button
-        className="score-spinner__btn score-spinner__btn--dec"
+        className={`${styles.scoreSpinnerBtn} ${styles.scoreSpinnerBtnDec}`}
         onClick={onDec}
         disabled={disabled || value === 0}
         aria-label="Diminuir"

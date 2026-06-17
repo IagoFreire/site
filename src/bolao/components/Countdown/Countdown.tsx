@@ -1,5 +1,5 @@
 import { useCountdown } from '../../hooks/useCountdown';
-import './Countdown.css';
+import styles from './Countdown.module.css';
 
 interface Props {
   matchDate: string;
@@ -13,14 +13,14 @@ export function Countdown({ matchDate }: Props) {
   const urgent = hours === 0 && minutes < 60;
 
   return (
-    <div className={`countdown ${urgent ? 'countdown--urgent' : ''}`}>
-      <span className="countdown__label">Começa em</span>
-      <div className="countdown__time">
-        {hours > 0 && <><span className="countdown__unit">{String(hours).padStart(2, '0')}</span><span className="countdown__sep">h</span></>}
-        <span className="countdown__unit">{String(minutes).padStart(2, '0')}</span>
-        <span className="countdown__sep">m</span>
-        <span className="countdown__unit">{String(seconds).padStart(2, '0')}</span>
-        <span className="countdown__sep">s</span>
+    <div className={`${styles.countdown} ${urgent ? styles.countdownUrgent : ''}`}>
+      <span className={styles.countdownLabel}>Começa em</span>
+      <div className={styles.countdownTime}>
+        {hours > 0 && <><span className={styles.countdownUnit}>{String(hours).padStart(2, '0')}</span><span className={styles.countdownSep}>h</span></>}
+        <span className={styles.countdownUnit}>{String(minutes).padStart(2, '0')}</span>
+        <span className={styles.countdownSep}>m</span>
+        <span className={styles.countdownUnit}>{String(seconds).padStart(2, '0')}</span>
+        <span className={styles.countdownSep}>s</span>
       </div>
     </div>
   );

@@ -1,0 +1,132 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.form {
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: form-in 0.3s ease;
+}
+
+.formTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formField span {
+  font-size: 0.78rem;
+  color: var(--wc-text-muted);
+  font-weight: 500;
+}
+
+.formField input,
+.formField select {
+  background: var(--wc-bg);
+  border: 1px solid var(--wc-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--wc-text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formField input:focus,
+.formField select:focus {
+  border-color: var(--wc-gold);
+}
+
+.formMultiplier {
+  font-size: 0.82rem;
+  color: var(--wc-text-muted);
+  background: var(--wc-card-hover);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.formMultiplier strong { color: var(--wc-gold); }
+
+.formError {
+  font-size: 0.82rem;
+  color: #EF4444;
+  margin: 0;
+  text-align: center;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.formBtn {
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.formBtnCancel {
+  background: var(--wc-card-hover);
+  color: var(--wc-text-muted);
+  border: 1px solid var(--wc-border);
+}
+
+.formBtnCancel:hover { color: var(--wc-text); }
+
+.formBtnSave {
+  background: var(--wc-gold);
+  color: #000;
+}
+
+.formBtnSave:hover:not(:disabled) {
+  background: var(--wc-gold-light);
+}
+
+.formBtnSave:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@keyframes form-in {
+  from { opacity: 0; transform: translateY(-20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 480px) {
+  .formGrid { grid-template-columns: 1fr; }
+}

@@ -6,14 +6,14 @@
   margin-top: 4px;
 }
 
-.btb__labels {
+.btbLabels {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 6px;
 }
 
-.btb__label {
+.btbLabel {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -21,12 +21,12 @@
   flex: 1;
 }
 
-.btb__label--away {
+.btbLabelAway {
   justify-content: flex-end;
   text-align: right;
 }
 
-.btb__team {
+.btbTeam {
   font-size: 0.68rem;
   color: var(--wc-text-muted);
   overflow: hidden;
@@ -35,16 +35,16 @@
   min-width: 0;
 }
 
-.btb__pct {
+.btbPct {
   font-size: 0.75rem;
   font-weight: 700;
   flex-shrink: 0;
 }
 
-.btb__label--home .btb__pct { color: #4ade80; }
-.btb__label--away .btb__pct { color: #FFDF00; }
+.btbLabelHome .btbPct { color: #4ade80; }
+.btbLabelAway .btbPct { color: #FFDF00; }
 
-.btb__title {
+.btbTitle {
   font-size: 0.62rem;
   color: var(--wc-text-muted);
   white-space: nowrap;
@@ -53,7 +53,7 @@
 }
 
 /* Bar */
-.btb__bar {
+.btbBar {
   display: flex;
   height: 8px;
   border-radius: 99px;
@@ -61,31 +61,31 @@
   background: var(--wc-border);
 }
 
-.btb__seg {
+.btbSeg {
   height: 100%;
   transition: width 0.6s ease;
 }
 
-.btb__seg--home {
+.btbSegHome {
   background: #22c55e;
   border-radius: 99px 0 0 99px;
 }
 
-.btb__seg--draw {
+.btbSegDraw {
   background: rgba(255, 223, 0, 0.55);
 }
 
-.btb__seg--away {
+.btbSegAway {
   background: #FFDF00;
   border-radius: 0 99px 99px 0;
 }
 
 /* When only one segment */
-.btb__seg:only-child {
+.btbSeg:only-child {
   border-radius: 99px;
 }
 
-.btb__draw-label {
+.btbDrawLabel {
   font-size: 0.6rem;
   color: var(--wc-text-muted);
   text-align: center;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { getFlag, isEmojiFlag } from '../../lib/flags';
 import type { Match } from '../../types/bolao.types';
-import './AdminResultForm.css';
+import styles from './AdminResultForm.module.css';
 
 interface Props {
   match: Match;
@@ -52,51 +52,51 @@ export function AdminResultForm({ match, onSave, onCancel }: Props) {
   const awayFlag = getFlag(match.away_team, match.away_team_flag);
 
   return (
-    <div className="result-form-overlay" onClick={e => e.target === e.currentTarget && onCancel()}>
-      <div className="result-form">
-        <h2 className="result-form__title">Registrar Resultado</h2>
+    <div className={styles.overlay} onClick={e => e.target === e.currentTarget && onCancel()}>
+      <div className={styles.form}>
+        <h2 className={styles.formTitle}>Registrar Resultado</h2>
 
-        <div className="result-form__teams">
-          <span className="result-form__flag">
+        <div className={styles.formTeams}>
+          <span className={styles.formFlag}>
             {isEmojiFlag(homeFlag) ? homeFlag : <img src={homeFlag} alt={match.home_team} />}
           </span>
-          <div className="result-form__score-inputs">
+          <div className={styles.scoreInputs}>
             <input
               type="number"
               min={0}
               max={99}
               value={homeScore}
               onChange={e => setHomeScore(Number(e.target.value))}
-              className="result-form__score-input"
+              className={styles.scoreInput}
             />
-            <span className="result-form__dash">×</span>
+            <span className={styles.dash}>×</span>
             <input
               type="number"
               min={0}
               max={99}
               value={awayScore}
               onChange={e => setAwayScore(Number(e.target.value))}
-              className="result-form__score-input"
+              className={styles.scoreInput}
             />
           </div>
-          <span className="result-form__flag">
+          <span className={styles.formFlag}>
             {isEmojiFlag(awayFlag) ? awayFlag : <img src={awayFlag} alt={match.away_team} />}
           </span>
         </div>
-        <div className="result-form__team-names">
+        <div className={styles.teamNames}>
           <span>{match.home_team}</span>
           <span>{match.away_team}</span>
         </div>
 
-        <p className="result-form__note">
+        <p className={styles.note}>
           Ao salvar, os pontos de todos os apostadores serão calculados automaticamente.
         </p>
 
-        {error && <p className="result-form__error">{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-        <div className="result-form__actions">
-          <button className="admin-form__btn admin-form__btn--cancel" onClick={onCancel}>Cancelar</button>
-          <button className="admin-form__btn admin-form__btn--save" onClick={handleSave} disabled={loading || calcLoading}>
+        <div className={styles.actions}>
+          <button className={`${styles.formBtn} ${styles.formBtnCancel}`} onClick={onCancel}>Cancelar</button>
+          <button className={`${styles.formBtn} ${styles.formBtnSave}`} onClick={handleSave} disabled={loading || calcLoading}>
             {calcLoading ? 'Calculando pontos...' : loading ? 'Salvando...' : 'Registrar Resultado'}
           </button>
         </div>

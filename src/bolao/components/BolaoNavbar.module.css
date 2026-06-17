@@ -1,5 +1,5 @@
 /* ── Top bar ── */
-.bolao-topbar {
+.topbar {
   display: none;
   align-items: center;
   justify-content: space-between;
@@ -14,22 +14,22 @@
 }
 
 @media (min-width: 768px) {
-  .bolao-topbar { display: flex; }
+  .topbar { display: flex; }
 }
 
-.bolao-topbar__brand {
+.topbarBrand {
   display: flex;
   align-items: center;
   gap: 8px;
   text-decoration: none;
 }
 
-.bolao-topbar__ball {
+.topbarBall {
   font-size: 1.4rem;
   animation: spin-slow 8s linear infinite;
 }
 
-.bolao-topbar__title {
+.topbarTitle {
   font-size: 1rem;
   font-weight: 700;
   background: linear-gradient(135deg, #fff 40%, var(--wc-gold));
@@ -39,12 +39,12 @@
   white-space: nowrap;
 }
 
-.bolao-topbar__nav {
+.topbarNav {
   display: flex;
   gap: 4px;
 }
 
-.bolao-nav-link {
+.navLink {
   padding: 8px 16px;
   border-radius: 8px;
   color: var(--wc-text-muted);
@@ -54,27 +54,27 @@
   transition: all 0.2s ease;
 }
 
-.bolao-nav-link:hover {
+.navLink:hover {
   color: var(--wc-text);
   background: var(--wc-card-hover);
 }
 
-.bolao-nav-link--active {
+.navLinkActive {
   color: var(--wc-gold) !important;
   background: rgba(255, 215, 0, 0.08) !important;
 }
 
-.bolao-nav-link--admin {
+.navLinkAdmin {
   color: #f97316;
 }
 
-.bolao-topbar__user {
+.topbarUser {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.bolao-avatar {
+.avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -88,7 +88,7 @@
   flex-shrink: 0;
 }
 
-.bolao-topbar__username {
+.topbarUsername {
   font-size: 0.85rem;
   color: var(--wc-text-muted);
   max-width: 120px;
@@ -97,7 +97,7 @@
   white-space: nowrap;
 }
 
-.bolao-signout-btn {
+.signoutBtn {
   background: none;
   border: 1px solid var(--wc-border);
   border-radius: 8px;
@@ -108,13 +108,13 @@
   transition: all 0.2s ease;
 }
 
-.bolao-signout-btn:hover {
+.signoutBtn:hover {
   border-color: #EF4444;
   color: #EF4444;
 }
 
 /* ── Bottom nav (mobile) ── */
-.bolao-bottomnav {
+.bottomnav {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -131,10 +131,10 @@
 }
 
 @media (min-width: 768px) {
-  .bolao-bottomnav { display: none; }
+  .bottomnav { display: none; }
 }
 
-.bolao-tabnav-item {
+.tabnavItem {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,15 +151,15 @@
   flex: 1;
 }
 
-.bolao-tabnav-item--active {
+.tabnavItemActive {
   color: var(--wc-gold) !important;
 }
 
-.bolao-tabnav-item--active .bolao-tabnav-icon {
+.tabnavItemActive .tabnavIcon {
   transform: scale(1.15);
 }
 
-.bolao-tabnav-icon {
+.tabnavIcon {
   font-size: 1.25rem;
   transition: transform 0.2s ease;
   line-height: 1;
@@ -167,13 +167,13 @@
   flex-shrink: 0;
 }
 
-.bolao-tabnav-label {
+.tabnavLabel {
   font-size: 0.65rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
-.bolao-tabnav-item--signout {
+.tabnavItemSignout {
   color: #EF4444;
   opacity: 0.7;
 }

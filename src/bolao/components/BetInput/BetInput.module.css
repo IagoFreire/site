@@ -1,23 +1,23 @@
-.bet-input {
+.betInput {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.bet-input__sep {
+.betInputSep {
   font-size: 1.1rem;
   color: var(--wc-text-muted);
   font-weight: 300;
 }
 
-.score-spinner {
+.scoreSpinner {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
 
-.score-spinner__value {
+.scoreSpinnerValue {
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--wc-text);
@@ -27,7 +27,7 @@
   line-height: 1;
 }
 
-.score-spinner__btn {
+.scoreSpinnerBtn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -45,22 +45,22 @@
   line-height: 1;
 }
 
-.score-spinner__btn:active:not(:disabled) {
+.scoreSpinnerBtn:active:not(:disabled) {
   transform: scale(0.9);
 }
 
-.score-spinner__btn--inc:hover:not(:disabled) {
+.scoreSpinnerBtnInc:hover:not(:disabled) {
   background: var(--wc-gold);
   border-color: var(--wc-gold);
   color: #000;
 }
 
-.score-spinner__btn--dec:hover:not(:disabled) {
+.scoreSpinnerBtnDec:hover:not(:disabled) {
   background: #374151;
   border-color: #374151;
 }
 
-.score-spinner__btn:disabled {
+.scoreSpinnerBtn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }

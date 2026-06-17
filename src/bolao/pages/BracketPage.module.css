@@ -1,45 +1,39 @@
 /* ── Page shell ── */
-.bracket-page {
+.page {
   padding: 24px 16px;
   padding-bottom: 96px;
 }
 
 @media (min-width: 768px) {
-  .bracket-page {
+  .page {
     padding: 32px 0 32px 24px;
     padding-bottom: 32px;
   }
 }
 
-.bracket-page__header {
+.pageHeader {
   margin-bottom: 20px;
   padding-right: 16px;
 }
 
-.bracket-page__title {
+.pageTitle {
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--wc-text);
   margin: 0 0 4px;
 }
 
-.bracket-page__hint {
+.pageHint {
   font-size: 0.72rem;
   color: var(--wc-text-muted);
   margin: 0 0 12px;
-}
-
-/* Disabled tab state */
-.bolao-tab--disabled {
-  opacity: 0.4;
-  cursor: not-allowed !important;
 }
 
 /* ────────────────────────────────────────
    GROUP TABLES
 ──────────────────────────────────────── */
 
-.groups-grid {
+.groupsGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
@@ -47,21 +41,21 @@
 }
 
 @media (min-width: 600px) {
-  .groups-grid { grid-template-columns: 1fr 1fr; }
+  .groupsGrid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (min-width: 1100px) {
-  .groups-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .groupsGrid { grid-template-columns: 1fr 1fr 1fr; }
 }
 
-.group-card {
+.groupCard {
   background: var(--wc-card);
   border: 1px solid var(--wc-border);
   border-radius: 14px;
   overflow: hidden;
 }
 
-.group-card__header {
+.groupCardHeader {
   background: var(--wc-card-hover);
   padding: 10px 14px;
   font-size: 0.72rem;
@@ -73,13 +67,13 @@
 }
 
 /* Group table */
-.group-table {
+.groupTable {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
 }
 
-.gt-th {
+.gtTh {
   padding: 7px 8px;
   text-align: center;
   color: var(--wc-text-muted);
@@ -90,46 +84,46 @@
   border-bottom: 1px solid var(--wc-border);
 }
 
-.gt-th--team {
+.gtThTeam {
   text-align: left;
   padding-left: 10px;
 }
 
-.gt-th--pts {
+.gtThPts {
   color: var(--wc-gold);
 }
 
 /* Rows */
-.gt-tr {
+.gtTr {
   transition: background 0.15s ease;
 }
 
-.gt-tr:not(:last-child) td {
+.gtTr:not(:last-child) td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.gt-tr:hover td {
+.gtTr:hover td {
   background: var(--wc-card-hover);
 }
 
 /* Top 2 → qualify (green left border) */
-.gt-tr--qualify td:first-child {
+.gtTrQualify td:first-child {
   border-left: 3px solid var(--wc-green);
 }
 
 /* 3rd → possible (gold left border) */
-.gt-tr--possible td:first-child {
+.gtTrPossible td:first-child {
   border-left: 3px solid rgba(255, 223, 0, 0.5);
 }
 
-.gt-td {
+.gtTd {
   padding: 8px 8px;
   text-align: center;
   color: var(--wc-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.gt-td--team {
+.gtTdTeam {
   text-align: left;
   padding-left: 10px;
   display: flex;
@@ -137,13 +131,13 @@
   gap: 8px;
 }
 
-.gt-td--pts {
+.gtTdPts {
   font-weight: 800;
   color: var(--wc-gold);
   font-size: 0.88rem;
 }
 
-.gt-pos {
+.gtPos {
   font-size: 0.65rem;
   color: var(--wc-text-muted);
   min-width: 12px;
@@ -151,7 +145,7 @@
   flex-shrink: 0;
 }
 
-.gt-name {
+.gtName {
   font-weight: 600;
   color: var(--wc-text);
   overflow: hidden;
@@ -160,7 +154,7 @@
 }
 
 /* Qualify row: name brighter */
-.gt-tr--qualify .gt-name {
+.gtTrQualify .gtName {
   color: var(--wc-text);
 }
 
@@ -169,16 +163,16 @@
 ──────────────────────────────────────── */
 
 /* Mobile vs desktop */
-.bk-mobile  { display: block; }
-.bk-desktop { display: none; }
+.bkMobile  { display: block; }
+.bkDesktop { display: none; }
 
 @media (min-width: 768px) {
-  .bk-mobile  { display: none; }
-  .bk-desktop { display: block; }
+  .bkMobile  { display: none; }
+  .bkDesktop { display: block; }
 }
 
 /* Mobile list */
-.bk-list {
+.bkList {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -186,13 +180,13 @@
   animation: fadeIn 0.25s ease;
 }
 
-.bk-list .bk-card {
+.bkList .bkCard {
   border-radius: 14px;
   margin: 0;
 }
 
 /* Desktop scroll */
-.bk-scroll {
+.bkScroll {
   overflow-x: auto;
   padding-bottom: 24px;
   -webkit-overflow-scrolling: touch;
@@ -200,11 +194,11 @@
   scrollbar-color: var(--wc-border) transparent;
 }
 
-.bk-scroll::-webkit-scrollbar       { height: 6px; }
-.bk-scroll::-webkit-scrollbar-track { background: transparent; }
-.bk-scroll::-webkit-scrollbar-thumb { background: var(--wc-border); border-radius: 3px; }
+.bkScroll::-webkit-scrollbar       { height: 6px; }
+.bkScroll::-webkit-scrollbar-track { background: transparent; }
+.bkScroll::-webkit-scrollbar-thumb { background: var(--wc-border); border-radius: 3px; }
 
-.bk-grid {
+.bkGrid {
   display: flex;
   align-items: stretch;
   min-width: max-content;
@@ -212,7 +206,7 @@
 }
 
 /* Column */
-.bk-col {
+.bkCol {
   display: flex;
   flex-direction: column;
   width: 190px;
@@ -220,9 +214,9 @@
   position: relative;
 }
 
-.bk-col--final { width: 210px; }
+.bkColFinal { width: 210px; }
 
-.bk-col:not(:last-child)::after {
+.bkCol:not(:last-child)::after {
   content: '';
   position: absolute;
   right: 0;
@@ -232,7 +226,7 @@
   background: linear-gradient(to bottom, transparent, var(--wc-border) 15%, var(--wc-border) 85%, transparent);
 }
 
-.bk-col__header {
+.bkColHeader {
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -244,7 +238,7 @@
   white-space: nowrap;
 }
 
-.bk-col__body {
+.bkColBody {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -253,12 +247,12 @@
 }
 
 /* Slot + connector */
-.bk-slot {
+.bkSlot {
   position: relative;
   padding: 6px 0;
 }
 
-.bk-connector {
+.bkConnector {
   position: absolute;
   right: -1px;
   top: 8px;
@@ -272,7 +266,7 @@
 }
 
 /* Match card */
-.bk-card {
+.bkCard {
   background: var(--wc-card);
   border: 1px solid var(--wc-border);
   border-radius: 10px;
@@ -281,17 +275,17 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.bk-card:hover {
+.bkCard:hover {
   border-color: rgba(255, 223, 0, 0.25);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
-.bk-card--live {
+.bkCardLive {
   border-color: rgba(239, 68, 68, 0.5);
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
 }
 
-.bk-card__team {
+.bkCardTeam {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -299,16 +293,16 @@
   gap: 6px;
 }
 
-.bk-card__team + .bk-card__team {
+.bkCardTeam + .bkCardTeam {
   border-top: 1px solid var(--wc-border);
 }
 
-.bk-card__team--winner { background: rgba(255, 223, 0, 0.07); }
-.bk-card__team--winner .bk-card__name  { color: var(--wc-gold); font-weight: 700; }
-.bk-card__team--winner .bk-card__score { color: var(--wc-gold); font-weight: 800; }
-.bk-card__team--loser  { opacity: 0.42; }
+.bkCardTeamWinner { background: rgba(255, 223, 0, 0.07); }
+.bkCardTeamWinner .bkCardName  { color: var(--wc-gold); font-weight: 700; }
+.bkCardTeamWinner .bkCardScore { color: var(--wc-gold); font-weight: 800; }
+.bkCardTeamLoser  { opacity: 0.42; }
 
-.bk-card__name {
+.bkCardName {
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--wc-text);
@@ -319,7 +313,7 @@
   min-width: 0;
 }
 
-.bk-card__score {
+.bkCardScore {
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--wc-text-muted);
@@ -329,20 +323,20 @@
   flex-shrink: 0;
 }
 
-.bk-card__footer {
+.bkCardFooter {
   border-top: 1px solid var(--wc-border);
   padding: 5px 10px;
   background: var(--wc-card-hover);
 }
 
-.bk-card__date {
+.bkCardDate {
   font-size: 0.65rem;
   color: var(--wc-text-muted);
   display: block;
   text-align: center;
 }
 
-.bk-card__live {
+.bkCardLiveBadge {
   font-size: 0.65rem;
   font-weight: 700;
   color: #EF4444;
@@ -353,12 +347,12 @@
 
 /* Mobile card overrides */
 @media (max-width: 767px) {
-  .bk-list .bk-card__name    { font-size: 0.9rem; }
-  .bk-list .bk-card__score   { font-size: 1rem; }
-  .bk-list .bk-card__team    { padding: 10px 14px; }
-  .bk-list .bk-card__footer  { padding: 6px 14px; }
-  .bk-list .bk-card__date,
-  .bk-list .bk-card__live    { font-size: 0.72rem; }
+  .bkList .bkCardName    { font-size: 0.9rem; }
+  .bkList .bkCardScore   { font-size: 1rem; }
+  .bkList .bkCardTeam    { padding: 10px 14px; }
+  .bkList .bkCardFooter  { padding: 6px 14px; }
+  .bkList .bkCardDate,
+  .bkList .bkCardLiveBadge { font-size: 0.72rem; }
 }
 
 @keyframes bk-live-pulse {

@@ -7,7 +7,7 @@ import { SpotlightCard } from '../ui/SpotlightCard';
 import { STAGE_LABELS, REASON_LABELS } from '../../lib/scoring';
 import { formatMatchTime, isFuture } from '../../lib/dates';
 import type { Match, Bet } from '../../types/bolao.types';
-import './MatchCard.css';
+import styles from './MatchCard.module.css';
 
 interface Props {
   match: Match;
@@ -52,51 +52,51 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
 
   const pointsColor =
     bet?.points_earned === null || bet?.points_earned === undefined ? '' :
-    bet.points_earned === 0 ? 'points--zero' :
-    bet.points_earned >= 10 ? 'points--exact' : 'points--partial';
+    bet.points_earned === 0 ? styles.pointsZero :
+    bet.points_earned >= 10 ? styles.pointsExact : styles.pointsPartial;
 
   return (
     <SpotlightCard
-      className={`match-card ${isLive ? 'match-card--live' : ''} ${isFinished ? 'match-card--finished' : ''}`}
+      className={`${styles.matchCard} ${isLive ? styles.matchCardLive : ''} ${isFinished ? styles.matchCardFinished : ''}`}
       style={{ overflow: 'hidden' }}
     >
       <ConfettiEffect active={confetti} onDone={() => setConfetti(false)} />
 
       {/* Header: stage + time */}
-      <div className="match-card__header">
-        <span className="match-card__stage">{STAGE_LABELS[match.stage] ?? match.stage}{match.group_name ? ` – Grupo ${match.group_name}` : ''}</span>
-        <div className="match-card__meta">
+      <div className={styles.matchCardHeader}>
+        <span className={styles.matchCardStage}>{STAGE_LABELS[match.stage] ?? match.stage}{match.group_name ? ` – Grupo ${match.group_name}` : ''}</span>
+        <div className={styles.matchCardMeta}>
           {isLive ? (
-            <span className="live-badge">🔴 AO VIVO</span>
+            <span className={styles.liveBadge}>🔴 AO VIVO</span>
           ) : (
-            <span className="match-card__time">{formatMatchTime(match.match_date)}</span>
+            <span className={styles.matchCardTime}>{formatMatchTime(match.match_date)}</span>
           )}
         </div>
       </div>
 
       {/* Teams */}
-      <div className="match-card__teams">
-        <span className="team-name team-name--home">{match.home_team}</span>
+      <div className={styles.matchCardTeams}>
+        <span className={`${styles.teamName} ${styles.teamNameHome}`}>{match.home_team}</span>
 
-        <div className="match-card__center">
+        <div className={styles.matchCardCenter}>
           {isFinished && match.home_score !== null ? (
-            <div className="final-score">
+            <div className={styles.finalScore}>
               <span>{match.home_score}</span>
-              <span className="final-score__sep">–</span>
+              <span className={styles.finalScoreSep}>–</span>
               <span>{match.away_score}</span>
             </div>
           ) : isLive ? (
-            <div className="final-score final-score--live">
+            <div className={`${styles.finalScore} ${styles.finalScoreLive}`}>
               <span>{match.home_score ?? 0}</span>
-              <span className="final-score__sep">–</span>
+              <span className={styles.finalScoreSep}>–</span>
               <span>{match.away_score ?? 0}</span>
             </div>
           ) : (
-            <span className="match-card__vs">VS</span>
+            <span className={styles.matchCardVs}>VS</span>
           )}
         </div>
 
-        <span className="team-name team-name--away">{match.away_team}</span>
+        <span className={`${styles.teamName} ${styles.teamNameAway}`}>{match.away_team}</span>
       </div>
 
       {/* Temperatura das apostas — visível quando apostas encerradas/ao vivo/finalizado */}
@@ -109,11 +109,11 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
       )}
 
       {/* Bet section */}
-      <div className="match-card__bet">
+      <div className={styles.matchCardBet}>
         {canBet ? (
           <>
             <Countdown matchDate={match.match_date} />
-            <div className="bet-section">
+            <div className={styles.betSection}>
               <BetInput
                 homeScore={homeScore}
                 awayScore={awayScore}
@@ -121,58 +121,58 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
                 disabled={saving}
               />
               <button
-                className={`bet-submit-btn ${submitted ? 'bet-submit-btn--done' : ''}`}
+                className={`${styles.betSubmitBtn} ${submitted ? styles.betSubmitBtnDone : ''}`}
                 onClick={handleSubmit}
                 disabled={saving}
               >
                 {saving ? '...' : submitted ? '✓ Salvo!' : bet ? 'Atualizar' : 'Apostar'}
               </button>
             </div>
-            {error && <p className="bet-error">{error}</p>}
+            {error && <p className={styles.betError}>{error}</p>}
             {bet && !submitted && (
-              <p className="bet-current">
+              <p className={styles.betCurrent}>
                 Aposta atual: {bet.home_score_bet} × {bet.away_score_bet}
                 {bet.is_wildcard && ' 🔥'}
               </p>
             )}
           </>
         ) : isFinished ? (
-          <div className="bet-result">
+          <div className={styles.betResult}>
             {bet ? (
               <>
-                <div className={`bet-result__points ${pointsColor}`}>
-                  <span className="bet-result__pts-num">+{bet.points_earned ?? 0}</span>
-                  <span className="bet-result__pts-label">pts</span>
+                <div className={`${styles.betResultPoints} ${pointsColor}`}>
+                  <span className={styles.betResultPtsNum}>+{bet.points_earned ?? 0}</span>
+                  <span className={styles.betResultPtsLabel}>pts</span>
                 </div>
-                <div className="bet-result__info">
-                  <span className="bet-result__reason">
+                <div className={styles.betResultInfo}>
+                  <span className={styles.betResultReason}>
                     {bet.points_earned !== null ? REASON_LABELS[
                       bet.points_earned === 0 ? 'wrong' :
                       (bet.home_score_bet === match.home_score && bet.away_score_bet === match.away_score) ? 'exact_score' :
                       Math.sign(bet.home_score_bet - bet.away_score_bet) === 0 ? 'correct_draw' : 'correct_winner'
                     ] : 'Aguardando resultado'}
                   </span>
-                  <span className="bet-result__bet">Aposta: {bet.home_score_bet}–{bet.away_score_bet}{bet.is_wildcard ? ' 🔥' : ''}</span>
+                  <span className={styles.betResultBet}>Aposta: {bet.home_score_bet}–{bet.away_score_bet}{bet.is_wildcard ? ' 🔥' : ''}</span>
                 </div>
               </>
             ) : (
-              <span className="bet-result__no-bet">Sem aposta</span>
+              <span className={styles.betResultNoBet}>Sem aposta</span>
             )}
           </div>
         ) : isLive ? (
-          <div className="bet-result">
+          <div className={styles.betResult}>
             {bet ? (
-              <span className="bet-result__bet">Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}{bet.is_wildcard ? ' 🔥' : ''}</span>
+              <span className={styles.betResultBet}>Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}{bet.is_wildcard ? ' 🔥' : ''}</span>
             ) : (
-              <span className="bet-result__no-bet">Sem aposta</span>
+              <span className={styles.betResultNoBet}>Sem aposta</span>
             )}
           </div>
         ) : (
           /* Apostas encerradas — mostra aposta do usuário se tiver, read-only */
-          <div className="bet-locked">
-            <span className="bet-locked__label">🔒 Apostas encerradas</span>
+          <div className={styles.betLocked}>
+            <span className={styles.betLockedLabel}>🔒 Apostas encerradas</span>
             {bet && (
-              <span className="bet-locked__pick">
+              <span className={styles.betLockedPick}>
                 Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}
                 {bet.is_wildcard ? ' 🔥' : ''}
               </span>

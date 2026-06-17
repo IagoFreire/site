@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { STAGE_LABELS } from '../../lib/scoring';
 import type { Match, MatchStage } from '../../types/bolao.types';
-import './AdminMatchForm.css';
+import styles from './AdminMatchForm.module.css';
 
 interface Props {
   match?: Match | null;
@@ -75,51 +75,51 @@ export function AdminMatchForm({ match, onSave, onCancel }: Props) {
   };
 
   return (
-    <div className="admin-form-overlay" onClick={e => e.target === e.currentTarget && onCancel()}>
-      <form className="admin-form" onSubmit={handleSubmit}>
-        <h2 className="admin-form__title">{match ? 'Editar Jogo' : 'Novo Jogo'}</h2>
+    <div className={styles.overlay} onClick={e => e.target === e.currentTarget && onCancel()}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h2 className={styles.formTitle}>{match ? 'Editar Jogo' : 'Novo Jogo'}</h2>
 
-        <div className="admin-form__grid">
-          <label className="admin-form__field">
+        <div className={styles.formGrid}>
+          <label className={styles.formField}>
             <span>Time da Casa *</span>
             <input value={homeTeam} onChange={e => setHomeTeam(e.target.value)} placeholder="Brasil" required />
           </label>
-          <label className="admin-form__field">
+          <label className={styles.formField}>
             <span>Time Visitante *</span>
             <input value={awayTeam} onChange={e => setAwayTeam(e.target.value)} placeholder="Argentina" required />
           </label>
-          <label className="admin-form__field">
+          <label className={styles.formField}>
             <span>Fase *</span>
             <select value={stage} onChange={e => setStage(e.target.value as MatchStage)}>
               {STAGES.map(s => <option key={s} value={s}>{STAGE_LABELS[s]}</option>)}
             </select>
           </label>
           {stage === 'group' && (
-            <label className="admin-form__field">
+            <label className={styles.formField}>
               <span>Grupo (A–L)</span>
               <input value={groupName} onChange={e => setGroupName(e.target.value)} placeholder="A" maxLength={1} />
             </label>
           )}
-          <label className="admin-form__field">
+          <label className={styles.formField}>
             <span>Data e Hora *</span>
             <input type="datetime-local" value={matchDate} onChange={e => setMatchDate(e.target.value)} required />
           </label>
-          <label className="admin-form__field">
+          <label className={styles.formField}>
             <span>Estádio</span>
             <input value={venue} onChange={e => setVenue(e.target.value)} placeholder="MetLife Stadium" />
           </label>
         </div>
 
-        <p className="admin-form__multiplier">
+        <p className={styles.formMultiplier}>
           Multiplicador de pontos: <strong>{MULTIPLIERS[stage]}×</strong>
           {' '}(Exato: {10 * MULTIPLIERS[stage]} pts / Vencedor: {5 * MULTIPLIERS[stage]} pts)
         </p>
 
-        {error && <p className="admin-form__error">{error}</p>}
+        {error && <p className={styles.formError}>{error}</p>}
 
-        <div className="admin-form__actions">
-          <button type="button" className="admin-form__btn admin-form__btn--cancel" onClick={onCancel}>Cancelar</button>
-          <button type="submit" className="admin-form__btn admin-form__btn--save" disabled={loading}>
+        <div className={styles.formActions}>
+          <button type="button" className={`${styles.formBtn} ${styles.formBtnCancel}`} onClick={onCancel}>Cancelar</button>
+          <button type="submit" className={`${styles.formBtn} ${styles.formBtnSave}`} disabled={loading}>
             {loading ? 'Salvando...' : match ? 'Salvar Alterações' : 'Criar Jogo'}
           </button>
         </div>

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './LoginPage.css';
+import styles from './LoginPage.module.css';
 
 type Mode = 'login' | 'register';
 
@@ -53,31 +53,31 @@ export function LoginPage() {
   };
 
   return (
-    <div className="login-page">
+    <div className={styles.page}>
       {/* Animated background */}
-      <div className="login-bg">
-        <div className="login-bg__orb login-bg__orb--1" />
-        <div className="login-bg__orb login-bg__orb--2" />
-        <div className="login-bg__orb login-bg__orb--3" />
+      <div className={styles.bg}>
+        <div className={`${styles.bgOrb} ${styles.bgOrb1}`} />
+        <div className={`${styles.bgOrb} ${styles.bgOrb2}`} />
+        <div className={`${styles.bgOrb} ${styles.bgOrb3}`} />
       </div>
 
-      <div className="login-card">
-        <div className="login-card__brand">
-          <span className="login-card__ball">⚽</span>
+      <div className={styles.card}>
+        <div className={styles.cardBrand}>
+          <span className={styles.cardBall}>⚽</span>
           <div>
-            <h1 className="login-card__title">Bolão Copa 2026</h1>
-            <p className="login-card__subtitle">EUA · Canadá · México</p>
+            <h1 className={styles.cardTitle}>Bolão Copa 2026</h1>
+            <p className={styles.cardSubtitle}>EUA · Canadá · México</p>
           </div>
         </div>
 
-        <h2 className="login-card__heading">
+        <h2 className={styles.cardHeading}>
           {mode === 'login' ? 'Entrar na Competição' : 'Criar minha Conta'}
         </h2>
 
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           {mode === 'register' && (
             <>
-              <label className="login-field">
+              <label className={styles.field}>
                 <span>Nome de exibição</span>
                 <input
                   type="text"
@@ -88,7 +88,7 @@ export function LoginPage() {
                   required
                 />
               </label>
-              <label className="login-field">
+              <label className={styles.field}>
                 <span>Usuário (sem espaços)</span>
                 <input
                   type="text"
@@ -102,7 +102,7 @@ export function LoginPage() {
             </>
           )}
 
-          <label className="login-field">
+          <label className={styles.field}>
             <span>E-mail</span>
             <input
               type="email"
@@ -114,7 +114,7 @@ export function LoginPage() {
             />
           </label>
 
-          <label className="login-field">
+          <label className={styles.field}>
             <span>Senha</span>
             <input
               type="password"
@@ -127,14 +127,14 @@ export function LoginPage() {
             />
           </label>
 
-          {error && <div className="login-error">{error}</div>}
+          {error && <div className={styles.error}>{error}</div>}
 
-          <button type="submit" className="login-submit" disabled={loading}>
-            {loading ? <span className="login-spinner" /> : mode === 'login' ? 'Entrar' : 'Criar Conta'}
+          <button type="submit" className={styles.submit} disabled={loading}>
+            {loading ? <span className={styles.spinner} /> : mode === 'login' ? 'Entrar' : 'Criar Conta'}
           </button>
         </form>
 
-        <button className="login-toggle" onClick={toggleMode}>
+        <button className={styles.toggle} onClick={toggleMode}>
           {mode === 'login'
             ? 'Não tem conta? Cadastre-se'
             : 'Já tem conta? Entrar'}

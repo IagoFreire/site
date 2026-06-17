@@ -5,34 +5,34 @@
   gap: 2px;
 }
 
-.countdown__label {
+.countdownLabel {
   font-size: 0.65rem;
   color: var(--wc-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.countdown__time {
+.countdownTime {
   display: flex;
   align-items: baseline;
   gap: 1px;
   font-feature-settings: 'tnum';
 }
 
-.countdown__unit {
+.countdownUnit {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--wc-text);
   font-variant-numeric: tabular-nums;
 }
 
-.countdown__sep {
+.countdownSep {
   font-size: 0.65rem;
   color: var(--wc-text-muted);
   margin-right: 2px;
 }
 
-.countdown--urgent .countdown__unit {
+.countdownUrgent .countdownUnit {
   color: #f97316;
   animation: pulse-text 1s ease-in-out infinite;
 }

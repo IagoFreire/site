@@ -1,5 +1,5 @@
 import { getEarnedBadges } from './badges';
-import './Badges.css';
+import styles from './Badges.module.css';
 
 interface Props {
   streak: number;
@@ -12,11 +12,11 @@ export function BadgeList({ streak, totalPoints, compact }: Props) {
   if (earned.length === 0) return null;
 
   return (
-    <div className={`badge-list ${compact ? 'badge-list--compact' : ''}`}>
+    <div className={`${styles.badgeList} ${compact ? styles.badgeListCompact : ''}`}>
       {earned.map(badge => (
-        <div key={badge.id} className="badge" title={`${badge.label}: ${badge.description}`}>
-          <span className="badge__icon">{badge.icon}</span>
-          {!compact && <span className="badge__label">{badge.label}</span>}
+        <div key={badge.id} className={styles.badge} title={`${badge.label}: ${badge.description}`}>
+          <span className={styles.badgeIcon}>{badge.icon}</span>
+          {!compact && <span className={styles.badgeLabel}>{badge.label}</span>}
         </div>
       ))}
     </div>

@@ -1,39 +1,39 @@
-.admin-tab-content {
+.tabContent {
   animation: fadeIn 0.25s ease;
 }
 
-.admin-tab-header {
+.tabHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
 }
 
-.admin-tab-count {
+.tabCount {
   font-size: 0.82rem;
   color: var(--wc-text-muted);
   margin: 0 0 16px;
 }
 
-.admin-table-wrap {
+.tableWrap {
   overflow-x: auto;
   border-radius: 12px;
   border: 1px solid var(--wc-border);
 }
 
-.admin-td-muted {
+.tdMuted {
   color: var(--wc-text-muted) !important;
   font-size: 0.8rem !important;
 }
 
-.admin-td-truncate {
+.tdTruncate {
   max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.admin-status {
+.status {
   padding: 3px 8px;
   border-radius: 6px;
   font-size: 0.72rem;
@@ -42,24 +42,24 @@
   letter-spacing: 0.04em;
 }
 
-.admin-status--scheduled { background: rgba(59,130,246,0.15); color: #60A5FA; }
-.admin-status--live      { background: rgba(239,68,68,0.15); color: #F87171; }
-.admin-status--finished  { background: rgba(16,185,129,0.15); color: #34D399; }
-.admin-status--postponed { background: rgba(245,158,11,0.15); color: #FCD34D; }
+.statusScheduled { background: rgba(59,130,246,0.15); color: #60A5FA; }
+.statusLive      { background: rgba(239,68,68,0.15); color: #F87171; }
+.statusFinished  { background: rgba(16,185,129,0.15); color: #34D399; }
+.statusPostponed { background: rgba(245,158,11,0.15); color: #FCD34D; }
 
-.admin-row-actions {
+.rowActions {
   display: flex;
   gap: 6px;
 }
 
 /* Results */
-.admin-result-list {
+.resultList {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.admin-result-item {
+.resultItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,20 +71,13 @@
   flex-wrap: wrap;
 }
 
-.admin-result-item__match {
+.resultItemMatch {
   font-size: 0.88rem;
   color: var(--wc-text);
 }
 
-/* Wide page variant for admin */
-@media (min-width: 900px) {
-  .bolao-page.bolao-page--wide {
-    max-width: min(90vw, 1200px);
-  }
-}
-
 /* Temp password modal */
-.admin-temp-pw-overlay {
+.tempPwOverlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
@@ -94,7 +87,7 @@
   z-index: 200;
 }
 
-.admin-temp-pw-box {
+.tempPwBox {
   background: var(--wc-card);
   border: 1px solid var(--wc-border);
   border-radius: 16px;
@@ -106,19 +99,19 @@
   text-align: center;
 }
 
-.admin-temp-pw-box h3 {
+.tempPwBox h3 {
   margin: 0;
   font-size: 1.05rem;
   color: var(--wc-text);
 }
 
-.admin-temp-pw-box p {
+.tempPwBox p {
   margin: 0;
   font-size: 0.85rem;
   color: var(--wc-text-muted);
 }
 
-.admin-temp-pw-value {
+.tempPwValue {
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -130,7 +123,7 @@
 }
 
 /* Users */
-.admin-role-badge {
+.roleBadge {
   padding: 3px 8px;
   border-radius: 6px;
   font-size: 0.72rem;
@@ -139,7 +132,7 @@
   color: var(--wc-text-muted);
 }
 
-.admin-role-badge--admin {
+.roleBadgeAdmin {
   background: rgba(255,215,0,0.12);
   color: var(--wc-gold);
 }

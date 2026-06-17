@@ -8,7 +8,7 @@ import { supabase } from '../lib/supabase';
 import { formatMatchDateTime } from '../lib/dates';
 import { STAGE_LABELS } from '../lib/scoring';
 import type { Match } from '../types/bolao.types';
-import './AdminPage.css';
+import styles from './AdminPage.module.css';
 
 type Tab = 'matches' | 'results' | 'users';
 
@@ -97,9 +97,9 @@ export function AdminPage() {
 
       {/* ── Jogos ── */}
       {tab === 'matches' && (
-        <div className="admin-tab-content">
-          <div className="admin-tab-header">
-            <p className="admin-tab-count">{matches.length} jogos cadastrados </p>
+        <div className={styles.tabContent}>
+          <div className={styles.tabHeader}>
+            <p className={styles.tabCount}>{matches.length} jogos cadastrados </p>
             <button className="bolao-btn bolao-btn--primary bolao-btn--sm" onClick={() => setEditMatch(null)}>
               + Novo Jogo
             </button>
@@ -115,7 +115,7 @@ export function AdminPage() {
               <p className="bolao-empty__text">Nenhum jogo cadastrado ainda.<br />Clique em "+ Novo Jogo" para começar.</p>
             </div>
           ) : (
-            <div className="admin-table-wrap">
+            <div className={styles.tableWrap}>
               <table className="bolao-admin-table">
                 <thead>
                   <tr>
@@ -131,14 +131,14 @@ export function AdminPage() {
                   {matches.map(m => (
                     <tr key={m.id}>
                       <td><strong>{m.home_team}</strong> × {m.away_team}</td>
-                      <td className="admin-td-muted">{STAGE_LABELS[m.stage]}{m.group_name ? ` G${m.group_name}` : ''}</td>
-                      <td className="admin-td-muted">{formatMatchDateTime(m.match_date)}</td>
-                      <td><span className={`admin-status admin-status--${m.status}`}>{m.status}</span></td>
-                      <td className="admin-td-muted">
+                      <td className={styles.tdMuted}>{STAGE_LABELS[m.stage]}{m.group_name ? ` G${m.group_name}` : ''}</td>
+                      <td className={styles.tdMuted}>{formatMatchDateTime(m.match_date)}</td>
+                      <td><span className={`${styles.status} ${styles[`status${m.status.charAt(0).toUpperCase() + m.status.slice(1)}` as keyof typeof styles]}`}>{m.status}</span></td>
+                      <td className={styles.tdMuted}>
                         {m.home_score !== null ? `${m.home_score}–${m.away_score}` : '–'}
                       </td>
                       <td>
-                        <div className="admin-row-actions">
+                        <div className={styles.rowActions}>
                           <button className="bolao-btn bolao-btn--ghost bolao-btn--sm" onClick={() => setEditMatch(m)}>
                             Editar
                           </button>
@@ -162,8 +162,8 @@ export function AdminPage() {
 
       {/* ── Resultados ── */}
       {tab === 'results' && (
-        <div className="admin-tab-content">
-          <p className="admin-tab-count">
+        <div className={styles.tabContent}>
+          <p className={styles.tabCount}>
             {pendingResult.length} jogo(s) passados sem resultado registrado
           </p>
 
@@ -173,12 +173,12 @@ export function AdminPage() {
               <p className="bolao-empty__text">Todos os jogos têm resultado registrado.</p>
             </div>
           ) : (
-            <div className="admin-result-list">
+            <div className={styles.resultList}>
               {pendingResult.map(m => (
-                <div key={m.id} className="admin-result-item">
-                  <div className="admin-result-item__match">
+                <div key={m.id} className={styles.resultItem}>
+                  <div className={styles.resultItemMatch}>
                     <strong>{m.home_team}</strong> × {m.away_team}
-                    <span className="admin-td-muted" style={{ marginLeft: 8 }}>
+                    <span className={styles.tdMuted} style={{ marginLeft: 8 }}>
                       {formatMatchDateTime(m.match_date)}
                     </span>
                   </div>
@@ -192,10 +192,10 @@ export function AdminPage() {
               ))}
 
               {unresolved.map(m => (
-                <div key={m.id} className="admin-result-item">
-                  <div className="admin-result-item__match">
+                <div key={m.id} className={styles.resultItem}>
+                  <div className={styles.resultItemMatch}>
                     <strong>{m.home_team}</strong> × {m.away_team}
-                    <span className="admin-status admin-status--finished" style={{ marginLeft: 8 }}>finished</span>
+                    <span className={`${styles.status} ${styles.statusFinished}`} style={{ marginLeft: 8 }}>finished</span>
                   </div>
                   <button className="bolao-btn bolao-btn--ghost bolao-btn--sm" onClick={() => setResultMatch(m)}>
                     Atualizar Resultado
@@ -209,14 +209,14 @@ export function AdminPage() {
 
       {/* ── Usuários ── */}
       {tab === 'users' && (
-        <div className="admin-tab-content">
-          <p className="admin-tab-count">{entries.length} usuários cadastrados</p>
+        <div className={styles.tabContent}>
+          <p className={styles.tabCount}>{entries.length} usuários cadastrados</p>
           {usersLoading ? (
             <div className="bolao-loading-screen" style={{ minHeight: 160, background: 'transparent' }}>
               <div className="bolao-spinner" />
             </div>
           ) : (
-            <div className="admin-table-wrap">
+            <div className={styles.tableWrap}>
               <table className="bolao-admin-table">
                 <thead>
                   <tr>
@@ -232,18 +232,18 @@ export function AdminPage() {
                 <tbody>
                   {entries.map(u => (
                     <tr key={u.id}>
-                      <td className="admin-td-muted">#{u.rank}</td>
+                      <td className={styles.tdMuted}>#{u.rank}</td>
                       <td><strong>{u.display_name}</strong></td>
-                      <td className="admin-td-muted admin-td-truncate" title={`@${u.username}`}>@{u.username}</td>
+                      <td className={`${styles.tdMuted} ${styles.tdTruncate}`} title={`@${u.username}`}>@{u.username}</td>
                       <td><strong style={{ color: 'var(--wc-gold)' }}>{u.total_points}</strong></td>
-                      <td className="admin-td-muted">{u.streak} 🔥</td>
+                      <td className={styles.tdMuted}>{u.streak} 🔥</td>
                       <td>
-                        <span className={`admin-role-badge ${u.role === 'admin' ? 'admin-role-badge--admin' : ''}`}>
+                        <span className={`${styles.roleBadge} ${u.role === 'admin' ? styles.roleBadgeAdmin : ''}`}>
                           {u.role}
                         </span>
                       </td>
                       <td>
-                        <div className="admin-row-actions">
+                        <div className={styles.rowActions}>
                           <button
                             className="bolao-btn bolao-btn--ghost bolao-btn--sm"
                             onClick={() => handleRoleToggle(u.id, u.role)}
@@ -295,11 +295,11 @@ export function AdminPage() {
 
       {/* Modal senha temporária */}
       {tempPasswordInfo && (
-        <div className="admin-temp-pw-overlay" onClick={() => setTempPasswordInfo(null)}>
-          <div className="admin-temp-pw-box" onClick={e => e.stopPropagation()}>
+        <div className={styles.tempPwOverlay} onClick={() => setTempPasswordInfo(null)}>
+          <div className={styles.tempPwBox} onClick={e => e.stopPropagation()}>
             <h3>Senha temporária</h3>
             <p>Compartilhe com <strong>{tempPasswordInfo.name}</strong>:</p>
-            <div className="admin-temp-pw-value">{tempPasswordInfo.password}</div>
+            <div className={styles.tempPwValue}>{tempPasswordInfo.password}</div>
             <button className="bolao-btn bolao-btn--primary" onClick={handleCopyPassword}>
               {copied ? '✓ Copiado!' : 'Copiar senha'}
             </button>

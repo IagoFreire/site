@@ -292,6 +292,19 @@ body.bolao-body::-webkit-scrollbar-thumb:hover {
   font-size: 0.78rem;
 }
 
+/* Wide page variant for admin */
+@media (min-width: 900px) {
+  .bolao-page--wide {
+    max-width: min(90vw, 1200px);
+  }
+}
+
+/* Disabled tab state */
+.bolao-tab--disabled {
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}
+
 /* Input style */
 .bolao-input {
   background: var(--wc-bg);

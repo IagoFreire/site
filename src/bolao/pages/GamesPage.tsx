@@ -5,7 +5,7 @@ import { useBets } from '../hooks/useBets';
 import { ShinyText } from '../components/ui/ShinyText';
 import { groupMatchesByDate } from '../lib/dates';
 import type { Match } from '../types/bolao.types';
-import './GamesPage.css';
+import styles from './GamesPage.module.css';
 
 const TABS: { label: string; value: MatchFilter }[] = [
   { label: 'Todos', value: 'all' },
@@ -47,7 +47,7 @@ export function GamesPage() {
           <p className="bolao-empty__text">Nenhum jogo encontrado nesta categoria.</p>
         </div>
       ) : (
-        <div className="games-groups">
+        <div className={styles.gamesGroups}>
           {Array.from(grouped.entries()).map(([date, dayMatches]) => (
             <div key={date} className="bolao-date-group">
               <div className="bolao-date-group__header">{date}</div>

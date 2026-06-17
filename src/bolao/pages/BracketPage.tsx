@@ -3,7 +3,7 @@ import { useMatches } from '../hooks/useMatches';
 import { STAGE_LABELS } from '../lib/scoring';
 import { formatMatchDate, formatMatchTime } from '../lib/dates';
 import type { Match } from '../types/bolao.types';
-import './BracketPage.css';
+import styles from './BracketPage.module.css';
 
 /* ──────────────────────────────────────────
    GROUP STANDINGS
@@ -48,36 +48,36 @@ function calcStandings(groupMatches: Match[]): TeamRow[] {
 function GroupTable({ groupName, groupMatches }: { groupName: string; groupMatches: Match[] }) {
   const rows = calcStandings(groupMatches);
   return (
-    <div className="group-card">
-      <div className="group-card__header">Grupo {groupName}</div>
-      <table className="group-table">
+    <div className={styles.groupCard}>
+      <div className={styles.groupCardHeader}>Grupo {groupName}</div>
+      <table className={styles.groupTable}>
         <thead>
           <tr>
-            <th className="gt-th gt-th--team">Time</th>
-            <th className="gt-th">P</th>
-            <th className="gt-th">V</th>
-            <th className="gt-th">E</th>
-            <th className="gt-th">D</th>
-            <th className="gt-th">SG</th>
-            <th className="gt-th gt-th--pts">Pts</th>
+            <th className={`${styles.gtTh} ${styles.gtThTeam}`}>Time</th>
+            <th className={styles.gtTh}>P</th>
+            <th className={styles.gtTh}>V</th>
+            <th className={styles.gtTh}>E</th>
+            <th className={styles.gtTh}>D</th>
+            <th className={styles.gtTh}>SG</th>
+            <th className={`${styles.gtTh} ${styles.gtThPts}`}>Pts</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((t, i) => (
             <tr
               key={t.name}
-              className={`gt-tr${i < 2 ? ' gt-tr--qualify' : ''}${i === 2 ? ' gt-tr--possible' : ''}`}
+              className={`${styles.gtTr}${i < 2 ? ` ${styles.gtTrQualify}` : ''}${i === 2 ? ` ${styles.gtTrPossible}` : ''}`}
             >
-              <td className="gt-td gt-td--team">
-                <span className="gt-pos">{i + 1}</span>
-                <span className="gt-name">{t.name}</span>
+              <td className={`${styles.gtTd} ${styles.gtTdTeam}`}>
+                <span className={styles.gtPos}>{i + 1}</span>
+                <span className={styles.gtName}>{t.name}</span>
               </td>
-              <td className="gt-td">{t.P}</td>
-              <td className="gt-td">{t.W}</td>
-              <td className="gt-td">{t.D}</td>
-              <td className="gt-td">{t.L}</td>
-              <td className="gt-td">{t.GD > 0 ? '+' : ''}{t.GD}</td>
-              <td className="gt-td gt-td--pts">{t.Pts}</td>
+              <td className={styles.gtTd}>{t.P}</td>
+              <td className={styles.gtTd}>{t.W}</td>
+              <td className={styles.gtTd}>{t.D}</td>
+              <td className={styles.gtTd}>{t.L}</td>
+              <td className={styles.gtTd}>{t.GD > 0 ? '+' : ''}{t.GD}</td>
+              <td className={`${styles.gtTd} ${styles.gtTdPts}`}>{t.Pts}</td>
             </tr>
           ))}
         </tbody>
@@ -99,7 +99,7 @@ function GroupsView({ groups }: { groups: Map<string, Match[]> }) {
     );
   }
   return (
-    <div className="groups-grid">
+    <div className={styles.groupsGrid}>
       {[...groups.entries()].map(([g, ms]) => (
         <GroupTable key={g} groupName={g} groupMatches={ms} />
       ))}
@@ -123,19 +123,19 @@ function BracketCard({ match }: { match: Match }) {
   const awayWon = finished && match.home_score !== null && match.away_score !== null && match.away_score > match.home_score;
 
   return (
-    <div className={`bk-card${live ? ' bk-card--live' : ''}`}>
-      <div className={`bk-card__team${homeWon ? ' bk-card__team--winner' : ''}${awayWon ? ' bk-card__team--loser' : ''}`}>
-        <span className="bk-card__name">{match.home_team}</span>
-        <span className="bk-card__score">{match.home_score ?? '–'}</span>
+    <div className={`${styles.bkCard}${live ? ` ${styles.bkCardLive}` : ''}`}>
+      <div className={`${styles.bkCardTeam}${homeWon ? ` ${styles.bkCardTeamWinner}` : ''}${awayWon ? ` ${styles.bkCardTeamLoser}` : ''}`}>
+        <span className={styles.bkCardName}>{match.home_team}</span>
+        <span className={styles.bkCardScore}>{match.home_score ?? '–'}</span>
       </div>
-      <div className={`bk-card__team${awayWon ? ' bk-card__team--winner' : ''}${homeWon ? ' bk-card__team--loser' : ''}`}>
-        <span className="bk-card__name">{match.away_team}</span>
-        <span className="bk-card__score">{match.away_score ?? '–'}</span>
+      <div className={`${styles.bkCardTeam}${awayWon ? ` ${styles.bkCardTeamWinner}` : ''}${homeWon ? ` ${styles.bkCardTeamLoser}` : ''}`}>
+        <span className={styles.bkCardName}>{match.away_team}</span>
+        <span className={styles.bkCardScore}>{match.away_score ?? '–'}</span>
       </div>
-      <div className="bk-card__footer">
+      <div className={styles.bkCardFooter}>
         {live
-          ? <span className="bk-card__live">● AO VIVO</span>
-          : <span className="bk-card__date">{formatMatchDate(match.match_date)} · {formatMatchTime(match.match_date)}</span>
+          ? <span className={styles.bkCardLiveBadge}>● AO VIVO</span>
+          : <span className={styles.bkCardDate}>{formatMatchDate(match.match_date)} · {formatMatchTime(match.match_date)}</span>
         }
       </div>
     </div>
@@ -164,7 +164,7 @@ function BracketView({
   return (
     <>
       {/* Mobile: tab per stage */}
-      <div className="bk-mobile">
+      <div className={styles.bkMobile}>
         <div className="bolao-tabs">
           {activeStages.map(s => (
             <button
@@ -176,25 +176,25 @@ function BracketView({
             </button>
           ))}
         </div>
-        <div className="bk-list">
+        <div className={styles.bkList}>
           {knockout[tab].map(m => <BracketCard key={m.id} match={m} />)}
         </div>
       </div>
 
       {/* Desktop: horizontal bracket */}
-      <div className="bk-desktop">
-        <p className="bracket-page__hint">← deslize para ver todo o chaveamento →</p>
-        <div className="bk-scroll">
-          <div className="bk-grid">
+      <div className={styles.bkDesktop}>
+        <p className={styles.pageHint}>← deslize para ver todo o chaveamento →</p>
+        <div className={styles.bkScroll}>
+          <div className={styles.bkGrid}>
             {activeStages.map((stage) => (
-              <div key={stage} className={`bk-col${stage === 'final' ? ' bk-col--final' : ''}`}>
-                <div className="bk-col__header">{STAGE_LABELS[stage]}</div>
-                <div className="bk-col__body">
+              <div key={stage} className={`${styles.bkCol}${stage === 'final' ? ` ${styles.bkColFinal}` : ''}`}>
+                <div className={styles.bkColHeader}>{STAGE_LABELS[stage]}</div>
+                <div className={styles.bkColBody}>
                   {knockout[stage].map((match, idx) => (
-                    <div key={match.id} className="bk-slot">
+                    <div key={match.id} className={styles.bkSlot}>
                       <BracketCard match={match} />
                       {stage !== 'final' && idx % 2 === 0 && idx + 1 < knockout[stage].length && (
-                        <div className="bk-connector" />
+                        <div className={styles.bkConnector} />
                       )}
                     </div>
                   ))}
@@ -253,9 +253,9 @@ export function BracketPage() {
   }
 
   return (
-    <div className="bracket-page">
-      <div className="bracket-page__header">
-        <h1 className="bracket-page__title">Copa 2026</h1>
+    <div className={styles.page}>
+      <div className={styles.pageHeader}>
+        <h1 className={styles.pageTitle}>Copa 2026</h1>
       </div>
 
       {/* Main tabs */}

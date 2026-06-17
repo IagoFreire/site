@@ -1,5 +1,5 @@
 import { useMatchStats } from '../../hooks/useMatchStats';
-import './BetTempBar.css';
+import styles from './BetTempBar.module.css';
 
 interface Props {
   matchId: string;
@@ -17,33 +17,33 @@ export function BetTempBar({ matchId, homeTeam, awayTeam }: Props) {
   const awayPct = 100 - homePct - drawPct;
 
   return (
-    <div className="btb">
-      <div className="btb__labels">
-        <span className="btb__label btb__label--home">
-          <span className="btb__team">{homeTeam}</span>
-          <span className="btb__pct">{homePct}%</span>
+    <div className={styles.btb}>
+      <div className={styles.btbLabels}>
+        <span className={`${styles.btbLabel} ${styles.btbLabelHome}`}>
+          <span className={styles.btbTeam}>{homeTeam}</span>
+          <span className={styles.btbPct}>{homePct}%</span>
         </span>
-        <span className="btb__title">{stats.total} apostas</span>
-        <span className="btb__label btb__label--away">
-          <span className="btb__pct">{awayPct}%</span>
-          <span className="btb__team">{awayTeam}</span>
+        <span className={styles.btbTitle}>{stats.total} apostas</span>
+        <span className={`${styles.btbLabel} ${styles.btbLabelAway}`}>
+          <span className={styles.btbPct}>{awayPct}%</span>
+          <span className={styles.btbTeam}>{awayTeam}</span>
         </span>
       </div>
 
-      <div className="btb__bar">
+      <div className={styles.btbBar}>
         {homePct > 0 && (
-          <div className="btb__seg btb__seg--home" style={{ width: `${homePct}%` }} />
+          <div className={`${styles.btbSeg} ${styles.btbSegHome}`} style={{ width: `${homePct}%` }} />
         )}
         {drawPct > 0 && (
-          <div className="btb__seg btb__seg--draw" style={{ width: `${drawPct}%` }} />
+          <div className={`${styles.btbSeg} ${styles.btbSegDraw}`} style={{ width: `${drawPct}%` }} />
         )}
         {awayPct > 0 && (
-          <div className="btb__seg btb__seg--away" style={{ width: `${awayPct}%` }} />
+          <div className={`${styles.btbSeg} ${styles.btbSegAway}`} style={{ width: `${awayPct}%` }} />
         )}
       </div>
 
       {drawPct > 0 && (
-        <div className="btb__draw-label">Empate {drawPct}%</div>
+        <div className={styles.btbDrawLabel}>Empate {drawPct}%</div>
       )}
     </div>
   );

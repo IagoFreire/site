@@ -5,7 +5,7 @@ import { LeaderboardRow } from '../components/LeaderboardRow/LeaderboardRow';
 import { UserBetsModal } from '../components/UserBetsModal/UserBetsModal';
 import { ShinyText } from '../components/ui/ShinyText';
 import type { LeaderboardEntry } from '../types/bolao.types';
-import './LeaderboardPage.css';
+import styles from './LeaderboardPage.module.css';
 
 export function LeaderboardPage() {
   const { entries, loading } = useLeaderboard();
@@ -26,7 +26,7 @@ export function LeaderboardPage() {
           <p className="bolao-empty__text">Nenhuma aposta registrada ainda.<br />Seja o primeiro a apostar!</p>
         </div>
       ) : (
-        <div className="leaderboard-list">
+        <div className={styles.leaderboardList}>
           {entries.map((entry, i) => (
             <LeaderboardRow
               key={entry.id}
@@ -40,7 +40,7 @@ export function LeaderboardPage() {
       )}
 
       {entries.length > 0 && (
-        <p className="leaderboard-update-note">
+        <p className={styles.leaderboardUpdateNote}>
           🔄 Atualizado em tempo real · toque em um jogador para ver as apostas
         </p>
       )}

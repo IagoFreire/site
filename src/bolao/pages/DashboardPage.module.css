@@ -1,4 +1,4 @@
-.dashboard-welcome {
+.welcome {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -6,7 +6,7 @@
   animation: fadeInUp 0.4s ease;
 }
 
-.dashboard-avatar {
+.avatar {
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -21,20 +21,20 @@
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
 }
 
-.dashboard-welcome__name {
+.welcomeName {
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--wc-text);
   margin: 0;
 }
 
-.dashboard-welcome__sub {
+.welcomeSub {
   font-size: 0.82rem;
   color: var(--wc-text-muted);
   margin: 4px 0 0;
 }
 
-.dashboard-badges {
+.badges {
   margin-bottom: 8px;
   animation: fadeInUp 0.5s ease 0.1s backwards;
 }

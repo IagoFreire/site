@@ -6,7 +6,7 @@ import { MatchCard } from '../components/MatchCard/MatchCard';
 import { BadgeList } from '../components/Badges/BadgeList';
 import { AnimatedCounter } from '../components/ui/AnimatedCounter';
 import { BlurText } from '../components/ui/BlurText';
-import './DashboardPage.css';
+import styles from './DashboardPage.module.css';
 
 export function DashboardPage() {
   const { profile } = useAuth();
@@ -20,15 +20,15 @@ export function DashboardPage() {
   return (
     <div className="bolao-page">
       {/* Welcome */}
-      <div className="dashboard-welcome">
-        <div className="dashboard-avatar">
+      <div className={styles.welcome}>
+        <div className={styles.avatar}>
           {profile?.display_name?.[0]?.toUpperCase() ?? '?'}
         </div>
         <div>
-          <h1 className="dashboard-welcome__name">
+          <h1 className={styles.welcomeName}>
             <BlurText text={`Olá, ${profile?.display_name?.split(' ')[0] ?? ''}! 👋`} delayMs={22} />
           </h1>
-          <p className="dashboard-welcome__sub">Boa sorte no bolão!</p>
+          <p className={styles.welcomeSub}>Boa sorte no bolão!</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export function DashboardPage() {
 
       {/* Badges */}
       {profile && (profile.streak > 0 || profile.total_points > 0) && (
-        <div className="dashboard-badges">
+        <div className={styles.badges}>
           <p className="bolao-section-title">Conquistas</p>
           <BadgeList streak={profile.streak} totalPoints={profile.total_points} />
         </div>

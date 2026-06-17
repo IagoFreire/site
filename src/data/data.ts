@@ -48,7 +48,7 @@ export const projects: Project[] = [
     name: 'Bolão Copa 2026',
     description: 'App completo de bolão para a Copa do Mundo 2026. Palpites em jogos, ranking entre participantes e painel de resultados em tempo real.',
     tech: ['React', 'TypeScript', 'Supabase'],
-    github: 'https://github.com/IagoFreire/site'
+    github: 'https://github.com/IagoFreire/site/tree/main/src/bolao'
   },
   {
     name: 'TCG Pocket Decks',

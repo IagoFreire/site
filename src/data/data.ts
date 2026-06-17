@@ -5,7 +5,7 @@ export const experiences: Experience[] = [
     company: 'Compass UOL',
     role: 'Fullstack Developer',
     period: 'Agosto 2023 - Presente',
-    description: 'Atuo no desenvolvimento de três produtos B2B em produção: uma plataforma de recrutamento com IA generativa (LLMs) para ranqueamento automatizado de candidatos, um player de áudio customizado e um sistema de gestão de contratos de investimentos de alto valor. Lidero decisões técnicas de arquitetura no frontend e realizo code review da equipe.',
+    description: 'Participei do desenvolvimento de três produtos B2B em produção: uma plataforma de recrutamento com IA generativa (LLMs) para ranqueamento automatizado de candidatos, um player de áudio customizado e um sistema de gestão de contratos de investimentos de alto valor. Lidero decisões técnicas de arquitetura no frontend e realizo code review da equipe.',
     highlight: true,
     skills: ['React.js', 'TypeScript', 'Next.js', 'Node.js', 'REST API', 'Git']
   },

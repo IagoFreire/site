@@ -1,3 +1,34 @@
+/* ── Page header ── */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.rulesBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--wc-border);
+  background: var(--wc-card);
+  color: var(--wc-text-muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.rulesBtn:hover {
+  border-color: var(--wc-gold);
+  color: var(--wc-gold);
+  background: rgba(255, 223, 0, 0.08);
+}
+
 /* ── Podium ── */
 .podium {
   display: flex;
@@ -71,9 +102,19 @@
 }
 
 .podiumPts {
-  font-size: 0.65rem;
-  color: var(--wc-text-muted);
+  font-size: 0.88rem;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.podiumPtsNum {
+  font-weight: 800;
+  color: var(--wc-gold);
+}
+
+.podiumPtsLabel {
+  font-weight: 400;
+  color: var(--wc-text-muted);
 }
 
 /* Wrapper para centralizar o BadgeList + streak dentro do podium */
@@ -97,8 +138,10 @@
 .podiumBase {
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2px;
   border-radius: 10px 10px 0 0;
   border-top: 2px solid transparent;
   border-left: 1px solid rgba(255, 255, 255, 0.04);

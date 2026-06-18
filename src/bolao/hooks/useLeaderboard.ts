@@ -8,14 +8,27 @@ export function useLeaderboard() {
 
   const fetchLeaderboard = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .order('total_points', { ascending: false })
-      .order('streak', { ascending: false });
 
-    const ranked = (data ?? []).map((p, i) => ({ ...p, rank: i + 1 }));
-    setEntries(ranked);
+    const [{ data: profiles }, { data: exactRows }] = await Promise.all([
+      supabase.from('profiles').select('*'),
+      supabase.from('exact_bets_count').select('user_id, exact_bets')
+        .then(res => ({ data: res.error ? [] : res.data })),
+    ]);
+
+    const exactCounts: Record<string, number> = {};
+    (exactRows ?? []).forEach(row => {
+      if (row?.user_id) exactCounts[row.user_id] = row.exact_bets ?? 0;
+    });
+
+    const sorted = (profiles ?? [])
+      .sort((a, b) => {
+        if (b.total_points !== a.total_points) return b.total_points - a.total_points;
+        if (b.streak !== a.streak) return b.streak - a.streak;
+        return (exactCounts[b.id] ?? 0) - (exactCounts[a.id] ?? 0);
+      })
+      .map((p, i) => ({ ...p, rank: i + 1, exact_bets: exactCounts[p.id] ?? 0 }));
+
+    setEntries(sorted);
     setLoading(false);
   }, []);
 

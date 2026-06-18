@@ -1,0 +1,251 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  animation: fade-in 0.15s ease;
+}
+
+@media (min-width: 600px) {
+  .overlay { align-items: center; justify-content: center; }
+}
+
+.sheet {
+  width: 100%;
+  max-width: 480px;
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 20px 20px 0 0;
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: slide-up 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (min-width: 600px) {
+  .sheet {
+    border-radius: 20px;
+    animation: fade-scale 0.2s ease;
+  }
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--wc-card);
+  border-radius: 20px 20px 0 0;
+  flex-shrink: 0;
+}
+
+@media (min-width: 600px) {
+  .stickyHeader { border-radius: 20px 20px 0 0; }
+}
+
+.dragHandle {
+  width: 36px;
+  height: 4px;
+  background: var(--wc-border);
+  border-radius: 2px;
+  margin: 10px auto 0;
+}
+
+@media (min-width: 600px) {
+  .dragHandle { display: none; }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--wc-border);
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--wc-text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.closeBtn:hover { color: var(--wc-text); }
+
+.body {
+  padding: 16px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section {}
+
+.sectionTitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--wc-gold);
+  margin: 0 0 12px;
+}
+
+/* Scoring rows */
+.scoreRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--wc-card-hover);
+  border: 1px solid var(--wc-border);
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+.scoreIcon { font-size: 1.3rem; flex-shrink: 0; }
+
+.scoreRow > div { flex: 1; min-width: 0; }
+
+.scoreLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+.scoreDesc {
+  font-size: 0.72rem;
+  color: var(--wc-text-muted);
+  margin: 2px 0 0;
+}
+
+.scorePts {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--wc-gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.scorePtsZero { color: var(--wc-text-muted); }
+
+/* Multiplier */
+.multiplierNote {
+  font-size: 0.78rem;
+  color: var(--wc-text-muted);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.multiplierRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--wc-border);
+  font-size: 0.82rem;
+  color: var(--wc-text);
+}
+
+.multiplierRow:last-child { border-bottom: none; }
+
+.multiplierVal {
+  font-weight: 700;
+  color: var(--wc-gold);
+}
+
+/* Tiebreak */
+.tiebreakIntro {
+  font-size: 0.78rem;
+  color: var(--wc-text-muted);
+  margin: 0 0 10px;
+}
+
+.tiebreakList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tiebreakItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--wc-text);
+}
+
+.tiebreakNum {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 223, 0, 0.12);
+  border: 1px solid rgba(255, 223, 0, 0.3);
+  color: var(--wc-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Badges */
+.badgeList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--wc-card-hover);
+  border: 1px solid var(--wc-border);
+  border-radius: 10px;
+}
+
+.badgeIcon { font-size: 1.4rem; flex-shrink: 0; }
+
+.badgeName {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+.badgeDesc {
+  font-size: 0.72rem;
+  color: var(--wc-text-muted);
+  margin: 2px 0 0;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes fade-scale {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}

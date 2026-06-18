@@ -55,6 +55,7 @@ export interface PointLog {
 
 export interface LeaderboardEntry extends Profile {
   rank: number;
+  exact_bets: number;
 }
 
 export type BetReason = 'exact_score' | 'correct_winner' | 'correct_draw' | 'wrong';

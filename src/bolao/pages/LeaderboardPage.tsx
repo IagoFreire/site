@@ -5,6 +5,7 @@ import { LeaderboardRow } from '../components/LeaderboardRow/LeaderboardRow';
 import { UserBetsModal } from '../components/UserBetsModal/UserBetsModal';
 import { ShinyText } from '../components/ui/ShinyText';
 import { BadgeList } from '../components/Badges/BadgeList';
+import { RulesModal } from '../components/RulesModal/RulesModal';
 import type { LeaderboardEntry } from '../types/bolao.types';
 import styles from './LeaderboardPage.module.css';
 
@@ -18,6 +19,7 @@ export function LeaderboardPage() {
   const { entries, loading } = useLeaderboard();
   const { profile } = useAuth();
   const [selectedUser, setSelectedUser] = useState<LeaderboardEntry | null>(null);
+  const [showRules, setShowRules] = useState(false);
 
   const top3 = entries.slice(0, Math.min(3, entries.length));
   const rest = entries.slice(3);
@@ -27,7 +29,12 @@ export function LeaderboardPage() {
 
   return (
     <div className="bolao-page">
-      <h1 className="bolao-page__title"><ShinyText text="Ranking" /></h1>
+      <div className={styles.pageHeader}>
+        <h1 className="bolao-page__title" style={{ margin: 0 }}><ShinyText text="Ranking" /></h1>
+        <button className={styles.rulesBtn} onClick={() => setShowRules(true)} aria-label="Como funciona">
+          ?
+        </button>
+      </div>
 
       {loading ? (
         <div className="bolao-loading-screen" style={{ minHeight: 240, background: 'transparent' }}>
@@ -70,7 +77,10 @@ export function LeaderboardPage() {
                       <span className={styles.podiumName}>
                         {entry.display_name?.split(' ')[0]}
                       </span>
-                      <span className={styles.podiumPts}>{entry.total_points} pts</span>
+                      <span className={styles.podiumPts}>
+                        <span className={styles.podiumPtsNum}>{entry.total_points}</span>
+                        {' '}<span className={styles.podiumPtsLabel}>pts</span>
+                      </span>
                       <div className={styles.podiumBadges}>
                         <BadgeList streak={entry.streak} totalPoints={entry.total_points} compact />
                         {entry.streak >= 2 && (
@@ -121,6 +131,8 @@ export function LeaderboardPage() {
       {selectedUser && (
         <UserBetsModal user={selectedUser} onClose={() => setSelectedUser(null)} />
       )}
+
+      {showRules && <RulesModal onClose={() => setShowRules(false)} />}
     </div>
   );
 }

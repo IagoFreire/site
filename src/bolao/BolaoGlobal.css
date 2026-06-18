@@ -72,7 +72,8 @@ body.bolao-body::-webkit-scrollbar-thumb:hover {
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 16px;
-  padding-bottom: 120px; /* space for floating bottom nav */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 24px);
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 768px) {

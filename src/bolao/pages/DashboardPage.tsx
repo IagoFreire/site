@@ -4,6 +4,7 @@ import { useBets } from '../hooks/useBets';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import { MatchCard } from '../components/MatchCard/MatchCard';
 import { BadgeList } from '../components/Badges/BadgeList';
+import { getEarnedBadges } from '../components/Badges/badges';
 import { AnimatedCounter } from '../components/ui/AnimatedCounter';
 import { BlurText } from '../components/ui/BlurText';
 import styles from './DashboardPage.module.css';
@@ -44,14 +45,14 @@ export function DashboardPage() {
         </div>
         <div className="bolao-stat-card">
           <span className="bolao-stat-card__label">Sequência</span>
-          <span className="bolao-stat-card__value" style={{ fontSize: '1.4rem' }}>
+          <span className="bolao-stat-card__value">
             <AnimatedCounter value={profile?.streak ?? 0} />🔥
           </span>
         </div>
       </div>
 
-      {/* Badges */}
-      {profile && (profile.streak > 0 || profile.total_points > 0) && (
+      {/* Badges — só aparece se o usuário tiver ao menos uma conquista */}
+      {profile && getEarnedBadges(profile.streak, profile.total_points).length > 0 && (
         <div className={styles.badges}>
           <p className="bolao-section-title">Conquistas</p>
           <BadgeList streak={profile.streak} totalPoints={profile.total_points} />

@@ -72,7 +72,7 @@ body.bolao-body::-webkit-scrollbar-thumb:hover {
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 16px;
-  padding-bottom: 96px; /* space for bottom nav */
+  padding-bottom: 120px; /* space for floating bottom nav */
 }
 
 @media (min-width: 768px) {
@@ -141,17 +141,36 @@ body.bolao-body::-webkit-scrollbar-thumb:hover {
 
 /* Date group header */
 .bolao-date-group__header {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--wc-text-muted);
-  text-transform: capitalize;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--wc-border);
-  margin: 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0 14px;
   position: sticky;
   top: 64px;
   background: var(--wc-bg);
   z-index: 10;
+  padding: 4px 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.08em;
+  color: var(--wc-gold);
+  white-space: nowrap;
+}
+
+.bolao-date-group__header::before,
+.bolao-date-group__header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+
+.bolao-date-group__header::before {
+  background: linear-gradient(to right, transparent, var(--wc-border));
+}
+
+.bolao-date-group__header::after {
+  background: linear-gradient(to left, transparent, var(--wc-border));
 }
 
 @media (max-width: 767px) {
@@ -177,7 +196,7 @@ body.bolao-body::-webkit-scrollbar-thumb:hover {
 }
 
 .bolao-stat-card__value {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--wc-gold);
   line-height: 1;
@@ -320,6 +339,24 @@ body.bolao-body::-webkit-scrollbar-thumb:hover {
 }
 
 .bolao-input:focus { border-color: var(--wc-gold); }
+
+/* Skeleton shimmer */
+.bolao-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--wc-card) 0%,
+    rgba(30, 74, 42, 0.7) 50%,
+    var(--wc-card) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
 
 /* Animations */
 @keyframes fadeInUp {

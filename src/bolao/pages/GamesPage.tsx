@@ -7,15 +7,14 @@ import { groupMatchesByDate } from '../lib/dates';
 import type { Match } from '../types/bolao.types';
 import styles from './GamesPage.module.css';
 
-const TABS: { label: string; value: MatchFilter }[] = [
-  { label: 'Todos', value: 'all' },
-  { label: 'Próximos', value: 'upcoming' },
-  { label: 'Ao Vivo', value: 'live' },
-  { label: 'Finalizados', value: 'finished' },
+const TABS: { label: string; icon: string; value: MatchFilter }[] = [
+  { label: 'Todos', icon: '⚽', value: 'all' },
+  { label: 'Próximos', icon: '📅', value: 'upcoming' },
+  { label: 'Encerrados', icon: '✅', value: 'finished' },
 ];
 
 export function GamesPage() {
-  const [filter, setFilter] = useState<MatchFilter>('all');
+  const [filter, setFilter] = useState<MatchFilter>('upcoming');
   const { matches, loading } = useMatches(filter);
   const { getBetForMatch, submitBet, saving } = useBets();
 
@@ -32,6 +31,7 @@ export function GamesPage() {
             className={`bolao-tab ${filter === tab.value ? 'bolao-tab--active' : ''}`}
             onClick={() => setFilter(tab.value)}
           >
+            <span className={styles.tabIcon}>{tab.icon}</span>
             {tab.label}
           </button>
         ))}

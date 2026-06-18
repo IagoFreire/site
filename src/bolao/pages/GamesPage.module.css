@@ -1,3 +1,10 @@
 .gamesGroups {
   animation: fadeIn 0.3s ease;
 }
+
+.tabIcon {
+  font-size: 0.85em;
+  margin-right: 5px;
+  line-height: 1;
+}
+

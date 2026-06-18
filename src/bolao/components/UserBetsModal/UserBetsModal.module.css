@@ -44,6 +44,20 @@
   to   { transform: translateY(0);    opacity: 1; }
 }
 
+/* Drag handle */
+.dragHandle {
+  width: 36px;
+  height: 4px;
+  background: var(--wc-border);
+  border-radius: 2px;
+  margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+@media (min-width: 600px) {
+  .dragHandle { display: none; }
+}
+
 /* Header */
 .header {
   display: flex;

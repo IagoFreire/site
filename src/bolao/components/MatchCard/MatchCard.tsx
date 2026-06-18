@@ -6,6 +6,7 @@ import { BetTempBar } from '../BetTempBar/BetTempBar';
 import { SpotlightCard } from '../ui/SpotlightCard';
 import { STAGE_LABELS, REASON_LABELS } from '../../lib/scoring';
 import { formatMatchTime, isFuture } from '../../lib/dates';
+import { getCountryCode } from '../../lib/flags';
 import type { Match, Bet } from '../../types/bolao.types';
 import styles from './MatchCard.module.css';
 
@@ -76,7 +77,10 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
 
       {/* Teams */}
       <div className={styles.matchCardTeams}>
-        <span className={`${styles.teamName} ${styles.teamNameHome}`}>{match.home_team}</span>
+        <div className={styles.teamBlock}>
+          <span className={styles.teamCode}>{getCountryCode(match.home_team)}</span>
+          <span className={styles.teamName}>{match.home_team}</span>
+        </div>
 
         <div className={styles.matchCardCenter}>
           {isFinished && match.home_score !== null ? (
@@ -96,7 +100,10 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
           )}
         </div>
 
-        <span className={`${styles.teamName} ${styles.teamNameAway}`}>{match.away_team}</span>
+        <div className={styles.teamBlock}>
+          <span className={styles.teamCode}>{getCountryCode(match.away_team)}</span>
+          <span className={styles.teamName}>{match.away_team}</span>
+        </div>
       </div>
 
       {/* Temperatura das apostas — visível quando apostas encerradas/ao vivo/finalizado */}

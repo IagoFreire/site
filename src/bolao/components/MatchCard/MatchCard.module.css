@@ -70,23 +70,38 @@
   min-width: 0;
 }
 
+.teamBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.teamCode {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--wc-text-muted);
+  background: var(--wc-card-hover);
+  border: 1px solid var(--wc-border);
+  border-radius: 4px;
+  padding: 2px 5px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
 .teamName {
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--wc-text);
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  min-width: 0;
-}
-
-.teamNameHome {
-  text-align: right;
-}
-
-.teamNameAway {
-  text-align: left;
+  text-align: center;
+  width: 100%;
 }
 
 .matchCardCenter {

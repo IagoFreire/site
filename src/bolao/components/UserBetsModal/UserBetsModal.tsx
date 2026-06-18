@@ -29,6 +29,7 @@ export function UserBetsModal({ user, onClose }: Props) {
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.sheet} onClick={e => e.stopPropagation()}>
+        <div className={styles.dragHandle} aria-hidden="true" />
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.avatar}>{user.display_name?.[0]?.toUpperCase() ?? '?'}</div>

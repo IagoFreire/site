@@ -52,7 +52,7 @@ function ScoreSpinner({
       >
         +
       </button>
-      <span className={styles.scoreSpinnerValue}>{value}</span>
+      <span key={value} className={styles.scoreSpinnerValue}>{value}</span>
       <button
         className={`${styles.scoreSpinnerBtn} ${styles.scoreSpinnerBtnDec}`}
         onClick={onDec}

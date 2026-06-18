@@ -129,3 +129,84 @@ export function getFlag(teamName: string, flagUrl?: string | null): string {
 export function isEmojiFlag(flag: string): boolean {
   return !flag.startsWith('http');
 }
+
+const COUNTRY_CODES: Record<string, string> = {
+  /* América do Sul */
+  'Brazil': 'BRA', 'Brasil': 'BRA',
+  'Argentina': 'ARG',
+  'Colombia': 'COL', 'Colômbia': 'COL',
+  'Uruguay': 'URU', 'Uruguai': 'URU',
+  'Ecuador': 'ECU', 'Equador': 'ECU',
+  'Venezuela': 'VEN',
+  'Chile': 'CHI',
+  'Peru': 'PER',
+  'Paraguay': 'PAR', 'Paraguai': 'PAR',
+  'Bolivia': 'BOL', 'Bolívia': 'BOL',
+  /* América do Norte / Central */
+  'USA': 'USA', 'United States': 'USA', 'Estados Unidos': 'USA',
+  'Mexico': 'MEX', 'México': 'MEX',
+  'Canada': 'CAN', 'Canadá': 'CAN',
+  'Panama': 'PAN', 'Panamá': 'PAN',
+  'Costa Rica': 'CRC',
+  'Honduras': 'HON',
+  'Jamaica': 'JAM',
+  'El Salvador': 'SLV',
+  'Guatemala': 'GUA',
+  'Haiti': 'HAI',
+  'Trinidad and Tobago': 'TRI', 'Trinidad e Tobago': 'TRI',
+  /* Europa */
+  'France': 'FRA', 'França': 'FRA',
+  'Germany': 'GER', 'Alemanha': 'GER',
+  'Spain': 'ESP', 'Espanha': 'ESP',
+  'England': 'ENG', 'Inglaterra': 'ENG',
+  'Portugal': 'POR',
+  'Netherlands': 'NED', 'Holanda': 'NED', 'Países Baixos': 'NED',
+  'Belgium': 'BEL', 'Bélgica': 'BEL',
+  'Italy': 'ITA', 'Itália': 'ITA',
+  'Croatia': 'CRO', 'Croácia': 'CRO',
+  'Switzerland': 'SUI', 'Suíça': 'SUI',
+  'Denmark': 'DEN', 'Dinamarca': 'DEN',
+  'Sweden': 'SWE', 'Suécia': 'SWE',
+  'Norway': 'NOR', 'Noruega': 'NOR',
+  'Poland': 'POL', 'Polônia': 'POL',
+  'Ukraine': 'UKR', 'Ucrânia': 'UKR',
+  'Serbia': 'SRB', 'Sérvia': 'SRB',
+  'Austria': 'AUT',
+  'Scotland': 'SCO', 'Escócia': 'SCO',
+  'Turkey': 'TUR', 'Turquia': 'TUR',
+  'Slovakia': 'SVK', 'Eslováquia': 'SVK',
+  'Czech Republic': 'CZE', 'República Tcheca': 'CZE', 'Tchéquia': 'CZE', 'Czechia': 'CZE',
+  'Hungary': 'HUN', 'Hungria': 'HUN',
+  'Greece': 'GRE', 'Grécia': 'GRE',
+  'Romania': 'ROU', 'Romênia': 'ROU',
+  'Wales': 'WAL', 'País de Gales': 'WAL',
+  'Russia': 'RUS', 'Rússia': 'RUS',
+  /* África */
+  'Morocco': 'MAR', 'Marrocos': 'MAR',
+  'Senegal': 'SEN',
+  'Nigeria': 'NGA', 'Nigéria': 'NGA',
+  'Cameroon': 'CMR', 'Camarões': 'CMR',
+  'Ghana': 'GHA',
+  'Egypt': 'EGY', 'Egito': 'EGY',
+  'Ivory Coast': 'CIV', 'Costa do Marfim': 'CIV',
+  'South Africa': 'RSA', 'África do Sul': 'RSA',
+  'Algeria': 'ALG', 'Argélia': 'ALG',
+  'Tunisia': 'TUN', 'Tunísia': 'TUN',
+  /* Ásia */
+  'Japan': 'JPN', 'Japão': 'JPN',
+  'South Korea': 'KOR', 'Coreia do Sul': 'KOR',
+  'Australia': 'AUS', 'Austrália': 'AUS',
+  'Iran': 'IRN', 'Irã': 'IRN',
+  'Saudi Arabia': 'KSA', 'Arábia Saudita': 'KSA',
+  'Qatar': 'QAT',
+  'China': 'CHN',
+  'Indonesia': 'IDN', 'Indonésia': 'IDN',
+  'Iraq': 'IRQ', 'Iraque': 'IRQ',
+  'UAE': 'UAE', 'United Arab Emirates': 'UAE', 'Emirados Árabes': 'UAE', 'Emirados Árabes Unidos': 'UAE',
+  /* Oceania */
+  'New Zealand': 'NZL', 'Nova Zelândia': 'NZL',
+};
+
+export function getCountryCode(teamName: string): string {
+  return COUNTRY_CODES[teamName] ?? teamName.slice(0, 3).toUpperCase();
+}

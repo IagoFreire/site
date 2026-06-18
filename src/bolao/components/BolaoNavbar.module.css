@@ -122,12 +122,12 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 60px;
   background: var(--wc-card);
   border-top: 1px solid var(--wc-border);
   z-index: 100;
   padding: 0 4px;
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  min-height: calc(64px + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 768px) {

@@ -334,6 +334,17 @@
   flex-shrink: 0;
 }
 
+.bkCardEmpty {
+  opacity: 0.45;
+  border-style: dashed;
+}
+
+.bkCardNameEmpty {
+  color: var(--wc-text-muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
 .bkCardFooter {
   border-top: 1px solid var(--wc-border);
   padding: 5px 10px;

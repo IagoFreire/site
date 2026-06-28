@@ -116,6 +116,33 @@ const KNOCKOUT_STAGES = [
 ] as const;
 type KnockoutStage = typeof KNOCKOUT_STAGES[number];
 
+const STAGE_SLOT_COUNT: Record<KnockoutStage, number> = {
+  round_of_32: 16,
+  round_of_16: 8,
+  quarter: 4,
+  semi: 2,
+  third_place: 1,
+  final: 1,
+};
+
+function BracketEmptyCard() {
+  return (
+    <div className={`${styles.bkCard} ${styles.bkCardEmpty}`}>
+      <div className={styles.bkCardTeam}>
+        <span className={`${styles.bkCardName} ${styles.bkCardNameEmpty}`}>A definir</span>
+        <span className={styles.bkCardScore}>–</span>
+      </div>
+      <div className={styles.bkCardTeam}>
+        <span className={`${styles.bkCardName} ${styles.bkCardNameEmpty}`}>A definir</span>
+        <span className={styles.bkCardScore}>–</span>
+      </div>
+      <div className={styles.bkCardFooter}>
+        <span className={styles.bkCardDate}>–</span>
+      </div>
+    </div>
+  );
+}
+
 function BracketCard({ match }: { match: Match }) {
   const finished = match.status === 'finished';
   const live = match.status === 'live';
@@ -142,34 +169,18 @@ function BracketCard({ match }: { match: Match }) {
   );
 }
 
-function BracketView({
-  knockout,
-  activeStages,
-}: {
-  knockout: Record<KnockoutStage, Match[]>;
-  activeStages: KnockoutStage[];
-}) {
-  const [mobileStage, setMobileStage] = useState<KnockoutStage>(activeStages[0]);
-  const tab = knockout[mobileStage]?.length > 0 ? mobileStage : activeStages[0];
-
-  if (activeStages.length === 0) {
-    return (
-      <div className="bolao-empty">
-        <span className="bolao-empty__icon">🏆</span>
-        <p className="bolao-empty__text">O chaveamento será exibido após a fase de grupos.</p>
-      </div>
-    );
-  }
+function BracketView({ knockout }: { knockout: Record<KnockoutStage, Match[]> }) {
+  const [mobileStage, setMobileStage] = useState<KnockoutStage>(KNOCKOUT_STAGES[0]);
 
   return (
     <>
       {/* Mobile: tab per stage */}
       <div className={styles.bkMobile}>
         <div className="bolao-tabs">
-          {activeStages.map(s => (
+          {KNOCKOUT_STAGES.map(s => (
             <button
               key={s}
-              className={`bolao-tab${tab === s ? ' bolao-tab--active' : ''}`}
+              className={`bolao-tab${mobileStage === s ? ' bolao-tab--active' : ''}`}
               onClick={() => setMobileStage(s)}
             >
               {STAGE_LABELS[s]}
@@ -177,7 +188,12 @@ function BracketView({
           ))}
         </div>
         <div className={styles.bkList}>
-          {knockout[tab].map(m => <BracketCard key={m.id} match={m} />)}
+          {knockout[mobileStage].length > 0
+            ? knockout[mobileStage].map(m => <BracketCard key={m.id} match={m} />)
+            : Array.from({ length: STAGE_SLOT_COUNT[mobileStage] }, (_, i) => (
+                <BracketEmptyCard key={i} />
+              ))
+          }
         </div>
       </div>
 
@@ -186,21 +202,36 @@ function BracketView({
         <p className={styles.pageHint}>← deslize para ver todo o chaveamento →</p>
         <div className={styles.bkScroll}>
           <div className={styles.bkGrid}>
-            {activeStages.map((stage) => (
-              <div key={stage} className={`${styles.bkCol}${stage === 'final' ? ` ${styles.bkColFinal}` : ''}`}>
-                <div className={styles.bkColHeader}>{STAGE_LABELS[stage]}</div>
-                <div className={styles.bkColBody}>
-                  {knockout[stage].map((match, idx) => (
-                    <div key={match.id} className={styles.bkSlot}>
-                      <BracketCard match={match} />
-                      {stage !== 'final' && idx % 2 === 0 && idx + 1 < knockout[stage].length && (
-                        <div className={styles.bkConnector} />
-                      )}
-                    </div>
-                  ))}
+            {KNOCKOUT_STAGES.map((stage) => {
+              const stageMatches = knockout[stage];
+              const hasMatches = stageMatches.length > 0;
+              const slotCount = STAGE_SLOT_COUNT[stage];
+              return (
+                <div key={stage} className={`${styles.bkCol}${stage === 'final' ? ` ${styles.bkColFinal}` : ''}`}>
+                  <div className={styles.bkColHeader}>{STAGE_LABELS[stage]}</div>
+                  <div className={styles.bkColBody}>
+                    {hasMatches
+                      ? stageMatches.map((match, idx) => (
+                          <div key={match.id} className={styles.bkSlot}>
+                            <BracketCard match={match} />
+                            {stage !== 'final' && idx % 2 === 0 && idx + 1 < stageMatches.length && (
+                              <div className={styles.bkConnector} />
+                            )}
+                          </div>
+                        ))
+                      : Array.from({ length: slotCount }, (_, i) => (
+                          <div key={i} className={styles.bkSlot}>
+                            <BracketEmptyCard />
+                            {stage !== 'final' && i % 2 === 0 && i + 1 < slotCount && (
+                              <div className={styles.bkConnector} />
+                            )}
+                          </div>
+                        ))
+                    }
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -239,9 +270,6 @@ export function BracketPage() {
     return r;
   }, [matches]);
 
-  const activeKnockout = KNOCKOUT_STAGES.filter(s => knockout[s].length > 0);
-  const hasKnockout = activeKnockout.length > 0;
-
   if (loading) {
     return (
       <div className="bolao-page">
@@ -267,10 +295,8 @@ export function BracketPage() {
           📊 Grupos
         </button>
         <button
-          className={`bolao-tab${pageTab === 'bracket' ? ' bolao-tab--active' : ''}${!hasKnockout ? ' bolao-tab--disabled' : ''}`}
-          onClick={() => hasKnockout && setPageTab('bracket')}
-          disabled={!hasKnockout}
-          title={!hasKnockout ? 'Disponível após a fase de grupos' : undefined}
+          className={`bolao-tab${pageTab === 'bracket' ? ' bolao-tab--active' : ''}`}
+          onClick={() => setPageTab('bracket')}
         >
           🏆 Chave
         </button>
@@ -278,7 +304,7 @@ export function BracketPage() {
 
       {pageTab === 'groups' && <GroupsView groups={groups} />}
       {pageTab === 'bracket' && (
-        <BracketView knockout={knockout} activeStages={activeKnockout} />
+        <BracketView knockout={knockout} />
       )}
     </div>
   );

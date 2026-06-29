@@ -51,7 +51,7 @@ export function RulesModal({ onClose }: Props) {
               Nas fases eliminatórias você pode abrir mão do placar e apostar que o jogo vai para os pênaltis:
             </p>
             <div className={styles.scoreRow}>
-              <span className={styles.scoreIcon}>🥅✅</span>
+              <span className={styles.scoreIcon}>✅</span>
               <div>
                 <p className={styles.scoreLabel}>Pênaltis + time certo</p>
                 <p className={styles.scoreDesc}>Apostou pênaltis, foi para pênaltis e acertou quem ganhou</p>

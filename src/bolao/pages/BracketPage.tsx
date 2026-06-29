@@ -438,7 +438,7 @@ export function BracketPage() {
   return (
     <div className={styles.page}>
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Copa 2026</h1>
+        <h1 className={styles.pageTitle}>Copa 2026 🌎</h1>
       </div>
 
       <div className="bolao-tabs" style={{ marginBottom: 20 }}>

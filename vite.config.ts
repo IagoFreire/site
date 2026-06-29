@@ -17,9 +17,9 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       manifest: {
-        name: 'Iago Freire',
-        short_name: 'Iago Freire',
-        description: 'Iago Freire - Frontend Developer',
+        name: 'Bolão 2026',
+        short_name: 'Bolão 2026',
+        description: 'Bolão Copa do Mundo 2026',
         theme_color: '#0f172a',
         background_color: '#0f172a',
         display: 'standalone',

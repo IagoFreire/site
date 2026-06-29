@@ -1,7 +1,7 @@
 import type { Bet, Match, ScoringResult } from '../types/bolao.types';
 
-type BetInput = Pick<Bet, 'home_score_bet' | 'away_score_bet'>;
-type MatchInput = Pick<Match, 'home_score' | 'away_score' | 'points_multiplier'>;
+type BetInput = Pick<Bet, 'home_score_bet' | 'away_score_bet' | 'bet_penalties' | 'penalty_winner_bet'>;
+type MatchInput = Pick<Match, 'home_score' | 'away_score' | 'points_multiplier' | 'went_to_penalties' | 'penalty_winner'>;
 
 export function calculatePoints(bet: BetInput, match: MatchInput): ScoringResult {
   if (match.home_score === null || match.away_score === null) {
@@ -9,6 +9,16 @@ export function calculatePoints(bet: BetInput, match: MatchInput): ScoringResult
   }
 
   const multiplier = match.points_multiplier ?? 1;
+
+  if (bet.bet_penalties) {
+    if (!match.went_to_penalties) return { points: 0, reason: 'wrong' };
+    if (bet.penalty_winner_bet === match.penalty_winner) {
+      return { points: Math.round(10 * multiplier), reason: 'penalty_correct_winner' };
+    }
+    return { points: Math.round(5 * multiplier), reason: 'penalty_correct' };
+  }
+
+  if (match.went_to_penalties) return { points: 0, reason: 'wrong' };
 
   if (bet.home_score_bet === match.home_score && bet.away_score_bet === match.away_score) {
     return { points: Math.round(10 * multiplier), reason: 'exact_score' };
@@ -40,4 +50,6 @@ export const REASON_LABELS: Record<string, string> = {
   correct_winner: 'Vencedor Certo',
   correct_draw: 'Empate Certo',
   wrong: 'Errou',
+  penalty_correct: 'Pênaltis Certo',
+  penalty_correct_winner: 'Pênaltis + Time Certo',
 };

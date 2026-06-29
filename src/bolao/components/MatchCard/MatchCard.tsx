@@ -13,7 +13,12 @@ import styles from './MatchCard.module.css';
 interface Props {
   match: Match;
   bet: Bet | null;
-  onSubmitBet: (homeScore: number, awayScore: number) => Promise<{ error: string | null }>;
+  onSubmitBet: (
+    homeScore: number,
+    awayScore: number,
+    betPenalties: boolean,
+    penaltyWinnerBet: 'home' | 'away' | null,
+  ) => Promise<{ error: string | null }>;
   saving: boolean;
 }
 
@@ -21,20 +26,24 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
   const canBet = isFuture(match.match_date) && match.status === 'scheduled';
   const isLive = match.status === 'live';
   const isFinished = match.status === 'finished';
+  const isKnockout = match.stage !== 'group';
 
   const [homeScore, setHomeScore] = useState(bet?.home_score_bet ?? 0);
   const [awayScore, setAwayScore] = useState(bet?.away_score_bet ?? 0);
+  const [betPenalties, setBetPenalties] = useState(bet?.bet_penalties ?? false);
+  const [penaltyWinnerBet, setPenaltyWinnerBet] = useState<'home' | 'away' | null>(bet?.penalty_winner_bet ?? null);
   const [submitted, setSubmitted] = useState(false);
+  const [confetti, setConfetti] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Sincroniza spinners quando a aposta carrega de forma assíncrona após o mount
   useEffect(() => {
     if (bet) {
       setHomeScore(bet.home_score_bet);
       setAwayScore(bet.away_score_bet);
+      setBetPenalties(bet.bet_penalties ?? false);
+      setPenaltyWinnerBet(bet.penalty_winner_bet ?? null);
     }
   }, [bet?.id]);
-  const [confetti, setConfetti] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (home: number, away: number) => {
     setHomeScore(home);
@@ -42,9 +51,15 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
     setSubmitted(false);
   };
 
+  const handlePenaltyChange = (penalties: boolean, winner: 'home' | 'away' | null) => {
+    setBetPenalties(penalties);
+    setPenaltyWinnerBet(winner);
+    setSubmitted(false);
+  };
+
   const handleSubmit = async () => {
     setError(null);
-    const { error: err } = await onSubmitBet(homeScore, awayScore);
+    const { error: err } = await onSubmitBet(homeScore, awayScore, betPenalties, penaltyWinnerBet);
     if (err) { setError(err); return; }
     setSubmitted(true);
     if (isFinished && bet?.points_earned && bet.points_earned >= 10) setConfetti(true);
@@ -56,6 +71,23 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
     bet.points_earned === 0 ? styles.pointsZero :
     bet.points_earned >= 10 ? styles.pointsExact : styles.pointsPartial;
 
+  const betDescription = bet?.bet_penalties
+    ? `🥅 Pênaltis · ${bet.penalty_winner_bet === 'home' ? match.home_team : match.away_team}`
+    : `${bet?.home_score_bet ?? 0}–${bet?.away_score_bet ?? 0}`;
+
+  const betResultReason = (() => {
+    if (!bet || bet.points_earned === null) return 'Aguardando resultado';
+    if (bet.bet_penalties) {
+      if (bet.points_earned === 0) return REASON_LABELS['wrong'];
+      if (bet.penalty_winner_bet === match.penalty_winner) return REASON_LABELS['penalty_correct_winner'];
+      return REASON_LABELS['penalty_correct'];
+    }
+    if (bet.points_earned === 0) return REASON_LABELS['wrong'];
+    if (bet.home_score_bet === match.home_score && bet.away_score_bet === match.away_score) return REASON_LABELS['exact_score'];
+    if (Math.sign(bet.home_score_bet - bet.away_score_bet) === 0) return REASON_LABELS['correct_draw'];
+    return REASON_LABELS['correct_winner'];
+  })();
+
   return (
     <SpotlightCard
       className={`${styles.matchCard} ${isLive ? styles.matchCardLive : ''} ${isFinished ? styles.matchCardFinished : ''}`}
@@ -63,7 +95,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
     >
       <ConfettiEffect active={confetti} onDone={() => setConfetti(false)} />
 
-      {/* Header: stage + time */}
       <div className={styles.matchCardHeader}>
         <span className={styles.matchCardStage}>{STAGE_LABELS[match.stage] ?? match.stage}{match.group_name ? ` – Grupo ${match.group_name}` : ''}</span>
         <div className={styles.matchCardMeta}>
@@ -75,7 +106,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
         </div>
       </div>
 
-      {/* Teams */}
       <div className={styles.matchCardTeams}>
         <div className={styles.teamBlock}>
           <span className={styles.teamCode}>{getCountryCode(match.home_team)}</span>
@@ -88,6 +118,9 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
               <span>{match.home_score}</span>
               <span className={styles.finalScoreSep}>–</span>
               <span>{match.away_score}</span>
+              {match.went_to_penalties && (
+                <span className={styles.penaltiesBadge}>🥅</span>
+              )}
             </div>
           ) : isLive ? (
             <div className={`${styles.finalScore} ${styles.finalScoreLive}`}>
@@ -106,7 +139,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
         </div>
       </div>
 
-      {/* Temperatura das apostas — visível quando apostas encerradas/ao vivo/finalizado */}
       {!canBet && (
         <BetTempBar
           matchId={match.id}
@@ -115,7 +147,6 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
         />
       )}
 
-      {/* Bet section */}
       <div className={styles.matchCardBet}>
         {canBet ? (
           <>
@@ -126,20 +157,24 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
                 awayScore={awayScore}
                 onChange={handleChange}
                 disabled={saving}
+                isKnockout={isKnockout}
+                homeTeam={match.home_team}
+                awayTeam={match.away_team}
+                betPenalties={betPenalties}
+                penaltyWinnerBet={penaltyWinnerBet}
+                onPenaltyChange={handlePenaltyChange}
               />
               <button
                 className={`${styles.betSubmitBtn} ${submitted ? styles.betSubmitBtnDone : ''}`}
                 onClick={handleSubmit}
-                disabled={saving}
+                disabled={saving || (betPenalties && !penaltyWinnerBet)}
               >
                 {saving ? '...' : submitted ? '✓ Salvo!' : bet ? 'Atualizar' : 'Apostar'}
               </button>
             </div>
             {error && <p className={styles.betError}>{error}</p>}
             {bet && !submitted && (
-              <p className={styles.betCurrent}>
-                Aposta atual: {bet.home_score_bet} × {bet.away_score_bet}
-              </p>
+              <p className={styles.betCurrent}>Aposta atual: {betDescription}</p>
             )}
           </>
         ) : isFinished ? (
@@ -151,14 +186,8 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
                   <span className={styles.betResultPtsLabel}>pts</span>
                 </div>
                 <div className={styles.betResultInfo}>
-                  <span className={styles.betResultReason}>
-                    {bet.points_earned !== null ? REASON_LABELS[
-                      bet.points_earned === 0 ? 'wrong' :
-                      (bet.home_score_bet === match.home_score && bet.away_score_bet === match.away_score) ? 'exact_score' :
-                      Math.sign(bet.home_score_bet - bet.away_score_bet) === 0 ? 'correct_draw' : 'correct_winner'
-                    ] : 'Aguardando resultado'}
-                  </span>
-                  <span className={styles.betResultBet}>Aposta: {bet.home_score_bet}–{bet.away_score_bet}</span>
+                  <span className={styles.betResultReason}>{betResultReason}</span>
+                  <span className={styles.betResultBet}>Aposta: {betDescription}</span>
                 </div>
               </>
             ) : (
@@ -168,19 +197,16 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
         ) : isLive ? (
           <div className={styles.betResult}>
             {bet ? (
-              <span className={styles.betResultBet}>Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}</span>
+              <span className={styles.betResultBet}>Sua aposta: {betDescription}</span>
             ) : (
               <span className={styles.betResultNoBet}>Sem aposta</span>
             )}
           </div>
         ) : (
-          /* Apostas encerradas — mostra aposta do usuário se tiver, read-only */
           <div className={styles.betLocked}>
             <span className={styles.betLockedLabel}>🔒 Apostas encerradas</span>
             {bet && (
-              <span className={styles.betLockedPick}>
-                Sua aposta: {bet.home_score_bet}–{bet.away_score_bet}
-              </span>
+              <span className={styles.betLockedPick}>Sua aposta: {betDescription}</span>
             )}
           </div>
         )}

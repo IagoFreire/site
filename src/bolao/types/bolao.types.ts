@@ -26,6 +26,8 @@ export interface Match {
   venue: string | null;
   home_score: number | null;
   away_score: number | null;
+  went_to_penalties: boolean;
+  penalty_winner: 'home' | 'away' | null;
   status: MatchStatus;
   points_multiplier: number;
   created_at: string;
@@ -38,6 +40,8 @@ export interface Bet {
   match_id: string;
   home_score_bet: number;
   away_score_bet: number;
+  bet_penalties: boolean;
+  penalty_winner_bet: 'home' | 'away' | null;
   points_earned: number | null;
   created_at: string;
   updated_at: string;
@@ -58,7 +62,7 @@ export interface LeaderboardEntry extends Profile {
   exact_bets: number;
 }
 
-export type BetReason = 'exact_score' | 'correct_winner' | 'correct_draw' | 'wrong';
+export type BetReason = 'exact_score' | 'correct_winner' | 'correct_draw' | 'wrong' | 'penalty_correct' | 'penalty_correct_winner';
 
 export interface ScoringResult {
   points: number;

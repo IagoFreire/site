@@ -147,6 +147,25 @@
 
 .scorePtsZero { color: var(--wc-text-muted); }
 
+/* Penalty section */
+.penaltyIntro {
+  font-size: 0.78rem;
+  color: var(--wc-text-muted);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.penaltyNote {
+  font-size: 0.75rem;
+  color: var(--wc-text-muted);
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  background: var(--wc-card-hover);
+  border-radius: 8px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 /* Multiplier */
 .multiplierNote {
   font-size: 0.78rem;

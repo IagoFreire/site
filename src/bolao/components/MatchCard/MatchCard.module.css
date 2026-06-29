@@ -139,6 +139,11 @@
   font-weight: 400;
 }
 
+.penaltiesBadge {
+  font-size: 0.85rem;
+  margin-left: 4px;
+}
+
 /* Bet section */
 .matchCardBet {
   border-top: 1px solid var(--wc-border);

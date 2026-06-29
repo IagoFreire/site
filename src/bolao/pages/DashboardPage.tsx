@@ -77,7 +77,7 @@ export function DashboardPage() {
               <MatchCard
                 match={match}
                 bet={getBetForMatch(match.id)}
-                onSubmitBet={(home, away) => submitBet(match.id, home, away)}
+                onSubmitBet={(home, away, penalties, winner) => submitBet(match.id, home, away, penalties, winner)}
                 saving={saving === match.id}
               />
             </div>

@@ -152,3 +152,77 @@
   from { opacity: 0; transform: translateY(-20px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* ── Penalty section ── */
+
+.penaltySection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--wc-card-hover);
+  border: 1px solid var(--wc-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.penaltyToggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--wc-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+.penaltyCheckbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--wc-gold);
+  cursor: pointer;
+}
+
+.penaltyWinnerPick {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.penaltyWinnerLabel {
+  font-size: 0.78rem;
+  color: var(--wc-text-muted);
+  margin: 0;
+}
+
+.penaltyWinnerBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.penaltyWinnerBtn {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: 2px solid var(--wc-border);
+  background: var(--wc-card);
+  color: var(--wc-text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.penaltyWinnerBtn:hover {
+  border-color: var(--wc-gold);
+  color: var(--wc-text);
+}
+
+.penaltyWinnerBtnActive {
+  border-color: var(--wc-gold);
+  background: rgba(255, 223, 0, 0.12);
+  color: var(--wc-gold);
+}

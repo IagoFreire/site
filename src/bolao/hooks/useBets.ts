@@ -29,6 +29,8 @@ export function useBets() {
     matchId: string,
     homeScore: number,
     awayScore: number,
+    betPenalties = false,
+    penaltyWinnerBet: 'home' | 'away' | null = null,
   ): Promise<{ error: string | null }> => {
     if (!profile) return { error: 'Usuário não autenticado' };
 
@@ -36,22 +38,25 @@ export function useBets() {
     const existing = getBetForMatch(matchId);
     let error: string | null = null;
 
+    const payload = {
+      home_score_bet: betPenalties ? 0 : homeScore,
+      away_score_bet: betPenalties ? 0 : awayScore,
+      bet_penalties: betPenalties,
+      penalty_winner_bet: betPenalties ? penaltyWinnerBet : null,
+      updated_at: new Date().toISOString(),
+    };
+
     if (existing) {
       const { error: err } = await supabase
         .from('bets')
-        .update({
-          home_score_bet: homeScore,
-          away_score_bet: awayScore,
-          updated_at: new Date().toISOString(),
-        })
+        .update(payload)
         .eq('id', existing.id);
       error = err?.message ?? null;
     } else {
       const { error: err } = await supabase.from('bets').insert({
         user_id: profile.id,
         match_id: matchId,
-        home_score_bet: homeScore,
-        away_score_bet: awayScore,
+        ...payload,
       });
       error = err?.message ?? null;
     }

@@ -24,7 +24,6 @@ function calcStandings(groupMatches: Match[]): TeamRow[] {
     return map.get(n)!;
   };
 
-  // Register all teams even if no results yet
   for (const m of groupMatches) { get(m.home_team); get(m.away_team); }
 
   for (const m of groupMatches) {
@@ -125,6 +124,57 @@ const STAGE_SLOT_COUNT: Record<KnockoutStage, number> = {
   final: 1,
 };
 
+const STAGE_PREV: Partial<Record<KnockoutStage, KnockoutStage>> = {
+  round_of_16: 'round_of_32',
+  quarter: 'round_of_16',
+  semi: 'quarter',
+  final: 'semi',
+};
+
+/* ── Progression helpers ── */
+
+function getMatchWinner(match: Match): string | null {
+  if (match.status !== 'finished') return null;
+  if (match.home_score === null || match.away_score === null) return null;
+  if (match.went_to_penalties) {
+    return match.penalty_winner === 'home' ? match.home_team : match.away_team;
+  }
+  if (match.home_score > match.away_score) return match.home_team;
+  if (match.away_score > match.home_score) return match.away_team;
+  return null;
+}
+
+function getMatchLoser(match: Match): string | null {
+  const winner = getMatchWinner(match);
+  if (!winner) return null;
+  return winner === match.home_team ? match.away_team : match.home_team;
+}
+
+type TeamSlot = string | null;
+interface InferredSlot { home: TeamSlot; away: TeamSlot }
+
+function computeInferredSlots(prevMatches: Match[], slotCount: number): InferredSlot[] {
+  const sorted = [...prevMatches].sort(
+    (a, b) => new Date(a.match_date).getTime() - new Date(b.match_date).getTime()
+  );
+  return Array.from({ length: slotCount }, (_, i) => ({
+    home: sorted[i * 2] ? getMatchWinner(sorted[i * 2]) : null,
+    away: sorted[i * 2 + 1] ? getMatchWinner(sorted[i * 2 + 1]) : null,
+  }));
+}
+
+function computeThirdPlaceInferred(semiMatches: Match[]): InferredSlot {
+  const sorted = [...semiMatches].sort(
+    (a, b) => new Date(a.match_date).getTime() - new Date(b.match_date).getTime()
+  );
+  return {
+    home: sorted[0] ? getMatchLoser(sorted[0]) : null,
+    away: sorted[1] ? getMatchLoser(sorted[1]) : null,
+  };
+}
+
+/* ── Cards ── */
+
 function BracketEmptyCard() {
   return (
     <div className={`${styles.bkCard} ${styles.bkCardEmpty}`}>
@@ -143,11 +193,44 @@ function BracketEmptyCard() {
   );
 }
 
+function BracketInferredCard({ home, away }: { home: TeamSlot; away: TeamSlot }) {
+  return (
+    <div className={`${styles.bkCard} ${styles.bkCardEmpty}`}>
+      <div className={styles.bkCardTeam}>
+        {home
+          ? <span className={styles.bkCardName}>{home}</span>
+          : <span className={`${styles.bkCardName} ${styles.bkCardNameEmpty}`}>A definir</span>
+        }
+        <span className={styles.bkCardScore}>–</span>
+      </div>
+      <div className={styles.bkCardTeam}>
+        {away
+          ? <span className={styles.bkCardName}>{away}</span>
+          : <span className={`${styles.bkCardName} ${styles.bkCardNameEmpty}`}>A definir</span>
+        }
+        <span className={styles.bkCardScore}>–</span>
+      </div>
+      <div className={styles.bkCardFooter}>
+        <span className={styles.bkCardDate}>Em breve</span>
+      </div>
+    </div>
+  );
+}
+
 function BracketCard({ match }: { match: Match }) {
   const finished = match.status === 'finished';
   const live = match.status === 'live';
-  const homeWon = finished && match.home_score !== null && match.away_score !== null && match.home_score > match.away_score;
-  const awayWon = finished && match.home_score !== null && match.away_score !== null && match.away_score > match.home_score;
+
+  const homeWon = finished && (
+    match.went_to_penalties
+      ? match.penalty_winner === 'home'
+      : match.home_score !== null && match.away_score !== null && match.home_score > match.away_score
+  );
+  const awayWon = finished && (
+    match.went_to_penalties
+      ? match.penalty_winner === 'away'
+      : match.home_score !== null && match.away_score !== null && match.away_score > match.home_score
+  );
 
   return (
     <div className={`${styles.bkCard}${live ? ` ${styles.bkCardLive}` : ''}`}>
@@ -160,40 +243,108 @@ function BracketCard({ match }: { match: Match }) {
         <span className={styles.bkCardScore}>{match.away_score ?? '–'}</span>
       </div>
       <div className={styles.bkCardFooter}>
-        {live
-          ? <span className={styles.bkCardLiveBadge}>● AO VIVO</span>
-          : <span className={styles.bkCardDate}>{formatMatchDate(match.match_date)} · {formatMatchTime(match.match_date)}</span>
-        }
+        {live ? (
+          <span className={styles.bkCardLiveBadge}>● AO VIVO</span>
+        ) : (
+          <span className={styles.bkCardDate}>
+            {formatMatchDate(match.match_date)} · {formatMatchTime(match.match_date)}
+            {finished && match.went_to_penalties ? ' 🥅' : ''}
+          </span>
+        )}
       </div>
     </div>
   );
 }
 
-function BracketView({ knockout }: { knockout: Record<KnockoutStage, Match[]> }) {
+/* ── Stage slots ── */
+
+interface StageSlotProps {
+  stage: KnockoutStage;
+  matches: Match[];
+  inferred: InferredSlot[] | null;
+}
+
+function StageSlots({ stage, matches, inferred }: StageSlotProps) {
+  const slotCount = STAGE_SLOT_COUNT[stage];
+  const isLast = stage === 'final' || stage === 'third_place';
+
+  if (matches.length > 0) {
+    return (
+      <>
+        {matches.map((match, idx) => (
+          <div key={match.id} className={styles.bkSlot}>
+            <BracketCard match={match} />
+            {!isLast && idx % 2 === 0 && idx + 1 < matches.length && (
+              <div className={styles.bkConnector} />
+            )}
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  if (inferred) {
+    return (
+      <>
+        {inferred.map((slot, i) => (
+          <div key={i} className={styles.bkSlot}>
+            <BracketInferredCard home={slot.home} away={slot.away} />
+            {!isLast && i % 2 === 0 && i + 1 < inferred.length && (
+              <div className={styles.bkConnector} />
+            )}
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {Array.from({ length: slotCount }, (_, i) => (
+        <div key={i} className={styles.bkSlot}>
+          <BracketEmptyCard />
+          {!isLast && i % 2 === 0 && i + 1 < slotCount && (
+            <div className={styles.bkConnector} />
+          )}
+        </div>
+      ))}
+    </>
+  );
+}
+
+/* ── BracketView ── */
+
+interface BracketViewProps {
+  knockout: Record<KnockoutStage, Match[]>;
+  inferredSlots: Partial<Record<KnockoutStage, InferredSlot[]>>;
+}
+
+function BracketView({ knockout, inferredSlots }: BracketViewProps) {
   const [mobileStage, setMobileStage] = useState<KnockoutStage>(KNOCKOUT_STAGES[0]);
 
   return (
     <>
-      {/* Mobile: tab per stage */}
+      {/* Mobile: scrollable stage tabs */}
       <div className={styles.bkMobile}>
-        <div className="bolao-tabs">
-          {KNOCKOUT_STAGES.map(s => (
-            <button
-              key={s}
-              className={`bolao-tab${mobileStage === s ? ' bolao-tab--active' : ''}`}
-              onClick={() => setMobileStage(s)}
-            >
-              {STAGE_LABELS[s]}
-            </button>
-          ))}
+        <div className={styles.bkTabsWrapper}>
+          <div className="bolao-tabs">
+            {KNOCKOUT_STAGES.map(s => (
+              <button
+                key={s}
+                className={`bolao-tab${mobileStage === s ? ' bolao-tab--active' : ''}`}
+                onClick={() => setMobileStage(s)}
+              >
+                {STAGE_LABELS[s]}
+              </button>
+            ))}
+          </div>
         </div>
         <div className={styles.bkList}>
-          {knockout[mobileStage].length > 0
-            ? knockout[mobileStage].map(m => <BracketCard key={m.id} match={m} />)
-            : Array.from({ length: STAGE_SLOT_COUNT[mobileStage] }, (_, i) => (
-                <BracketEmptyCard key={i} />
-              ))
-          }
+          <StageSlots
+            stage={mobileStage}
+            matches={knockout[mobileStage]}
+            inferred={inferredSlots[mobileStage] ?? null}
+          />
         </div>
       </div>
 
@@ -202,36 +353,18 @@ function BracketView({ knockout }: { knockout: Record<KnockoutStage, Match[]> })
         <p className={styles.pageHint}>← deslize para ver todo o chaveamento →</p>
         <div className={styles.bkScroll}>
           <div className={styles.bkGrid}>
-            {KNOCKOUT_STAGES.map((stage) => {
-              const stageMatches = knockout[stage];
-              const hasMatches = stageMatches.length > 0;
-              const slotCount = STAGE_SLOT_COUNT[stage];
-              return (
-                <div key={stage} className={`${styles.bkCol}${stage === 'final' ? ` ${styles.bkColFinal}` : ''}`}>
-                  <div className={styles.bkColHeader}>{STAGE_LABELS[stage]}</div>
-                  <div className={styles.bkColBody}>
-                    {hasMatches
-                      ? stageMatches.map((match, idx) => (
-                          <div key={match.id} className={styles.bkSlot}>
-                            <BracketCard match={match} />
-                            {stage !== 'final' && idx % 2 === 0 && idx + 1 < stageMatches.length && (
-                              <div className={styles.bkConnector} />
-                            )}
-                          </div>
-                        ))
-                      : Array.from({ length: slotCount }, (_, i) => (
-                          <div key={i} className={styles.bkSlot}>
-                            <BracketEmptyCard />
-                            {stage !== 'final' && i % 2 === 0 && i + 1 < slotCount && (
-                              <div className={styles.bkConnector} />
-                            )}
-                          </div>
-                        ))
-                    }
-                  </div>
+            {KNOCKOUT_STAGES.map((stage) => (
+              <div key={stage} className={`${styles.bkCol}${stage === 'final' ? ` ${styles.bkColFinal}` : ''}`}>
+                <div className={styles.bkColHeader}>{STAGE_LABELS[stage]}</div>
+                <div className={styles.bkColBody}>
+                  <StageSlots
+                    stage={stage}
+                    matches={knockout[stage]}
+                    inferred={inferredSlots[stage] ?? null}
+                  />
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -270,6 +403,28 @@ export function BracketPage() {
     return r;
   }, [matches]);
 
+  const inferredSlots = useMemo((): Partial<Record<KnockoutStage, InferredSlot[]>> => {
+    const result: Partial<Record<KnockoutStage, InferredSlot[]>> = {};
+
+    for (const stage of KNOCKOUT_STAGES) {
+      if (knockout[stage].length > 0) continue;
+
+      if (stage === 'third_place') {
+        if (knockout['semi'].length > 0) {
+          result['third_place'] = [computeThirdPlaceInferred(knockout['semi'])];
+        }
+        continue;
+      }
+
+      const prevStage = STAGE_PREV[stage];
+      if (prevStage && knockout[prevStage].length > 0) {
+        result[stage] = computeInferredSlots(knockout[prevStage], STAGE_SLOT_COUNT[stage]);
+      }
+    }
+
+    return result;
+  }, [knockout]);
+
   if (loading) {
     return (
       <div className="bolao-page">
@@ -286,7 +441,6 @@ export function BracketPage() {
         <h1 className={styles.pageTitle}>Copa 2026</h1>
       </div>
 
-      {/* Main tabs */}
       <div className="bolao-tabs" style={{ marginBottom: 20 }}>
         <button
           className={`bolao-tab${pageTab === 'groups' ? ' bolao-tab--active' : ''}`}
@@ -304,7 +458,7 @@ export function BracketPage() {
 
       {pageTab === 'groups' && <GroupsView groups={groups} />}
       {pageTab === 'bracket' && (
-        <BracketView knockout={knockout} />
+        <BracketView knockout={knockout} inferredSlots={inferredSlots} />
       )}
     </div>
   );

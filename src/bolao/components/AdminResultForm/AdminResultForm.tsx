@@ -13,11 +13,18 @@ interface Props {
 export function AdminResultForm({ match, onSave, onCancel }: Props) {
   const [homeScore, setHomeScore] = useState(match.home_score ?? 0);
   const [awayScore, setAwayScore] = useState(match.away_score ?? 0);
+  const [wentToPenalties, setWentToPenalties] = useState(match.went_to_penalties ?? false);
+  const [penaltyWinner, setPenaltyWinner] = useState<'home' | 'away' | null>(match.penalty_winner ?? null);
   const [loading, setLoading] = useState(false);
   const [calcLoading, setCalcLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSave = async () => {
+    if (wentToPenalties && !penaltyWinner) {
+      setError('Selecione qual time venceu nos pênaltis.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -26,6 +33,8 @@ export function AdminResultForm({ match, onSave, onCancel }: Props) {
       .update({
         home_score: homeScore,
         away_score: awayScore,
+        went_to_penalties: wentToPenalties,
+        penalty_winner: wentToPenalties ? penaltyWinner : null,
         status: 'finished',
         updated_at: new Date().toISOString(),
       })
@@ -33,7 +42,6 @@ export function AdminResultForm({ match, onSave, onCancel }: Props) {
 
     if (err) { setError(err.message); setLoading(false); return; }
 
-    // Calculate points via DB RPC
     setCalcLoading(true);
     const { error: rpcErr } = await supabase.rpc('calculate_match_points', { p_match_id: match.id });
     setCalcLoading(false);
@@ -87,6 +95,45 @@ export function AdminResultForm({ match, onSave, onCancel }: Props) {
           <span>{match.home_team}</span>
           <span>{match.away_team}</span>
         </div>
+
+        {match.stage !== 'group' && (
+          <div className={styles.penaltySection}>
+            <label className={styles.penaltyToggleLabel}>
+              <input
+                type="checkbox"
+                checked={wentToPenalties}
+                onChange={e => {
+                  setWentToPenalties(e.target.checked);
+                  if (!e.target.checked) setPenaltyWinner(null);
+                }}
+                className={styles.penaltyCheckbox}
+              />
+              🥅 Jogo foi para pênaltis?
+            </label>
+
+            {wentToPenalties && (
+              <div className={styles.penaltyWinnerPick}>
+                <p className={styles.penaltyWinnerLabel}>Quem venceu nos pênaltis?</p>
+                <div className={styles.penaltyWinnerBtns}>
+                  <button
+                    type="button"
+                    className={`${styles.penaltyWinnerBtn}${penaltyWinner === 'home' ? ` ${styles.penaltyWinnerBtnActive}` : ''}`}
+                    onClick={() => setPenaltyWinner('home')}
+                  >
+                    {match.home_team}
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.penaltyWinnerBtn}${penaltyWinner === 'away' ? ` ${styles.penaltyWinnerBtnActive}` : ''}`}
+                    onClick={() => setPenaltyWinner('away')}
+                  >
+                    {match.away_team}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         <p className={styles.note}>
           Ao salvar, os pontos de todos os apostadores serão calculados automaticamente.

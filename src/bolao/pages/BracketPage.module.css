@@ -182,6 +182,17 @@
   .bkDesktop { display: block; }
 }
 
+/* Scrollable tabs on mobile */
+.bkTabsWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 -16px;
+  padding: 0 16px;
+}
+
+.bkTabsWrapper::-webkit-scrollbar { display: none; }
+
 /* Mobile list */
 .bkList {
   display: flex;

@@ -254,3 +254,29 @@
 .ptsExact   { background: rgba(0, 156, 59, 0.15); color: #00c44e; }
 .ptsPartial { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
 .ptsZero    { background: rgba(100, 116, 139, 0.1); color: var(--wc-text-muted); }
+
+/* Penalty indicators */
+.penaltyResult {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+  text-align: center;
+}
+
+.penaltyPick {
+  font-size: 0.65rem;
+  color: var(--wc-gold);
+  font-weight: 600;
+  background: rgba(255, 223, 0, 0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+  text-align: center;
+}

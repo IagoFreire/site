@@ -56,8 +56,14 @@ export function UserBetsModal({ user, onClose }: Props) {
               {bets.map(bet => {
                 const m = bet.match;
                 const finished = m.status === 'finished';
-                const homeWon = finished && m.home_score !== null && m.away_score !== null && m.home_score > m.away_score;
-                const awayWon = finished && m.home_score !== null && m.away_score !== null && m.away_score > m.home_score;
+                const homeWon = finished && (
+                  m.went_to_penalties ? m.penalty_winner === 'home'
+                  : m.home_score !== null && m.away_score !== null && m.home_score > m.away_score
+                );
+                const awayWon = finished && (
+                  m.went_to_penalties ? m.penalty_winner === 'away'
+                  : m.home_score !== null && m.away_score !== null && m.away_score > m.home_score
+                );
 
                 const pointsColor =
                   bet.points_earned === null ? '' :
@@ -80,13 +86,25 @@ export function UserBetsModal({ user, onClose }: Props) {
                       {/* Score / VS */}
                       <div className={styles.betScores}>
                         {finished && m.home_score !== null ? (
-                          <span className={styles.result}>{m.home_score}–{m.away_score}</span>
+                          m.went_to_penalties ? (
+                            <span className={styles.penaltyResult}>
+                              🥅 {m.penalty_winner === 'home' ? m.home_team : m.away_team}
+                            </span>
+                          ) : (
+                            <span className={styles.result}>{m.home_score}–{m.away_score}</span>
+                          )
                         ) : (
                           <span className={styles.vs}>VS</span>
                         )}
-                        <span className={styles.pick}>
-                          {bet.home_score_bet}–{bet.away_score_bet}
-                        </span>
+                        {bet.bet_penalties ? (
+                          <span className={styles.penaltyPick}>
+                            🥅 {bet.penalty_winner_bet === 'home' ? m.home_team : m.away_team}
+                          </span>
+                        ) : (
+                          <span className={styles.pick}>
+                            {bet.home_score_bet}–{bet.away_score_bet}
+                          </span>
+                        )}
                       </div>
 
                       {/* Away */}

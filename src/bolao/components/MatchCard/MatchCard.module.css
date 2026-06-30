@@ -287,6 +287,92 @@
   border-radius: 6px;
 }
 
+/* Draw warning modal */
+.drawOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 16px;
+  animation: fade-in 0.15s ease;
+}
+
+.drawModal {
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  width: 100%;
+  animation: pop 0.2s ease;
+}
+
+.drawModalIcon { font-size: 2rem; line-height: 1; }
+
+.drawModalTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+.drawModalDesc {
+  font-size: 0.82rem;
+  color: var(--wc-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.drawModalActions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.drawModalBtnCancel {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--wc-border);
+  background: var(--wc-card-hover);
+  color: var(--wc-text-muted);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.drawModalBtnCancel:hover { color: var(--wc-text); }
+
+.drawModalBtnConfirm {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--wc-gold);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.drawModalBtnConfirm:hover { background: var(--wc-gold-light); }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 @keyframes card-in {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }

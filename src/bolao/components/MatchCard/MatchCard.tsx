@@ -35,6 +35,7 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [confetti, setConfetti] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showDrawWarning, setShowDrawWarning] = useState(false);
 
   useEffect(() => {
     if (bet) {
@@ -57,7 +58,17 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
     setSubmitted(false);
   };
 
+  const handleDrawConfirm = () => {
+    setBetPenalties(true);
+    setPenaltyWinnerBet(null);
+    setShowDrawWarning(false);
+  };
+
   const handleSubmit = async () => {
+    if (isKnockout && !betPenalties && homeScore === awayScore) {
+      setShowDrawWarning(true);
+      return;
+    }
     setError(null);
     const { error: err } = await onSubmitBet(homeScore, awayScore, betPenalties, penaltyWinnerBet);
     if (err) { setError(err); return; }
@@ -211,6 +222,31 @@ export function MatchCard({ match, bet, onSubmitBet, saving }: Props) {
           </div>
         )}
       </div>
+      {showDrawWarning && (
+        <div className={styles.drawOverlay} onClick={() => setShowDrawWarning(false)}>
+          <div className={styles.drawModal} onClick={e => e.stopPropagation()}>
+            <span className={styles.drawModalIcon}>🥅</span>
+            <h3 className={styles.drawModalTitle}>Sem empates no mata-mata!</h3>
+            <p className={styles.drawModalDesc}>
+              Jogos eliminatórios não terminam empatados. Deseja apostar nos pênaltis em vez de um placar?
+            </p>
+            <div className={styles.drawModalActions}>
+              <button
+                className={styles.drawModalBtnCancel}
+                onClick={() => setShowDrawWarning(false)}
+              >
+                Mudar placar
+              </button>
+              <button
+                className={styles.drawModalBtnConfirm}
+                onClick={handleDrawConfirm}
+              >
+                Apostar em pênaltis
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </SpotlightCard>
   );
 }

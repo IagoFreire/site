@@ -43,6 +43,9 @@ export function RulesModal({ onClose }: Props) {
               </div>
               <span className={`${styles.scorePts} ${styles.scorePtsZero}`}>0 pts</span>
             </div>
+            <p className={styles.penaltyNote}>
+              ⚠️ Se o jogo for para pênaltis, apostas de placar valem 0 pts — mesmo que você tenha acertado o vencedor.
+            </p>
           </section>
 
           <section className={styles.section}>

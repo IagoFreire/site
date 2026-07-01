@@ -102,7 +102,7 @@ export function RulesModal({ onClose }: Props) {
               <span>Rodada de 32</span><span className={styles.multiplierVal}>×2</span>
             </div>
             <div className={styles.multiplierRow}>
-              <span>Oitavas</span><span className={styles.multiplierVal}>×1.5</span>
+              <span>Oitavas</span><span className={styles.multiplierVal}>×2</span>
             </div>
             <div className={styles.multiplierRow}>
               <span>Quartas</span><span className={styles.multiplierVal}>×2</span>
@@ -111,7 +111,7 @@ export function RulesModal({ onClose }: Props) {
               <span>Semifinal</span><span className={styles.multiplierVal}>×3</span>
             </div>
             <div className={styles.multiplierRow}>
-              <span>Final</span><span className={styles.multiplierVal}>×4</span>
+              <span>Final</span><span className={styles.multiplierVal}>×3</span>
             </div>
           </section>
 

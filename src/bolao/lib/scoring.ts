@@ -18,7 +18,13 @@ export function calculatePoints(bet: BetInput, match: MatchInput): ScoringResult
     return { points: Math.round(5 * multiplier), reason: 'penalty_correct' };
   }
 
-  if (match.went_to_penalties) return { points: 0, reason: 'wrong' };
+  if (match.went_to_penalties) {
+    const betWinner = Math.sign(bet.home_score_bet - bet.away_score_bet);
+    if (betWinner === 0) {
+      return { points: Math.round(5 * multiplier), reason: 'correct_draw' };
+    }
+    return { points: 0, reason: 'wrong' };
+  }
 
   if (bet.home_score_bet === match.home_score && bet.away_score_bet === match.away_score) {
     return { points: Math.round(10 * multiplier), reason: 'exact_score' };

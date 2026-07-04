@@ -10,7 +10,11 @@
       "Bash(git -C \"C:/Users/Iago/Documents/Estudos/my-site\" rev-parse --git-path sdd)",
       "Bash(cat \"$\\(git -C \"C:/Users/Iago/Documents/Estudos/my-site\" rev-parse --git-path sdd\\)/progress.md\")",
       "Bash(git -C \"C:/Users/Iago/Documents/Estudos/my-site\" log --oneline -5)",
-      "Bash(bash C:/Users/Iago/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.2/skills/subagent-driven-development/scripts/task-brief C:/Users/Iago/Documents/Estudos/my-site/docs/superpowers/plans/2026-06-17-portfolio-react-bits.md 1)"
+      "Bash(bash C:/Users/Iago/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.2/skills/subagent-driven-development/scripts/task-brief C:/Users/Iago/Documents/Estudos/my-site/docs/superpowers/plans/2026-06-17-portfolio-react-bits.md 1)",
+      "Bash(curl -s \"https://hggytfspmycyyhmhblmu.supabase.co/rest/v1/matches?select=id,home_team,away_team,stage,match_date,status,home_score,away_score,went_to_penalties,penalty_winner,points_multiplier&home_team=eq.Col%C3%B4mbia&away_team=eq.Gana\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZ3l0ZnNwbXljeXlobWhibG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyODQzNTEsImV4cCI6MjA5Njg2MDM1MX0.mHsHzSVBvY8xYVoeWE8NXK93Ovg1FtgcAkloMzlWYEQ\")",
+      "Bash(curl -s \"https://hggytfspmycyyhmhblmu.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZ3l0ZnNwbXljeXlobWhibG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyODQzNTEsImV4cCI6MjA5Njg2MDM1MX0.mHsHzSVBvY8xYVoeWE8NXK93Ovg1FtgcAkloMzlWYEQ\")",
+      "Bash(python -m json.tool)",
+      "Bash(curl *)"
     ]
   }
 }

@@ -34,6 +34,7 @@ export function AdminMatchForm({ match, onSave, onCancel }: Props) {
   const [groupName, setGroupName] = useState(match?.group_name ?? '');
   const [matchDate, setMatchDate] = useState(match ? toLocalDatetimeInput(match.match_date) : '');
   const [venue, setVenue] = useState(match?.venue ?? '');
+  const [bracketSlot, setBracketSlot] = useState(match?.bracket_slot != null ? String(match.bracket_slot) : '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,6 +52,7 @@ export function AdminMatchForm({ match, onSave, onCancel }: Props) {
     setLoading(true);
     setError(null);
 
+    const parsedSlot = bracketSlot.trim() !== '' ? parseInt(bracketSlot, 10) : null;
     const payload = {
       home_team: homeTeam.trim(),
       away_team: awayTeam.trim(),
@@ -59,6 +61,7 @@ export function AdminMatchForm({ match, onSave, onCancel }: Props) {
       match_date: new Date(matchDate).toISOString(),
       venue: venue.trim() || null,
       points_multiplier: MULTIPLIERS[stage],
+      bracket_slot: stage === 'group' ? null : (parsedSlot ?? null),
       status: 'scheduled' as const,
     };
 
@@ -108,6 +111,18 @@ export function AdminMatchForm({ match, onSave, onCancel }: Props) {
             <span>Estádio</span>
             <input value={venue} onChange={e => setVenue(e.target.value)} placeholder="MetLife Stadium" />
           </label>
+          {stage !== 'group' && (
+            <label className={styles.formField}>
+              <span>Posição na chave (bracket slot)</span>
+              <input
+                type="number"
+                min={1}
+                value={bracketSlot}
+                onChange={e => setBracketSlot(e.target.value)}
+                placeholder="Ex: 1"
+              />
+            </label>
+          )}
         </div>
 
         <p className={styles.formMultiplier}>

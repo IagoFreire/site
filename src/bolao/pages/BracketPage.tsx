@@ -153,10 +153,15 @@ function getMatchLoser(match: Match): string | null {
 type TeamSlot = string | null;
 interface InferredSlot { home: TeamSlot; away: TeamSlot }
 
+function byBracketSlot(a: Match, b: Match): number {
+  const sa = a.bracket_slot ?? Number.MAX_SAFE_INTEGER;
+  const sb = b.bracket_slot ?? Number.MAX_SAFE_INTEGER;
+  if (sa !== sb) return sa - sb;
+  return new Date(a.match_date).getTime() - new Date(b.match_date).getTime();
+}
+
 function computeInferredSlots(prevMatches: Match[], slotCount: number): InferredSlot[] {
-  const sorted = [...prevMatches].sort(
-    (a, b) => new Date(a.match_date).getTime() - new Date(b.match_date).getTime()
-  );
+  const sorted = [...prevMatches].sort(byBracketSlot);
   return Array.from({ length: slotCount }, (_, i) => ({
     home: sorted[i * 2] ? getMatchWinner(sorted[i * 2]) : null,
     away: sorted[i * 2 + 1] ? getMatchWinner(sorted[i * 2 + 1]) : null,
@@ -398,7 +403,7 @@ export function BracketPage() {
     for (const stage of KNOCKOUT_STAGES) {
       r[stage] = matches
         .filter(m => m.stage === stage)
-        .sort((a, b) => new Date(a.match_date).getTime() - new Date(b.match_date).getTime());
+        .sort(byBracketSlot);
     }
     return r;
   }, [matches]);

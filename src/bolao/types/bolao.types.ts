@@ -30,6 +30,7 @@ export interface Match {
   penalty_winner: 'home' | 'away' | null;
   status: MatchStatus;
   points_multiplier: number;
+  bracket_slot: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -53,7 +54,7 @@ export interface PointLog {
   match_id: string;
   bet_id: string;
   points: number;
-  reason: 'exact_score' | 'correct_winner' | 'correct_draw' | 'wrong';
+  reason: BetReason;
   created_at: string;
 }
 

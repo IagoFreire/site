@@ -1,0 +1,18 @@
+{
+  "name": "Bolão Brasileirão 2026",
+  "short_name": "Bolão BR",
+  "description": "Bolão do returno do Campeonato Brasileiro Série A 2026",
+  "theme_color": "#051a0b",
+  "background_color": "#051a0b",
+  "display": "standalone",
+  "start_url": "/bolao-brasileiro",
+  "scope": "/bolao-brasileiro",
+  "icons": [
+    {
+      "src": "/bolao-brasileiro-touch-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

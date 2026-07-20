@@ -14,7 +14,12 @@
       "Bash(curl -s \"https://hggytfspmycyyhmhblmu.supabase.co/rest/v1/matches?select=id,home_team,away_team,stage,match_date,status,home_score,away_score,went_to_penalties,penalty_winner,points_multiplier&home_team=eq.Col%C3%B4mbia&away_team=eq.Gana\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZ3l0ZnNwbXljeXlobWhibG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyODQzNTEsImV4cCI6MjA5Njg2MDM1MX0.mHsHzSVBvY8xYVoeWE8NXK93Ovg1FtgcAkloMzlWYEQ\")",
       "Bash(curl -s \"https://hggytfspmycyyhmhblmu.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZ3l0ZnNwbXljeXlobWhibG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyODQzNTEsImV4cCI6MjA5Njg2MDM1MX0.mHsHzSVBvY8xYVoeWE8NXK93Ovg1FtgcAkloMzlWYEQ\")",
       "Bash(python -m json.tool)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(echo \"EXIT_CODE=$?\")",
+      "mcp__plugin_ecc_chrome-devtools__new_page",
+      "mcp__plugin_ecc_chrome-devtools__take_screenshot",
+      "mcp__plugin_ecc_chrome-devtools__list_console_messages",
+      "mcp__plugin_ecc_chrome-devtools__navigate_page"
     ]
   }
 }

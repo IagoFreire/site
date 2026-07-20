@@ -1,0 +1,138 @@
+.tabContent {
+  animation: fadeIn 0.25s ease;
+}
+
+.tabHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.tabCount {
+  font-size: 0.82rem;
+  color: var(--wc-text-muted);
+  margin: 0 0 16px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--wc-border);
+}
+
+.tdMuted {
+  color: var(--wc-text-muted) !important;
+  font-size: 0.8rem !important;
+}
+
+.tdTruncate {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.statusScheduled { background: rgba(59,130,246,0.15); color: #60A5FA; }
+.statusLive      { background: rgba(239,68,68,0.15); color: #F87171; }
+.statusFinished  { background: rgba(16,185,129,0.15); color: #34D399; }
+.statusPostponed { background: rgba(245,158,11,0.15); color: #FCD34D; }
+
+.rowActions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Results */
+.resultList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+
+.resultItemMatch {
+  font-size: 0.88rem;
+  color: var(--wc-text);
+}
+
+/* Temp password modal */
+.tempPwOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.tempPwBox {
+  background: var(--wc-card);
+  border: 1px solid var(--wc-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: min(380px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.tempPwBox h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--wc-text);
+}
+
+.tempPwBox p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--wc-text-muted);
+}
+
+.tempPwValue {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--wc-gold);
+  background: rgba(255, 223, 0, 0.07);
+  border: 1px dashed rgba(255, 223, 0, 0.4);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+/* Users */
+.roleBadge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(100,116,139,0.15);
+  color: var(--wc-text-muted);
+}
+
+.roleBadgeAdmin {
+  background: rgba(255,215,0,0.12);
+  color: var(--wc-gold);
+}

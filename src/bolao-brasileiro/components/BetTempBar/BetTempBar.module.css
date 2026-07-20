@@ -1,0 +1,92 @@
+.btb {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.btbLabels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.btbLabel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.btbLabelAway {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.btbTeam {
+  font-size: 0.68rem;
+  color: var(--wc-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.btbPct {
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.btbLabelHome .btbPct { color: #4ade80; }
+.btbLabelAway .btbPct { color: #FFDF00; }
+
+.btbTitle {
+  font-size: 0.62rem;
+  color: var(--wc-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+/* Bar */
+.btbBar {
+  display: flex;
+  height: 8px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: var(--wc-border);
+}
+
+.btbSeg {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.btbSegHome {
+  background: #22c55e;
+  border-radius: 99px 0 0 99px;
+}
+
+.btbSegDraw {
+  background: rgba(255, 223, 0, 0.55);
+}
+
+.btbSegAway {
+  background: #FFDF00;
+  border-radius: 0 99px 99px 0;
+}
+
+/* When only one segment */
+.btbSeg:only-child {
+  border-radius: 99px;
+}
+
+.btbDrawLabel {
+  font-size: 0.6rem;
+  color: var(--wc-text-muted);
+  text-align: center;
+}

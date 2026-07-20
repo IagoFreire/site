@@ -1,0 +1,230 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--wc-bg);
+  padding: 24px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated orbs */
+.bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bgOrb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+  animation: orb-drift 12s ease-in-out infinite;
+}
+
+.bgOrb1 {
+  width: 500px;
+  height: 500px;
+  background: #FFD700;
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.bgOrb2 {
+  width: 400px;
+  height: 400px;
+  background: #002776;
+  bottom: -80px;
+  left: -80px;
+  animation-delay: -4s;
+}
+
+.bgOrb3 {
+  width: 300px;
+  height: 300px;
+  background: #009C3B;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -8s;
+}
+
+@keyframes orb-drift {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  33% { transform: scale(1.1) translate(20px, -20px); }
+  66% { transform: scale(0.95) translate(-15px, 15px); }
+}
+
+/* Card */
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(5, 26, 11, 0.88);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 24px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: login-card-in 0.5s ease;
+}
+
+@keyframes login-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cardBrand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cardBall {
+  font-size: 2.4rem;
+  animation: ball-spin 6s linear infinite;
+  display: block;
+}
+
+@keyframes ball-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #fff 40%, var(--wc-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cardSubtitle {
+  font-size: 0.72rem;
+  color: var(--wc-text-muted);
+  margin: 2px 0 0;
+}
+
+.cardHeading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--wc-text);
+  margin: 0;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field span {
+  font-size: 0.78rem;
+  color: var(--wc-text-muted);
+  font-weight: 500;
+}
+
+.field input {
+  background: rgba(3, 14, 6, 0.6);
+  border: 1px solid var(--wc-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--wc-text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field input:focus {
+  border-color: var(--wc-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.field input::placeholder { color: #2a5c38; }
+
+/* Messages */
+.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #FCA5A5;
+}
+
+.success {
+  background: rgba(0, 156, 59, 0.1);
+  border: 1px solid rgba(0, 156, 59, 0.3);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #4ade80;
+  line-height: 1.5;
+}
+
+/* Submit */
+.submit {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--wc-gold), #009C3B);
+  color: #000;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.25);
+}
+
+.submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: bolao-spin 0.7s linear infinite;
+}
+
+/* Toggle */
+.toggle {
+  background: none;
+  border: none;
+  color: var(--wc-text-muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.toggle:hover { color: var(--wc-gold); }

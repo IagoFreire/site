@@ -1,0 +1,86 @@
+.betInputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.betInput {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.betInputSep {
+  font-size: 1.1rem;
+  color: var(--wc-text-muted);
+  font-weight: 300;
+}
+
+.scoreSpinner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.scoreSpinnerValue {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--wc-text);
+  min-width: 2ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  animation: flip-in 0.18s ease;
+}
+
+@keyframes flip-in {
+  from {
+    transform: translateY(-6px) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.scoreSpinnerBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--wc-border);
+  background: var(--wc-card-hover);
+  color: var(--wc-text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+  line-height: 1;
+}
+
+.scoreSpinnerBtn:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+.scoreSpinnerBtnInc:hover:not(:disabled) {
+  background: var(--wc-gold);
+  border-color: var(--wc-gold);
+  color: #000;
+}
+
+.scoreSpinnerBtnDec:hover:not(:disabled) {
+  background: #374151;
+  border-color: #374151;
+}
+
+.scoreSpinnerBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

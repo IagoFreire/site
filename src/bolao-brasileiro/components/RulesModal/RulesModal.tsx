@@ -1,0 +1,115 @@
+import styles from './RulesModal.module.css';
+
+interface Props {
+  onClose: () => void;
+}
+
+export function RulesModal({ onClose }: Props) {
+  return (
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.sheet} onClick={e => e.stopPropagation()}>
+        <div className={styles.stickyHeader}>
+          <div className={styles.dragHandle} aria-hidden="true" />
+          <div className={styles.header}>
+            <h2 className={styles.title}>Como funciona o ranking</h2>
+            <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar">✕</button>
+          </div>
+        </div>
+
+        <div className={styles.body}>
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Pontuação por aposta</h3>
+            <div className={styles.scoreRow}>
+              <span className={styles.scoreIcon}>🎯</span>
+              <div>
+                <p className={styles.scoreLabel}>Placar exato</p>
+                <p className={styles.scoreDesc}>Acertou o placar certinho</p>
+              </div>
+              <span className={styles.scorePts}>10 pts</span>
+            </div>
+            <div className={styles.scoreRow}>
+              <span className={styles.scoreIcon}>✅</span>
+              <div>
+                <p className={styles.scoreLabel}>Vencedor / Empate certo</p>
+                <p className={styles.scoreDesc}>Acertou quem ganhou ou que empatou</p>
+              </div>
+              <span className={styles.scorePts}>5 pts</span>
+            </div>
+            <div className={styles.scoreRow}>
+              <span className={styles.scoreIcon}>❌</span>
+              <div>
+                <p className={styles.scoreLabel}>Errou</p>
+                <p className={styles.scoreDesc}>Resultado diferente do apostado</p>
+              </div>
+              <span className={`${styles.scorePts} ${styles.scorePtsZero}`}>0 pts</span>
+            </div>
+            <p className={styles.note}>
+              Vale para todas as rodadas do returno (20ª à 38ª) — não há multiplicador, todo jogo pesa igual.
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Critério de desempate</h3>
+            <p className={styles.tiebreakIntro}>Em caso de empate na pontuação, a colocação é decidida por:</p>
+            <div className={styles.tiebreakList}>
+              <div className={styles.tiebreakItem}>
+                <span className={styles.tiebreakNum}>1</span>
+                <span>Maior pontuação total</span>
+              </div>
+              <div className={styles.tiebreakItem}>
+                <span className={styles.tiebreakNum}>2</span>
+                <span>Maior sequência atual de acertos 🔥</span>
+              </div>
+              <div className={styles.tiebreakItem}>
+                <span className={styles.tiebreakNum}>3</span>
+                <span>Mais placares exatos acertados 🎯</span>
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Conquistas</h3>
+            <p className={styles.tiebreakIntro}>Desbloqueie badges conforme evolui no bolão:</p>
+            <div className={styles.badgeList}>
+              <div className={styles.badgeRow}>
+                <span className={styles.badgeIcon}>⚡</span>
+                <div>
+                  <p className={styles.badgeName}>Relâmpago</p>
+                  <p className={styles.badgeDesc}>5 acertos seguidos</p>
+                </div>
+              </div>
+              <div className={styles.badgeRow}>
+                <span className={styles.badgeIcon}>🦅</span>
+                <div>
+                  <p className={styles.badgeName}>Olho de Águia</p>
+                  <p className={styles.badgeDesc}>10 acertos seguidos</p>
+                </div>
+              </div>
+              <div className={styles.badgeRow}>
+                <span className={styles.badgeIcon}>⭐</span>
+                <div>
+                  <p className={styles.badgeName}>Craque</p>
+                  <p className={styles.badgeDesc}>50 pontos acumulados</p>
+                </div>
+              </div>
+              <div className={styles.badgeRow}>
+                <span className={styles.badgeIcon}>🏆</span>
+                <div>
+                  <p className={styles.badgeName}>Campeão</p>
+                  <p className={styles.badgeDesc}>150 pontos acumulados</p>
+                </div>
+              </div>
+              <div className={styles.badgeRow}>
+                <span className={styles.badgeIcon}>👑</span>
+                <div>
+                  <p className={styles.badgeName}>Lenda</p>
+                  <p className={styles.badgeDesc}>300 pontos acumulados</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}

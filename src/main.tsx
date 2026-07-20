@@ -10,6 +10,17 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Troca o manifest PWA (usado pelo Android/Chrome para "instalar app") o mais
+// cedo possível, antes do React montar — o manifest padrão gerado pelo
+// vite-plugin-pwa (vite.config.ts) aponta pra /bolao. Sem isso, o navegador
+// pode avaliar a instalabilidade da página com o manifest errado antes que o
+// useEffect do BolaoBrasileiroRouter tivesse chance de trocar.
+if (window.location.pathname.startsWith('/bolao-brasileiro')) {
+  document
+    .querySelector<HTMLLinkElement>('link[rel="manifest"]')
+    ?.setAttribute('href', '/manifest-brasileirao.webmanifest');
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>

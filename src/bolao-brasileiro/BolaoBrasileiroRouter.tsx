@@ -132,9 +132,12 @@ export function BolaoBrasileiroRouter() {
     }
     appTitle.setAttribute('content', 'Bolão Brasileirão');
 
-    // manifest (instalação Android/Chrome) — start_url próprio, não o /bolao global
+    // manifest (instalação Android/Chrome) — start_url próprio, não o /bolao global.
+    // Também trocado de forma síncrona em main.tsx (antes do React montar) para
+    // fechar a janela em que o navegador poderia ler o manifest padrão antes da
+    // troca. Por isso aqui restauramos sempre para o default conhecido, e não
+    // para "o que estava antes" (que já pode ter sido trocado pelo main.tsx).
     const manifestLink = document.querySelector<HTMLLinkElement>('link[rel="manifest"]');
-    const prevManifestHref = manifestLink?.getAttribute('href') ?? null;
     manifestLink?.setAttribute('href', '/manifest-brasileirao.webmanifest');
 
     return () => {
@@ -150,7 +153,7 @@ export function BolaoBrasileiroRouter() {
         if (prevAppTitle) appTitle.setAttribute('content', prevAppTitle);
         else appTitle.remove();
       }
-      if (manifestLink && prevManifestHref) manifestLink.setAttribute('href', prevManifestHref);
+      if (manifestLink) manifestLink.setAttribute('href', '/manifest.webmanifest');
     };
   }, []);
 

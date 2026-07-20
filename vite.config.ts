@@ -1,9 +1,18 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        bolaoBrasileiro: resolve(__dirname, 'bolao-brasileiro.html'),
+      },
+    },
+  },
   plugins: [
     react({
       babel: {

@@ -5,7 +5,7 @@
   "theme_color": "#051a0b",
   "background_color": "#051a0b",
   "display": "standalone",
-  "start_url": "/bolao-brasileiro",
+  "start_url": "/bolao-brasileiro.html",
   "scope": "/bolao-brasileiro",
   "icons": [
     {

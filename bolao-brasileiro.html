@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/bolao-brasileiro-touch-icon.svg" />
+    <link rel="apple-touch-icon" href="/bolao-brasileiro-touch-icon.svg" />
+    <link rel="manifest" href="/manifest-brasileirao.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    <meta name="description" content="Bolão do returno do Campeonato Brasileiro Série A 2026" />
+    <meta name="theme-color" content="#051a0b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Bolão Brasileirão" />
+    <title>Bolão Brasileirão 2026 🏆</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+      O vite-plugin-pwa injeta seu próprio <link rel="manifest"> (o padrão,
+      apontando pra /bolao) no fim do <head> de todo HTML processado pelo
+      Vite, duplicando a tag acima e vencendo por vir depois no documento.
+      Este script roda de forma síncrona no parse (antes do main.tsx, que é
+      type="module" e portanto adiado) e garante que só sobra o manifest
+      certo, não importa a ordem de injeção do plugin.
+    -->
+    <script>
+      document.querySelectorAll('link[rel="manifest"]').forEach(function (el, i) {
+        if (i === 0) el.setAttribute('href', '/manifest-brasileirao.webmanifest');
+        else el.remove();
+      });
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

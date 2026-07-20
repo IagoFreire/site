@@ -39,9 +39,12 @@ export function BolaoBrasileiroRouter() {
     const emojiSvg = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>`;
     if (favicon) favicon.href = emojiSvg;
 
-    // apple-touch-icon (ícone da tela inicial iOS) — gerado via canvas como PNG
+    // apple-touch-icon (ícone da tela inicial iOS) — gerado via canvas como PNG.
+    // Não existe no index.html base, e o BolaoRouter (Copa) usa o mesmo elemento
+    // com seu próprio desenho — por isso sempre removemos no cleanup em vez de
+    // tentar restaurar um "valor anterior", que poderia já ter sido sobrescrito
+    // pelo outro router numa troca de rota via SPA (mesma classe de bug do manifest).
     let touchIcon = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
-    const prevTouchHref = touchIcon?.href ?? null;
     if (!touchIcon) {
       touchIcon = document.createElement('link');
       touchIcon.rel = 'apple-touch-icon';
@@ -124,7 +127,6 @@ export function BolaoBrasileiroRouter() {
 
     // apple-mobile-web-app-title (texto embaixo do ícone no iOS)
     let appTitle = document.querySelector<HTMLMetaElement>('meta[name="apple-mobile-web-app-title"]');
-    const prevAppTitle = appTitle?.getAttribute('content') ?? null;
     if (!appTitle) {
       appTitle = document.createElement('meta');
       appTitle.name = 'apple-mobile-web-app-title';
@@ -145,14 +147,8 @@ export function BolaoBrasileiroRouter() {
       if (metaTheme) metaTheme.setAttribute('content', prevTheme ?? '#0f172a');
       document.title = prevTitle;
       if (favicon && prevFavicon) favicon.href = prevFavicon;
-      if (touchIcon) {
-        if (prevTouchHref) touchIcon.href = prevTouchHref;
-        else touchIcon.remove();
-      }
-      if (appTitle) {
-        if (prevAppTitle) appTitle.setAttribute('content', prevAppTitle);
-        else appTitle.remove();
-      }
+      touchIcon?.remove();
+      appTitle?.remove();
       if (manifestLink) manifestLink.setAttribute('href', '/manifest.webmanifest');
     };
   }, []);

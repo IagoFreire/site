@@ -70,7 +70,21 @@ export function BolaoBrasileiroRouter() {
     cupGrad.addColorStop(0, '#FFDF00');
     cupGrad.addColorStop(1, '#C9960C');
 
-    // Taça
+    // Alças — desenhadas ANTES da taça: a metade interna do anel fica
+    // coberta pelo preenchimento da taça, deixando só o "C" externo
+    // encostado na lateral, sem precisar acertar ângulos de arco na mão.
+    ctx.strokeStyle = '#FFDF00';
+    ctx.lineWidth = 12;
+    const handleR = 30;
+    const handleY = cupTop + 36;
+    ctx.beginPath();
+    ctx.arc(cx - cupHalfWidth, handleY, handleR, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx + cupHalfWidth, handleY, handleR, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Taça (por cima das alças)
     ctx.beginPath();
     ctx.moveTo(cx - cupHalfWidth, cupTop);
     ctx.quadraticCurveTo(cx - cupHalfWidth - 14, cupTop + 60, cx - 26, cupBottom);
@@ -79,16 +93,6 @@ export function BolaoBrasileiroRouter() {
     ctx.closePath();
     ctx.fillStyle = cupGrad;
     ctx.fill();
-
-    // Alças
-    ctx.strokeStyle = '#FFDF00';
-    ctx.lineWidth = 10;
-    ctx.beginPath();
-    ctx.arc(cx - cupHalfWidth - 6, cupTop + 42, 26, Math.PI * 0.15, Math.PI * 1.35);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx + cupHalfWidth + 6, cupTop + 42, 26, Math.PI * 1.65, Math.PI * 0.85, true);
-    ctx.stroke();
 
     // Haste
     ctx.fillStyle = '#FFDF00';
@@ -126,7 +130,7 @@ export function BolaoBrasileiroRouter() {
       appTitle.name = 'apple-mobile-web-app-title';
       document.head.appendChild(appTitle);
     }
-    appTitle.setAttribute('content', 'Bolão BR');
+    appTitle.setAttribute('content', 'Bolão Brasileirão');
 
     // manifest (instalação Android/Chrome) — start_url próprio, não o /bolao global
     const manifestLink = document.querySelector<HTMLLinkElement>('link[rel="manifest"]');
